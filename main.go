@@ -272,6 +272,9 @@ func main() {
 			panic(fmt.Errorf("settings load: %w", err))
 		}
 		plugins.BootstrapOwnerSudoers()
+			if plugins.BotSettings.AlwaysOnline {
+				plugins.StartAlwaysOnline(client)
+			}
 		fmt.Println("Already logged in.")
 	}
 

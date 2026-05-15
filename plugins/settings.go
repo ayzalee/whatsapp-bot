@@ -26,6 +26,7 @@ type Settings struct {
 	Language     string
 	DisabledCmds []string
 	GCDisabled   bool
+	AlwaysOnline bool
 }
 
 // BotSettings is the global settings instance, seeded with defaults.
@@ -115,6 +116,8 @@ func LoadSettings() error {
 			}
 		case "gc_disabled":
 			BotSettings.GCDisabled = value == "true"
+		case "always_online":
+			BotSettings.AlwaysOnline = value == "true"
 		}
 	}
 	return rows.Err()
@@ -144,6 +147,10 @@ func SaveSettings() error {
 	if gcDisabled {
 		gcStr = "true"
 	}
+	onlineStr := "false"
+	if BotSettings.AlwaysOnline {
+		onlineStr = "true"
+	}
 
 	upsert := `INSERT INTO bot_settings (user, key, value) VALUES (?, ?, ?)
 		ON CONFLICT(user, key) DO UPDATE SET value = excluded.value`
@@ -160,6 +167,7 @@ func SaveSettings() error {
 		{"language", language},
 		{"disabled_cmds", string(dData)},
 		{"gc_disabled", gcStr},
+		{"always_online", onlineStr},
 	} {
 		if _, err = tx.Exec(upsert, settingsUser, row[0], row[1]); err != nil {
 			tx.Rollback()
