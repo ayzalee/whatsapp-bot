@@ -26,6 +26,11 @@ func extractMsgText(evt *events.Message) string {
 func NewHandler(client *whatsmeow.Client) func(evt any) {
 	return func(evt any) {
 		switch v := evt.(type) {
+		case *events.CallOffer:
+			for _, hook := range callHooks {
+				h := hook
+				go h(client, v)
+			}
 		case *events.Message:
 			go SaveUser(v)
 			if v.Info.Sender.User == MetaJID.User {
