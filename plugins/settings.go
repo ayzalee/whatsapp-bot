@@ -345,3 +345,15 @@ func (s *Settings) IsBanned(id string) bool {
 	}
 	return false
 }
+
+func (s *Settings) IsOnlineMode() bool {
+s.mu.RLock()
+defer s.mu.RUnlock()
+return s.AlwaysOnline
+}
+
+func (s *Settings) SetOnlineMode(v bool) {
+s.mu.Lock()
+defer s.mu.Unlock()
+s.AlwaysOnline = v
+}

@@ -9,62 +9,71 @@ import (
 "go.mau.fi/whatsmeow/types"
 )
 
-var onlineStop chan struct{}
+var presenceLoop context.CancelFunc
 
-func init() {
-Register(&Command{
-Pattern:  "online",
-Category: "utility",
-Func:     onlineCmd,
-})
-}
-
-func StartAlwaysOnline(client *whatsmeow.Client) {
-if onlineStop != nil {
+func StartOnlineLoop(client *whatsmeow.Client) {
+if presenceLoop != nil {
 return
 }
-onlineStop = make(chan struct{})
+ctx, cancel := context.WithCancel(context.Background())
+presenceLoop = cancel
 go func() {
+ticker := time.NewTicker(25 * time.Second)
+defer ticker.Stop()
+_ = client.SendPresence(context.Background(), types.PresenceAvailable)
 for {
 select {
-case <-onlineStop:
+case <-ticker.C:
+_ = client.SendPresence(context.Background(), types.PresenceAvailable)
+case <-ctx.Done():
+_ = client.SendPresence(context.Background(), types.PresenceUnavailable)
 return
-default:
-client.SendPresence(context.Background(), types.PresenceAvailable)
-time.Sleep(30 * time.Second)
 }
 }
 }()
 }
 
-func onlineCmd(ctx *Context) error {
-arg := strings.TrimSpace(ctx.Text)
+func StopOnlineLoop() {
+if presenceLoop != nil {
+presenceLoop()
+presenceLoop = nil
+}
+}
+
+func init() {
+Register(&Command{
+Pattern:  "online",
+IsSudo:   true,
+Category: "settings",
+Func: func(ctx *Context) error {
+arg := strings.ToLower(strings.TrimSpace(ctx.Text))
 switch arg {
 case "on":
-if onlineStop != nil {
-ctx.Reply("Already running.")
+if BotSettings.IsOnlineMode() {
+ctx.Reply("Already online.")
 return nil
 }
-BotSettings.mu.Lock()
-BotSettings.AlwaysOnline = true
-BotSettings.mu.Unlock()
-SaveSettings()
-StartAlwaysOnline(ctx.Client)
-ctx.Reply("Always online enabled.")
+BotSettings.SetOnlineMode(true)
+_ = SaveSettings()
+StartOnlineLoop(ctx.Client)
+ctx.Reply("Always-online enabled.")
 case "off":
-if onlineStop == nil {
-ctx.Reply("Not running.")
+if !BotSettings.IsOnlineMode() {
+ctx.Reply("Already offline.")
 return nil
 }
-close(onlineStop)
-onlineStop = nil
-BotSettings.mu.Lock()
-BotSettings.AlwaysOnline = false
-BotSettings.mu.Unlock()
-SaveSettings()
-ctx.Reply("Always online disabled.")
+BotSettings.SetOnlineMode(false)
+_ = SaveSettings()
+StopOnlineLoop()
+ctx.Reply("Always-online disabled.")
 default:
-ctx.Reply("Usage: .online on / .online off")
+status := "off"
+if BotSettings.IsOnlineMode() {
+status = "on"
+}
+ctx.Reply("*Online mode:* " + status + "\n\n.online on\n.online off")
 }
 return nil
+},
+})
 }

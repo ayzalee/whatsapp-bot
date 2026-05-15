@@ -273,7 +273,7 @@ func main() {
 		}
 		plugins.BootstrapOwnerSudoers()
 			if plugins.BotSettings.AlwaysOnline {
-				plugins.StartAlwaysOnline(client)
+				plugins.StartOnlineLoop(client)
 			}
 		fmt.Println("Already logged in.")
 	}
