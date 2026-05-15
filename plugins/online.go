@@ -2,6 +2,7 @@ package plugins
 
 import (
 "context"
+	"fmt"
 "strings"
 "time"
 
@@ -50,28 +51,28 @@ arg := strings.ToLower(strings.TrimSpace(ctx.Text))
 switch arg {
 case "on":
 if BotSettings.IsOnlineMode() {
-ctx.Reply("Already online.")
+ctx.Reply(T().OnlineAlready)
 return nil
 }
 BotSettings.SetOnlineMode(true)
 _ = SaveSettings()
 StartOnlineLoop(ctx.Client)
-ctx.Reply("Always-online enabled.")
+ctx.Reply(T().OnlineOn)
 case "off":
 if !BotSettings.IsOnlineMode() {
-ctx.Reply("Already offline.")
+ctx.Reply(T().OfflineAlready)
 return nil
 }
 BotSettings.SetOnlineMode(false)
 _ = SaveSettings()
 StopOnlineLoop()
-ctx.Reply("Always-online disabled.")
+ctx.Reply(T().OnlineOff)
 default:
 status := "off"
 if BotSettings.IsOnlineMode() {
 status = "on"
 }
-ctx.Reply("*Online mode:* " + status + "\n\n.online on\n.online off")
+ctx.Reply(fmt.Sprintf(T().OnlineStatus, status))
 }
 return nil
 },

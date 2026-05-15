@@ -39,24 +39,24 @@ arg := strings.ToLower(strings.TrimSpace(ctx.Text))
 switch arg {
 case "on":
 if autoRejectCalls {
-ctx.Reply("Auto-reject calls is already on.")
+ctx.Reply(T().AntcallAlreadyOn)
 return nil
 }
 autoRejectCalls = true
-ctx.Reply("Auto-reject calls enabled.")
+ctx.Reply(T().AntcallOn)
 case "off":
 if !autoRejectCalls {
-ctx.Reply("Auto-reject calls is already off.")
+ctx.Reply(T().AntcallAlreadyOff)
 return nil
 }
 autoRejectCalls = false
-ctx.Reply("Auto-reject calls disabled.")
+ctx.Reply(T().AntcallOff)
 default:
 status := "off"
 if autoRejectCalls {
 status = "on"
 }
-ctx.Reply("*Auto Reject Calls*\nStatus: " + status + "\n\n.antcall on\n.antcall off")
+ctx.Reply(fmt.Sprintf(T().AntcallStatus, status))
 }
 return nil
 },
