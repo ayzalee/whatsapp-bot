@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"google.golang.org/protobuf/proto"
-	"go.mau.fi/whatsmeow/appstate"
 
+	"go.mau.fi/whatsmeow/appstate"
 	waCommon "go.mau.fi/whatsmeow/proto/waCommon"
 	"go.mau.fi/whatsmeow/proto/waE2E"
 	"go.mau.fi/whatsmeow/types"
@@ -175,7 +175,13 @@ func leaveCmd(ctx *Context) error {
 }
 
 func clearCmd(ctx *Context) error {
-	ctx.Reply("Clear chat is not supported in this version.")
+	chat := ctx.Event.Info.Chat
+	patch := appstate.BuildClearChat(chat, ctx.Event.Info.Timestamp, nil)
+	if err := ctx.Client.SendAppState(context.Background(), patch); err != nil {
+		ctx.Reply(T().ClearFailed)
+		return nil
+	}
+	ctx.Reply(T().ClearOK)
 	return nil
 }
 

@@ -30,7 +30,6 @@ var NoopDevice = &Device{
 	ChatSettings:  nilStore,
 	MsgSecrets:    nilStore,
 	PrivacyTokens: nilStore,
-	NCTSalt:       nilStore,
 	EventBuffer:   nilStore,
 	LIDs:          nilStore,
 	Container:     nilStore,
@@ -282,11 +281,3 @@ func (n *NoopStore) GetOutgoingEvent(ctx context.Context, chatJID, altChatJID ty
 func (n *NoopStore) AddOutgoingEvent(ctx context.Context, chatJID types.JID, id types.MessageID, format string, plaintext []byte) error {
 	return nil
 }
-
-func (n *NoopStore) DeleteExpiredPrivacyTokens(ctx context.Context, before time.Time) (int64, error) { return 0, n.Error }
-
-func (n *NoopStore) DeleteNCTSalt(ctx context.Context) error { return n.Error }
-
-func (n *NoopStore) GetNCTSalt(ctx context.Context) ([]byte, error) { return nil, n.Error }
-
-func (n *NoopStore) PutNCTSalt(ctx context.Context, salt []byte) error { return n.Error }

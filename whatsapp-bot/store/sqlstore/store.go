@@ -1052,13 +1052,3 @@ func (s *SQLStore) DeleteOldOutgoingEvents(ctx context.Context) error {
 	_, err := s.db.Exec(ctx, deleteOldOutgoingEventsQuery, s.JID, time.Now().Add(-7*24*time.Hour).UnixMilli())
 	return err
 }
-
-func (s *SQLStore) DeleteExpiredPrivacyTokens(ctx context.Context, cutoff time.Time) (int64, error) {
-return 0, nil
-}
-
-func (s *SQLStore) PutNCTSalt(ctx context.Context, salt []byte) error { return nil }
-
-func (s *SQLStore) GetNCTSalt(ctx context.Context) ([]byte, error) { return nil, nil }
-
-func (s *SQLStore) DeleteNCTSalt(ctx context.Context) error { return nil }
