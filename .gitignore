@@ -35,3 +35,11 @@ go.work.sum
 *.db-shm
 *.db-walzaelix
 zaelix.
+zaelix
+zaelix.
+database.db
+database.db-wal
+database.db-shm
+*.db
+*.db-wal
+*.db-shm
