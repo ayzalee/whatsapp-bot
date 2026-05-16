@@ -53,7 +53,8 @@ for _, hook := range modHooks {
 h := hook
 go h(client, v)
 }
-go Dispatch(client, v)
+go HandleAutoRead(client, v)
+			go Dispatch(client, v)
 }
 }
 }
