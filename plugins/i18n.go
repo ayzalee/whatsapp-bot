@@ -211,6 +211,10 @@ type Strings struct {
 	StatusOff        string
 	StatusInfo       string
 
+	// sticker
+	StickerNoReply string
+	StickerFailed  string
+
 	// download
 	MediaNotFound string
 	IgUsage       string
@@ -462,6 +466,8 @@ var translations = map[string]*Strings{
 		StatusAlreadyOff: "Auto status view is already off.",
 		StatusOff:        "Auto status view & reaction disabled.",
 		StatusInfo:       "*Auto Status*\nStatus: %s\n\n.status on\n.status off",
+		StickerNoReply:    "Reply to an image, video or gif to make a sticker.",
+		StickerFailed:     "Failed to create sticker.",
 		MediaNotFound:     "Media not found.",
 		IgUsage:           "Usage: .ig <instagram reel url>",
 		DelUsage:          "Reply to a message to delete it.",
@@ -643,6 +649,8 @@ var translations = map[string]*Strings{
 		StatusInfo:       "*Estado Automático*\nEstado: %s\n\n.status on\n.status off",
 				MediaNotFound:     "Medio no encontrado.",
 		IgUsage:           "Uso: .ig <url de reel de instagram>",
+				StickerNoReply:    "Responde a una imagen, video o gif para crear un sticker.",
+		StickerFailed:     "Error al crear el sticker.",
 		DelUsage:          "Responde a un mensaje para eliminarlo.",
 		PinOK:             "Chat anclado.",
 		PinFailed:         "Error al anclar el chat.",
@@ -821,6 +829,8 @@ var translations = map[string]*Strings{
 		StatusInfo:       "*Status Automático*\nStatus: %s\n\n.status on\n.status off",
 				MediaNotFound:     "Mídia não encontrada.",
 		IgUsage:           "Uso: .ig <url do reel do instagram>",
+				StickerNoReply:    "Responda a uma imagem, vídeo ou gif para criar um sticker.",
+		StickerFailed:     "Falha ao criar o sticker.",
 		DelUsage:          "Responda a uma mensagem para a eliminar.",
 		PinOK:             "Chat fixado.",
 		PinFailed:         "Falha ao fixar o chat.",
@@ -989,6 +999,8 @@ var translations = map[string]*Strings{
 		StatusInfo:       "*الحالة التلقائية*\nالحالة: %s\n\n.status on\n.status off",
 				MediaNotFound:     "لم يتم العثور على الوسائط.",
 		IgUsage:           "الاستخدام: .ig <رابط ريل انستغرام>",
+				StickerNoReply:    "رد على صورة أو فيديو أو gif لإنشاء ملصق.",
+		StickerFailed:     "فشل إنشاء الملصق.",
 		DelUsage:          "ردَّ على رسالة لحذفها.",
 		PinOK:             "تم تثبيت المحادثة.",
 		PinFailed:         "فشل تثبيت المحادثة.",
@@ -1167,6 +1179,8 @@ var translations = map[string]*Strings{
 		StatusInfo:       "*ऑटो स्टेटस*\nस्थिति: %s\n\n.status on\n.status off",
 				MediaNotFound:     "मीडिया नहीं मिला।",
 		IgUsage:           "उपयोग: .ig <इंस्टाग्राम रील लिंक>",
+				StickerNoReply:    "स्टिकर बनाने के लिए किसी इमेज, वीडियो या gif का जवाब दें।",
+		StickerFailed:     "स्टिकर बनाने में विफल।",
 		DelUsage:          "किसी संदेश को हटाने के लिए उसका उत्तर दें।",
 		PinOK:             "चैट पिन की गई।",
 		PinFailed:         "चैट पिन करने में विफल।",
@@ -1345,6 +1359,8 @@ var translations = map[string]*Strings{
 		StatusInfo:       "*Statut Automatique*\nStatut: %s\n\n.status on\n.status off",
 				MediaNotFound:     "Média introuvable.",
 		IgUsage:           "Utilisation: .ig <url du reel instagram>",
+				StickerNoReply:    "Répondez à une image, vidéo ou gif pour créer un sticker.",
+		StickerFailed:     "Échec de la création du sticker.",
 		DelUsage:          "Repondez a un message pour le supprimer.",
 		PinOK:             "Discussion epinglee.",
 		PinFailed:         "Echec de l'epinglage de la discussion.",
@@ -1523,6 +1539,8 @@ var translations = map[string]*Strings{
 		StatusInfo:       "*Auto Status*\nStatus: %s\n\n.status on\n.status off",
 				MediaNotFound:     "Medien nicht gefunden.",
 		IgUsage:           "Verwendung: .ig <Instagram-Reel-URL>",
+				StickerNoReply:    "Antworte auf ein Bild, Video oder GIF um einen Sticker zu erstellen.",
+		StickerFailed:     "Sticker konnte nicht erstellt werden.",
 		DelUsage:          "Antworte auf eine Nachricht, um sie zu löschen.",
 		PinOK:             "Chat angeheftet.",
 		PinFailed:         "Fehler beim Anheften des Chats.",
@@ -1701,6 +1719,8 @@ var translations = map[string]*Strings{
 		StatusInfo:       "*Авто Статус*\nСтатус: %s\n\n.status on\n.status off",
 				MediaNotFound:     "Медиа не найдено.",
 		IgUsage:           "Использование: .ig <ссылка на reels instagram>",
+				StickerNoReply:    "Ответьте на изображение, видео или gif для создания стикера.",
+		StickerFailed:     "Не удалось создать стикер.",
 		DelUsage:          "Ответьте на сообщение, чтобы удалить его.",
 		PinOK:             "Чат закреплён.",
 		PinFailed:         "Не удалось закрепить чат.",
@@ -1879,6 +1899,8 @@ var translations = map[string]*Strings{
 		StatusInfo:       "*Otomatik Durum*\nDurum: %s\n\n.status on\n.status off",
 				MediaNotFound:     "Medya bulunamadı.",
 		IgUsage:           "Kullanım: .ig <instagram reel url>",
+				StickerNoReply:    "Sticker oluşturmak için bir resim, video veya gif'e yanıt verin.",
+		StickerFailed:     "Sticker oluşturulamadı.",
 		DelUsage:          "Silmek icin bir mesaji yanitlayin.",
 		PinOK:             "Sohbet sabitlenen.",
 		PinFailed:         "Sohbet sabitlenirken hata olustu.",
@@ -2057,6 +2079,8 @@ var translations = map[string]*Strings{
 		StatusInfo:       "*Hali Otomatiki*\nHali: %s\n\n.status on\n.status off",
 				MediaNotFound:     "Hakuna media iliyopatikana.",
 		IgUsage:           "Matumizi: .ig <url ya instagram reel>",
+				StickerNoReply:    "Jibu picha, video au gif kutengeneza stika.",
+		StickerFailed:     "Imeshindwa kutengeneza stika.",
 		DelUsage:          "Jibu ujumbe ili kuufuta.",
 		PinOK:             "Mazungumzo yamepinniwa.",
 		PinFailed:         "Imeshindwa kupinnia mazungumzo.",
