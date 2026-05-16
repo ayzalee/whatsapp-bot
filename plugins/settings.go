@@ -384,6 +384,22 @@ autoRejectCalls = v
 }
 
 func ApplyEnvDefaults() {
+if prefix := os.Getenv("PREFIX"); prefix != "" {
+BotSettings.SetPrefixes(prefix)
+SaveSettings()
+}
+if sudo := os.Getenv("SUDO"); sudo != "" {
+for _, s := range strings.Split(sudo, ",") {
+s = strings.TrimSpace(s)
+if s != "" {
+BotSettings.AddSudo(s)
+}
+}
+SaveSettings()
+}
+if os.Getenv("READ_MSGS") == "true" {
+autoReadMessages = true
+}
 if os.Getenv("ALWAYS_ONLINE") == "true" && !BotSettings.AlwaysOnline {
 BotSettings.mu.Lock()
 BotSettings.AlwaysOnline = true
