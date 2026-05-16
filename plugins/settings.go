@@ -420,4 +420,11 @@ if lang := os.Getenv("BOT_LANG"); lang != "" {
 BotSettings.SetLanguage(lang)
 SaveSettings()
 }
+	if emoji := os.Getenv("STATUS_VIEW_EMOJI"); emoji != "" {
+		parts := strings.Split(emoji, ",")
+		for i, p := range parts {
+			parts[i] = strings.TrimSpace(p)
+		}
+		statusViewEmojis = parts
+	}
 }
