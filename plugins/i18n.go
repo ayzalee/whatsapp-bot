@@ -211,6 +211,10 @@ type Strings struct {
 	StatusOff        string
 	StatusInfo       string
 
+	// download
+	MediaNotFound string
+	IgUsage       string
+
 	// del
 	DelUsage string
 
@@ -458,6 +462,8 @@ var translations = map[string]*Strings{
 		StatusAlreadyOff: "Auto status view is already off.",
 		StatusOff:        "Auto status view & reaction disabled.",
 		StatusInfo:       "*Auto Status*\nStatus: %s\n\n.status on\n.status off",
+		MediaNotFound:     "Media not found.",
+		IgUsage:           "Usage: .ig <instagram reel url>",
 		DelUsage:          "Reply to a message to delete it.",
 		PinOK:             "Chat pinned.",
 		PinFailed:         "Failed to pin chat.",
@@ -635,6 +641,8 @@ var translations = map[string]*Strings{
 		StatusAlreadyOff: "La vista automática de estados ya está desactivada.",
 		StatusOff:        "Vista y reacción automática de estados desactivada.",
 		StatusInfo:       "*Estado Automático*\nEstado: %s\n\n.status on\n.status off",
+				MediaNotFound:     "Medio no encontrado.",
+		IgUsage:           "Uso: .ig <url de reel de instagram>",
 		DelUsage:          "Responde a un mensaje para eliminarlo.",
 		PinOK:             "Chat anclado.",
 		PinFailed:         "Error al anclar el chat.",
@@ -811,6 +819,8 @@ var translations = map[string]*Strings{
 		StatusAlreadyOff: "Visualização automática de status já está desativada.",
 		StatusOff:        "Visualização e reação automática de status desativada.",
 		StatusInfo:       "*Status Automático*\nStatus: %s\n\n.status on\n.status off",
+				MediaNotFound:     "Mídia não encontrada.",
+		IgUsage:           "Uso: .ig <url do reel do instagram>",
 		DelUsage:          "Responda a uma mensagem para a eliminar.",
 		PinOK:             "Chat fixado.",
 		PinFailed:         "Falha ao fixar o chat.",
@@ -977,6 +987,8 @@ var translations = map[string]*Strings{
 		StatusAlreadyOff: "المشاهدة التلقائية للحالة معطّلة بالفعل.",
 		StatusOff:        "تم تعطيل المشاهدة والتفاعل التلقائي مع الحالة.",
 		StatusInfo:       "*الحالة التلقائية*\nالحالة: %s\n\n.status on\n.status off",
+				MediaNotFound:     "لم يتم العثور على الوسائط.",
+		IgUsage:           "الاستخدام: .ig <رابط ريل انستغرام>",
 		DelUsage:          "ردَّ على رسالة لحذفها.",
 		PinOK:             "تم تثبيت المحادثة.",
 		PinFailed:         "فشل تثبيت المحادثة.",
@@ -1153,6 +1165,8 @@ var translations = map[string]*Strings{
 		StatusAlreadyOff: "ऑटो स्टेटस व्यू पहले से बंद है।",
 		StatusOff:        "ऑटो स्टेटस व्यू और रिएक्शन बंद किया गया।",
 		StatusInfo:       "*ऑटो स्टेटस*\nस्थिति: %s\n\n.status on\n.status off",
+				MediaNotFound:     "मीडिया नहीं मिला।",
+		IgUsage:           "उपयोग: .ig <इंस्टाग्राम रील लिंक>",
 		DelUsage:          "किसी संदेश को हटाने के लिए उसका उत्तर दें।",
 		PinOK:             "चैट पिन की गई।",
 		PinFailed:         "चैट पिन करने में विफल।",
@@ -1329,6 +1343,8 @@ var translations = map[string]*Strings{
 		StatusAlreadyOff: "La vue automatique des statuts est déjà désactivée.",
 		StatusOff:        "Vue et réaction automatique des statuts désactivées.",
 		StatusInfo:       "*Statut Automatique*\nStatut: %s\n\n.status on\n.status off",
+				MediaNotFound:     "Média introuvable.",
+		IgUsage:           "Utilisation: .ig <url du reel instagram>",
 		DelUsage:          "Repondez a un message pour le supprimer.",
 		PinOK:             "Discussion epinglee.",
 		PinFailed:         "Echec de l'epinglage de la discussion.",
@@ -1505,6 +1521,8 @@ var translations = map[string]*Strings{
 		StatusAlreadyOff: "Automatische Statusansicht ist bereits deaktiviert.",
 		StatusOff:        "Automatische Statusansicht und Reaktion deaktiviert.",
 		StatusInfo:       "*Auto Status*\nStatus: %s\n\n.status on\n.status off",
+				MediaNotFound:     "Medien nicht gefunden.",
+		IgUsage:           "Verwendung: .ig <Instagram-Reel-URL>",
 		DelUsage:          "Antworte auf eine Nachricht, um sie zu löschen.",
 		PinOK:             "Chat angeheftet.",
 		PinFailed:         "Fehler beim Anheften des Chats.",
@@ -1681,6 +1699,8 @@ var translations = map[string]*Strings{
 		StatusAlreadyOff: "Автопросмотр статусов уже выключен.",
 		StatusOff:        "Автопросмотр и реакция на статусы выключены.",
 		StatusInfo:       "*Авто Статус*\nСтатус: %s\n\n.status on\n.status off",
+				MediaNotFound:     "Медиа не найдено.",
+		IgUsage:           "Использование: .ig <ссылка на reels instagram>",
 		DelUsage:          "Ответьте на сообщение, чтобы удалить его.",
 		PinOK:             "Чат закреплён.",
 		PinFailed:         "Не удалось закрепить чат.",
@@ -1857,6 +1877,8 @@ var translations = map[string]*Strings{
 		StatusAlreadyOff: "Otomatik durum görüntüleme zaten kapalı.",
 		StatusOff:        "Otomatik durum görüntüleme ve tepki kapatıldı.",
 		StatusInfo:       "*Otomatik Durum*\nDurum: %s\n\n.status on\n.status off",
+				MediaNotFound:     "Medya bulunamadı.",
+		IgUsage:           "Kullanım: .ig <instagram reel url>",
 		DelUsage:          "Silmek icin bir mesaji yanitlayin.",
 		PinOK:             "Sohbet sabitlenen.",
 		PinFailed:         "Sohbet sabitlenirken hata olustu.",
@@ -2033,6 +2055,8 @@ var translations = map[string]*Strings{
 		StatusAlreadyOff: "Kutazama hali kiotomatiki tayari imezimwa.",
 		StatusOff:        "Kutazama na kujibu hali kiotomatiki kumezimwa.",
 		StatusInfo:       "*Hali Otomatiki*\nHali: %s\n\n.status on\n.status off",
+				MediaNotFound:     "Hakuna media iliyopatikana.",
+		IgUsage:           "Matumizi: .ig <url ya instagram reel>",
 		DelUsage:          "Jibu ujumbe ili kuufuta.",
 		PinOK:             "Mazungumzo yamepinniwa.",
 		PinFailed:         "Imeshindwa kupinnia mazungumzo.",
