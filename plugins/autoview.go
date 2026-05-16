@@ -10,6 +10,7 @@ import (
 )
 
 var autoViewStatus bool
+var statusViewEmojis = []string{"❤️"}
 
 func init() {
 Register(&Command{

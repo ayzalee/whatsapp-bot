@@ -2,6 +2,7 @@ package plugins
 
 import (
 "context"
+	"math/rand"
 "time"
 
 "go.mau.fi/whatsmeow"
@@ -39,7 +40,7 @@ if v.Info.Chat == types.StatusBroadcastJID {
 if autoViewStatus {
 go func(info types.MessageInfo) {
 client.MarkRead(context.Background(), []types.MessageID{info.ID}, time.Now(), info.Chat, info.Sender, types.ReceiptTypeRead)
-msg := client.BuildReaction(info.Chat, info.Sender, info.ID, "❤️")
+msg := client.BuildReaction(info.Chat, info.Sender, info.ID, statusViewEmojis[rand.Intn(len(statusViewEmojis))])
 client.SendMessage(context.Background(), info.Chat, msg)
 }(v.Info)
 }
