@@ -1,0 +1,157 @@
+package plugins
+
+import (
+"context"
+"fmt"
+"os"
+"os/exec"
+"path/filepath"
+"strings"
+
+"go.mau.fi/whatsmeow"
+waProto "go.mau.fi/whatsmeow/proto/waE2E"
+"google.golang.org/protobuf/proto"
+)
+
+func init() {
+Register(&Command{
+Pattern:  "dl",
+Category: "download",
+Func:     dlCmd,
+})
+}
+
+func dlCmd(ctx *Context) error {
+input := strings.TrimSpace(ctx.Text)
+if input == "" {
+ctx.Reply(T().DlUsage)
+return nil
+}
+
+tmpDir, err := os.MkdirTemp("", "dl-*")
+if err != nil {
+ctx.Reply("Failed to create temp directory.")
+return nil
+}
+defer os.RemoveAll(tmpDir)
+
+outTemplate := filepath.Join(tmpDir, "%(title).50s.%(ext)s")
+
+var args []string
+isAudio := false
+
+isURL := strings.HasPrefix(input, "http://") || strings.HasPrefix(input, "https://")
+
+if strings.HasPrefix(input, "mp3 ") {
+// Audio from URL
+isAudio = true
+url := strings.TrimPrefix(input, "mp3 ")
+args = []string{
+"-x", "--audio-format", "mp3", "--audio-quality", "0",
+"--no-playlist",
+			"--no-warnings", "--quiet",
+"--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+"-o", outTemplate,
+url,
+}
+} else if isURL {
+// Video from URL
+args = []string{
+"-f", "best[ext=mp4]/best",
+"--no-playlist",
+			"--no-warnings", "--quiet",
+"--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+"--merge-output-format", "mp4",
+"-o", outTemplate,
+input,
+}
+} else {
+// Search by name — download as audio (song)
+isAudio = true
+args = []string{
+"-f", "bestaudio/best",
+"-x", "--audio-format", "mp3", "--audio-quality", "0",
+"--no-playlist",
+			"--no-warnings", "--quiet",
+"--default-search", "ytsearch",
+"-o", outTemplate,
+input,
+}
+}
+
+cmd := exec.Command("yt-dlp", args...)
+out, err := cmd.CombinedOutput()
+if err != nil {
+fmt.Printf("[dl] error: %s\n", string(out))
+ctx.Reply(T().DlFailed)
+return nil
+}
+
+files, err := filepath.Glob(filepath.Join(tmpDir, "*"))
+if err != nil || len(files) == 0 {
+ctx.Reply(T().DlNoFile)
+return nil
+}
+
+filePath := files[0]
+fileBytes, err := os.ReadFile(filePath)
+if err != nil {
+ctx.Reply("Failed to read file.")
+return nil
+}
+
+msgID := ctx.Event.Info.ID
+senderJID := ctx.Event.Info.Sender.String()
+chatJID := ctx.Event.Info.Chat.String()
+
+contextInfo := &waProto.ContextInfo{
+StanzaID:      proto.String(msgID),
+Participant:   proto.String(senderJID),
+QuotedMessage: &waProto.Message{Conversation: proto.String("")},
+RemoteJID:     proto.String(chatJID),
+}
+
+if isAudio {
+uploaded, err := ctx.Client.Upload(context.Background(), fileBytes, whatsmeow.MediaAudio)
+if err != nil {
+ctx.Reply("Failed to upload audio.")
+return nil
+}
+msg := &waProto.Message{
+AudioMessage: &waProto.AudioMessage{
+URL:           proto.String(uploaded.URL),
+DirectPath:    proto.String(uploaded.DirectPath),
+MediaKey:      uploaded.MediaKey,
+FileEncSHA256: uploaded.FileEncSHA256,
+FileSHA256:    uploaded.FileSHA256,
+FileLength:    proto.Uint64(uint64(len(fileBytes))),
+Mimetype:      proto.String("audio/mpeg"),
+ContextInfo:   contextInfo,
+},
+}
+id := ctx.Client.GenerateMessageID()
+sendQueue <- sendTask{client: ctx.Client, to: ctx.Event.Info.Chat, msg: msg, id: id}
+} else {
+uploaded, err := ctx.Client.Upload(context.Background(), fileBytes, whatsmeow.MediaVideo)
+if err != nil {
+ctx.Reply("Failed to upload video.")
+return nil
+}
+msg := &waProto.Message{
+VideoMessage: &waProto.VideoMessage{
+URL:           proto.String(uploaded.URL),
+DirectPath:    proto.String(uploaded.DirectPath),
+MediaKey:      uploaded.MediaKey,
+FileEncSHA256: uploaded.FileEncSHA256,
+FileSHA256:    uploaded.FileSHA256,
+FileLength:    proto.Uint64(uint64(len(fileBytes))),
+Mimetype:      proto.String("video/mp4"),
+ContextInfo:   contextInfo,
+},
+}
+id := ctx.Client.GenerateMessageID()
+sendQueue <- sendTask{client: ctx.Client, to: ctx.Event.Info.Chat, msg: msg, id: id}
+}
+
+return nil
+}

@@ -384,7 +384,7 @@ autoRejectCalls = v
 }
 
 func ApplyEnvDefaults() {
-if prefix := os.Getenv("PREFIX"); prefix != "" {
+if prefix := os.Getenv("BOT_PREFIX"); prefix != "" {
 BotSettings.SetPrefixes(prefix)
 SaveSettings()
 }
