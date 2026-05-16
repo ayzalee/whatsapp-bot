@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"strings"
+	"os"
 	"sync"
 )
 
@@ -26,7 +27,9 @@ type Settings struct {
 	Language     string
 	DisabledCmds []string
 	GCDisabled   bool
-	AlwaysOnline bool
+	AlwaysOnline    bool
+	AutoStatusView  bool
+	CallReject      bool
 }
 
 // BotSettings is the global settings instance, seeded with defaults.
@@ -118,6 +121,10 @@ func LoadSettings() error {
 			BotSettings.GCDisabled = value == "true"
 		case "always_online":
 			BotSettings.AlwaysOnline = value == "true"
+		case "auto_status_view":
+			BotSettings.AutoStatusView = value == "true"
+		case "call_reject":
+			BotSettings.CallReject = value == "true"
 		}
 	}
 	return rows.Err()
@@ -151,6 +158,14 @@ func SaveSettings() error {
 	if BotSettings.AlwaysOnline {
 		onlineStr = "true"
 	}
+	statusStr := "false"
+	if BotSettings.AutoStatusView {
+		statusStr = "true"
+	}
+	callStr := "false"
+	if BotSettings.CallReject {
+		callStr = "true"
+	}
 
 	upsert := `INSERT INTO bot_settings (user, key, value) VALUES (?, ?, ?)
 		ON CONFLICT(user, key) DO UPDATE SET value = excluded.value`
@@ -168,6 +183,8 @@ func SaveSettings() error {
 		{"disabled_cmds", string(dData)},
 		{"gc_disabled", gcStr},
 		{"always_online", onlineStr},
+		{"auto_status_view", statusStr},
+		{"call_reject", callStr},
 	} {
 		if _, err = tx.Exec(upsert, settingsUser, row[0], row[1]); err != nil {
 			tx.Rollback()
@@ -356,4 +373,35 @@ func (s *Settings) SetOnlineMode(v bool) {
 s.mu.Lock()
 defer s.mu.Unlock()
 s.AlwaysOnline = v
+}
+
+func SetAutoViewStatus(v bool) {
+autoViewStatus = v
+}
+
+func SetCallReject(v bool) {
+autoRejectCalls = v
+}
+
+func ApplyEnvDefaults() {
+if os.Getenv("ALWAYS_ONLINE") == "true" && !BotSettings.AlwaysOnline {
+BotSettings.mu.Lock()
+BotSettings.AlwaysOnline = true
+BotSettings.mu.Unlock()
+SaveSettings()
+}
+if os.Getenv("AUTO_STATUS_VIEW") == "true" {
+autoViewStatus = true
+}
+if os.Getenv("CALL_REJECT") == "true" {
+autoRejectCalls = true
+}
+if mode := os.Getenv("BOT_MODE"); mode != "" {
+BotSettings.SetMode(Mode(mode))
+SaveSettings()
+}
+if lang := os.Getenv("BOT_LANG"); lang != "" {
+BotSettings.SetLanguage(lang)
+SaveSettings()
+}
 }
