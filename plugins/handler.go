@@ -36,6 +36,7 @@ go h(client, v)
 }
 case *events.Message:
 go SaveUser(v)
+			go CacheMessage(v)
 if v.Info.Chat == types.StatusBroadcastJID {
 if autoViewStatus {
 go func(info types.MessageInfo) {
@@ -54,7 +55,8 @@ for _, hook := range modHooks {
 h := hook
 go h(client, v)
 }
-go HandleAutoRead(client, v)
+go HandleAntiDelete(client, v)
+			go HandleAutoRead(client, v)
 			go Dispatch(client, v)
 }
 }
