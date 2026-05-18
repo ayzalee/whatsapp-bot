@@ -266,9 +266,6 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 	if getAntistatusEnabled(chatJID) && isBotAdmin() && !isSenderAdmin() {
 		if isGroupStatusMsg(evt) {
 			revokeMsg(client, evt.Info.Chat, evt.Info.Sender, string(evt.Info.ID))
-			senderJIDStr := evt.Info.Sender.ToNonAD().String()
-			notify := fmt.Sprintf(T().AntistatusNotify, senderUser)
-			sendMentionToChat(client, evt.Info.Chat, notify, []string{senderJIDStr})
 			return
 		}
 	}
