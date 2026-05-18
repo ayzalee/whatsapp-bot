@@ -15,3 +15,5 @@ go.work.sum
 *.db-wal
 zaelix
 zaelix.
+install.log
+start.sh
