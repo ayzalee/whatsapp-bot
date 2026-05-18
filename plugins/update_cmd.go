@@ -52,7 +52,7 @@ func updateBar(pct int) string {
 
 // editUpdate edits msgID in chatJID with a formatted update status message.
 func editUpdate(ctx *Context, chatJID types.JID, msgID, label string, pct int) {
-	text := fmt.Sprintf("Updating Ortsax...\n%s\n%s", updateBar(pct), label)
+	text := fmt.Sprintf("Updating Zaelix...\n%s\n%s", updateBar(pct), label)
 	edit := ctx.Client.BuildEdit(chatJID, msgID, &waProto.Message{
 		Conversation: proto.String(text),
 	})
@@ -128,7 +128,7 @@ func init() {
 			}
 
 			chatJID := ctx.Event.Info.Chat
-			resp, err := ctx.ReplySync("Updating Ortsax...\n" + updateBar(0) + "\n  Starting...")
+			resp, err := ctx.ReplySync("Updating Zaelix...\n" + updateBar(0) + "\n  Starting...")
 			if err != nil {
 				return err
 			}
@@ -217,7 +217,7 @@ func init() {
 			editUpdate(ctx, chatJID, msgID, "Binary replaced", 95)
 
 			// Step 5 — restart
-			text := fmt.Sprintf("Ortsax updated!\n%s\nRestarting...", updateBar(100))
+			text := fmt.Sprintf("Zaelix updated!\n%s\nRestarting...", updateBar(100))
 			edit := ctx.Client.BuildEdit(chatJID, msgID, &waProto.Message{Conversation: proto.String(text)})
 			ctx.Client.SendMessage(context.Background(), chatJID, edit)
 			time.Sleep(600 * time.Millisecond)

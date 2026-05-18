@@ -409,7 +409,7 @@ buildLoop:
 		fmt.Fprintf(os.Stderr, "New binary saved at: %s\nRename manually: mv %s %s\n", tmpPath, tmpPath, exePath)
 		os.Exit(1)
 	}
-	cliProgress(100, "Ortsax updated successfully.")
+	cliProgress(100, "Zaelix updated successfully.")
 }
 
 // runListSessions opens the database and prints all paired sessions.
