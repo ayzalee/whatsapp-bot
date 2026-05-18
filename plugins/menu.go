@@ -2,12 +2,8 @@ package plugins
 
 import (
 "fmt"
-"runtime"
 "strings"
-"time"
 )
-
-var botStartTime = time.Now()
 
 var fancyMap = map[rune]string{
 '0': "𝟶", '1': "𝟷", '2': "𝟸", '3': "𝟹", '4': "𝟺",
@@ -35,7 +31,15 @@ return b.String()
 func cmdLines(cmds []*Command) string {
 var sb strings.Builder
 for _, cmd := range cmds {
-sb.WriteString("│ ⟣ " + toFancy(cmd.Pattern) + "\n")
+line := toFancy(cmd.Pattern)
+if len(cmd.Aliases) > 0 {
+parts := make([]string, len(cmd.Aliases))
+for i, a := range cmd.Aliases {
+parts[i] = toFancy(a)
+}
+line += "  [" + strings.Join(parts, ", ") + "]"
+}
+sb.WriteString("  · " + line + "\n")
 }
 return sb.String()
 }
@@ -45,32 +49,7 @@ cmds := categoryMap[strings.ToLower(cat)]
 if len(cmds) == 0 {
 return ""
 }
-var sb strings.Builder
-sb.WriteString("╭─〔 *" + toFancy(cat) + "* MENU 〕\n")
-sb.WriteString(cmdLines(cmds))
-sb.WriteString("╰───────────────⬣")
-return sb.String()
-}
-
-func formatUptime() string {
-d := time.Since(botStartTime)
-h := int(d.Hours())
-m := int(d.Minutes()) % 60
-return fmt.Sprintf("%dh %dm", h, m)
-}
-
-func getOS() string {
-os := runtime.GOOS
-switch os {
-case "linux":
-return "Linux"
-case "windows":
-return "Windows"
-case "darwin":
-return "MacOS"
-default:
-return os
-}
+return "*" + toFancy(cat) + " ᴍᴇɴᴜ*\n\n" + strings.TrimRight(cmdLines(cmds), "\n")
 }
 
 func init() {
@@ -84,28 +63,9 @@ if pushName == "" {
 pushName = ctx.Event.Info.Sender.User
 }
 
-totalCmds := len(registry)
-
-var ms runtime.MemStats
-runtime.ReadMemStats(&ms)
-ramMB := ms.Alloc / 1024 / 1024
-
-var sb strings.Builder
-sb.WriteString("╭━━━〔 𝐙𝐀𝐄𝐋𝐈𝐗 〕━━━⬣\n")
-sb.WriteString("┃◈ ᴜsᴇʀ      : " + pushName + "\n")
-sb.WriteString("┃◈ ᴘʀᴇғɪx    : " + strings.Join(BotSettings.GetPrefixes(), " ") + "\n")
-sb.WriteString("┃◈ ᴠᴇʀsɪᴏɴ   : v1.0.0\n")
-sb.WriteString("┃◈ ᴜᴘᴛɪᴍᴇ    : " + formatUptime() + "\n")
-sb.WriteString(fmt.Sprintf("┃◈ ᴘʟᴜɢɪɴs   : %d\n", totalCmds))
-sb.WriteString(fmt.Sprintf("┃◈ ʀᴀᴍ       : %dMB\n", ramMB))
-sb.WriteString("┃◈ ᴍᴏᴅᴇ      : " + string(BotSettings.GetMode()) + "\n")
-sb.WriteString("┃◈ ʟᴀɴɢ      : " + BotSettings.GetLanguage() + "\n")
-sb.WriteString("┃◈ ᴘʟᴀᴛғᴏʀᴍ  : " + getOS() + "\n")
-sb.WriteString("╰━━━━━━━━━━━━━━━━━━⬣\n")
-
-// Group by category
 var catOrder []string
 catMap := map[string][]*Command{}
+
 for _, cmd := range registry {
 cat := cmd.Category
 if cat == "" {
@@ -117,24 +77,15 @@ catOrder = append(catOrder, cat)
 catMap[cat] = append(catMap[cat], cmd)
 }
 
-catEmoji := map[string]string{
-"settings": "🔧",
-"ai":       "🤖",
-"media":    "🎵",
-"group":    "👥",
-"download": "⬇️",
-"utility":  "🛠️",
-"general":  "📋",
-}
+var sb strings.Builder
+fmt.Fprintf(&sb, T().MenuGreeting+"\n", pushName)
+
 for _, cat := range catOrder {
-emoji := catEmoji[strings.ToLower(cat)]
-if emoji == "" {
-emoji = "•"
-}
-sb.WriteString("\n╭─━━〔 *" + emoji + " " + toFancy(cat) + "*〕\n")
+sb.WriteString("\n▸ *" + toFancy(cat) + "*\n")
 sb.WriteString(cmdLines(catMap[cat]))
-sb.WriteString("╰───────────────⬣\n")
 }
+
+sb.WriteString("\n\n> © ᴀʏᴀᴢᴀʟɪᴏꜰᴄ")
 
 ctx.Reply(strings.TrimRight(sb.String(), "\n"))
 return nil
