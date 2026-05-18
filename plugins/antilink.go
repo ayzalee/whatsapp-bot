@@ -38,17 +38,17 @@ func init() {
 					return nil
 				}
 				switch strings.ToLower(args[1]) {
-				case "delete":
-					setAntilinkMode(chatJID, "delete")
-					ctx.Reply(fmt.Sprintf(T().AntilinkSet, "delete"))
 				case "kick":
 					setAntilinkMode(chatJID, "kick")
 					ctx.Reply(fmt.Sprintf(T().AntilinkSet, "kick"))
+				case "null":
+					setAntilinkMode(chatJID, "null")
+					ctx.Reply("Antilink set to *null* mode (silent delete).")
 				default:
 					ctx.Reply(T().AntilinkUnknownAct)
 				}
 			default:
-				ctx.Reply(T().AntilinkUsage)
+				ctx.Reply("Usage: .antilink on|off|set null|kick")
 			}
 			return nil
 		},

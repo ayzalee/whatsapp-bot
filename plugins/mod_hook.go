@@ -281,9 +281,11 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		if isBotAdmin() && !isSenderAdmin() {
 			if urlRegex.MatchString(msgText) {
 				revokeMsg(client, evt.Info.Chat, evt.Info.Sender, string(evt.Info.ID))
-				senderJIDStr := evt.Info.Sender.ToNonAD().String()
-				notify := fmt.Sprintf(T().AntilinkNotify, senderUser)
-				sendMentionToChat(client, evt.Info.Chat, notify, []string{senderJIDStr})
+				if mode != "null" {
+					senderJIDStr := evt.Info.Sender.ToNonAD().String()
+					notify := fmt.Sprintf(T().AntilinkNotify, senderUser)
+					sendMentionToChat(client, evt.Info.Chat, notify, []string{senderJIDStr})
+				}
 				if mode == "kick" {
 					client.UpdateGroupParticipants(context.Background(), evt.Info.Chat,
 						[]types.JID{evt.Info.Sender.ToNonAD()}, whatsmeow.ParticipantChangeRemove)
