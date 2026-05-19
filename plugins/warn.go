@@ -24,13 +24,13 @@ func init() {
 					reason = " " + strings.Join(ctx.Args[1:], " ")
 				}
 			}
-			if arg == "" {
-				ctx.Reply(T().WarnUsage)
-				return nil
-			}
 			phone, lid := ResolveTarget(ctx, arg)
 			if phone == "" && lid == "" {
-				ctx.Reply(T().UserResolveFail)
+				if arg == "" {
+					ctx.Reply(T().WarnUsage)
+				} else {
+					ctx.Reply(T().UserResolveFail)
+				}
 				return nil
 			}
 

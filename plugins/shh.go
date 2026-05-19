@@ -27,13 +27,13 @@ func init() {
 				if len(args) > 1 {
 					arg = args[1]
 				}
-				if arg == "" {
-					ctx.Reply(T().ShhOffUsage)
-					return nil
-				}
 				phone, lid := ResolveTarget(ctx, arg)
 				if phone == "" && lid == "" {
-					ctx.Reply(T().UserResolveFail)
+					if arg == "" {
+						ctx.Reply(T().ShhOffUsage)
+					} else {
+						ctx.Reply(T().UserResolveFail)
+					}
 					return nil
 				}
 
@@ -59,9 +59,17 @@ func init() {
 			}
 
 			// Normal: shh user
-			phone, lid := ResolveTarget(ctx, args[0])
+			arg0 := ""
+			if len(args) > 0 {
+				arg0 = args[0]
+			}
+			phone, lid := ResolveTarget(ctx, arg0)
 			if phone == "" && lid == "" {
-				ctx.Reply(T().UserResolveFail)
+				if arg0 == "" {
+					ctx.Reply(T().ShhUsage)
+				} else {
+					ctx.Reply(T().UserResolveFail)
+				}
 				return nil
 			}
 

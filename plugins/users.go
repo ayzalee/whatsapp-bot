@@ -140,12 +140,24 @@ func BootstrapOwnerSudoers() {
 func ResolveTarget(ctx *Context, arg string) (phone, lid string) {
 	// 1. Reply: get the quoted message sender from contextInfo.
 	if arg == "" || strings.EqualFold(arg, "reply") {
-		participant := ctx.Event.Message.GetExtendedTextMessage().GetContextInfo().GetParticipant()
+		var participant string
+		if ci := ctx.Event.Message.GetExtendedTextMessage().GetContextInfo(); ci != nil {
+			participant = ci.GetParticipant()
+		}
+		if participant == "" {
+			if ci := ctx.Event.Message.GetImageMessage().GetContextInfo(); ci != nil {
+				participant = ci.GetParticipant()
+			}
+		}
+		if participant == "" {
+			if ci := ctx.Event.Message.GetVideoMessage().GetContextInfo(); ci != nil {
+				participant = ci.GetParticipant()
+			}
+		}
 		if participant != "" {
 			return resolveJIDString(participant)
 		}
 		if arg != "" {
-			// "reply" was explicit but there is no quoted message.
 			return "", ""
 		}
 	}

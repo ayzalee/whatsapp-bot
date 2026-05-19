@@ -40,13 +40,13 @@ func init() {
 		Category: "group",
 		Func: func(ctx *Context) error {
 			arg := ctx.Text
-			if arg == "" {
-				ctx.Reply(menuHeader("promote") + T().PromoteUsage)
-				return nil
-			}
 			phone, lid := ResolveTarget(ctx, arg)
 			if phone == "" && lid == "" {
-				ctx.Reply(T().UserResolveFail)
+				if arg == "" {
+					ctx.Reply(menuHeader("promote") + T().PromoteUsage)
+				} else {
+					ctx.Reply(T().UserResolveFail)
+				}
 				return nil
 			}
 			group, err := ctx.Client.GetGroupInfo(context.Background(), ctx.Event.Info.Chat)
@@ -85,13 +85,13 @@ func init() {
 		Category: "group",
 		Func: func(ctx *Context) error {
 			arg := ctx.Text
-			if arg == "" {
-				ctx.Reply(menuHeader("demote") + T().DemoteUsage)
-				return nil
-			}
 			phone, lid := ResolveTarget(ctx, arg)
 			if phone == "" && lid == "" {
-				ctx.Reply(T().UserResolveFail)
+				if arg == "" {
+					ctx.Reply(menuHeader("demote") + T().DemoteUsage)
+				} else {
+					ctx.Reply(T().UserResolveFail)
+				}
 				return nil
 			}
 			group, err := ctx.Client.GetGroupInfo(context.Background(), ctx.Event.Info.Chat)
@@ -134,13 +134,13 @@ func init() {
 		Category: "group",
 		Func: func(ctx *Context) error {
 			arg := ctx.Text
-			if arg == "" {
-				ctx.Reply(menuHeader("kick") + T().KickUsage)
-				return nil
-			}
 			phone, lid := ResolveTarget(ctx, arg)
 			if phone == "" && lid == "" {
-				ctx.Reply(T().UserResolveFail)
+				if arg == "" {
+					ctx.Reply(menuHeader("kick") + T().KickUsage)
+				} else {
+					ctx.Reply(T().UserResolveFail)
+				}
 				return nil
 			}
 			group, err := ctx.Client.GetGroupInfo(context.Background(), ctx.Event.Info.Chat)
