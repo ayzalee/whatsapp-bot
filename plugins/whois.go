@@ -79,13 +79,7 @@ if status == "" {
 status = "No status"
 }
 
-caption := fmt.Sprintf(
-"*Number:* %s\n*Name:* %s\n*About:* %s\n*Devices:* %d",
-targetJID.User,
-name,
-status,
-len(info.Devices),
-)
+caption := fmt.Sprintf(T().WhoisCaption, targetJID.User, name, status, len(info.Devices))
 
 // Try to get profile picture
 picInfo, err := ctx.Client.GetProfilePictureInfo(context.Background(), targetJID, &whatsmeow.GetProfilePictureParams{
