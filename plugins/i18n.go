@@ -291,6 +291,12 @@ type Strings struct {
 	MediaProcessing string
 	MediaFailed    string // fmt: error
 	TrimUsage      string
+
+	// channel
+	ChCreateUsage   string
+	ChCreating      string
+	ChCreateOK      string // fmt: name, jid, invite
+	ChCreateFailed  string // fmt: error
 }
 
 // LangNames maps ISO language codes to their native display names.
@@ -543,7 +549,11 @@ var translations = map[string]*Strings{
 		MediaNoReply:      "Reply to an audio or video message.",
 		MediaProcessing:   "⏳ Processing...",
 		MediaFailed:       "Media processing failed: %s",
-		TrimUsage:         "Usage: .trim <start> [end]\nExample: .trim 0:10 1:30",
+		ChCreateUsage:  "Usage: .chcreate <name> | <description>\nExample: .chcreate My Channel | My description",
+			ChCreating:     "Creating channel *%s*...",
+			ChCreateOK:     "Channel created!\n\n*Name:* %s\n*JID:* %s\n*Invite:* https://whatsapp.com/channel/%s",
+			ChCreateFailed: "Failed to create channel: %s",
+			TrimUsage:         "Usage: .trim <start> [end]\nExample: .trim 0:10 1:30",
 	},
 	"es": {
 		Pong:            "Pong",
@@ -740,7 +750,11 @@ var translations = map[string]*Strings{
 		MediaNoReply:      "Responde a un mensaje de audio o vídeo.",
 		MediaProcessing:   "⏳ Procesando...",
 		MediaFailed:       "Error al procesar el medio: %s",
-		TrimUsage:         "Uso: .trim <inicio> [fin]\nEjemplo: .trim 0:10 1:30",
+		ChCreateUsage:  "Uso: .chcreate <nombre> | <descripcion>",
+			ChCreating:     "Creando canal *%s*...",
+			ChCreateOK:     "Canal creado!\n\n*Nombre:* %s\n*JID:* %s\n*Invitacion:* https://whatsapp.com/channel/%s",
+			ChCreateFailed: "Error al crear canal: %s",
+			TrimUsage:         "Uso: .trim <inicio> [fin]\nEjemplo: .trim 0:10 1:30",
 	},
 	"pt": {
 		Pong:            "Pong",
@@ -937,7 +951,11 @@ var translations = map[string]*Strings{
 		MediaNoReply:      "Responda a uma mensagem de áudio ou vídeo.",
 		MediaProcessing:   "⏳ Processando...",
 		MediaFailed:       "Falha ao processar mídia: %s",
-		TrimUsage:         "Uso: .trim <início> [fim]\nExemplo: .trim 0:10 1:30",
+		ChCreateUsage:  "Uso: .chcreate <nome> | <descricao>",
+			ChCreating:     "Criando canal *%s*...",
+			ChCreateOK:     "Canal criado!\n\n*Nome:* %s\n*JID:* %s\n*Convite:* https://whatsapp.com/channel/%s",
+			ChCreateFailed: "Falha ao criar canal: %s",
+			TrimUsage:         "Uso: .trim <início> [fim]\nExemplo: .trim 0:10 1:30",
 	},
 	"ar": {
 		Pong:            "بونغ",
@@ -1124,7 +1142,11 @@ var translations = map[string]*Strings{
 		MediaNoReply:      "ردّ على رسالة صوتية أو مرئية.",
 		MediaProcessing:   "⏳ جارٍ المعالجة...",
 		MediaFailed:       "فشلت معالجة الوسائط: %s",
-		TrimUsage:         "الاستخدام: .trim <بداية> [نهاية]\nمثال: .trim 0:10 1:30",
+		ChCreateUsage:  "الاستخدام: .chcreate <الاسم> | <الوصف>",
+			ChCreating:     "جارٍ إنشاء القناة *%s*...",
+			ChCreateOK:     "تم إنشاء القناة!\n\n*الاسم:* %s\n*JID:* %s\n*الدعوة:* https://whatsapp.com/channel/%s",
+			ChCreateFailed: "فشل إنشاء القناة: %s",
+			TrimUsage:         "الاستخدام: .trim <بداية> [نهاية]\nمثال: .trim 0:10 1:30",
 	},
 	"hi": {
 		Pong:            "पोंग",
@@ -1321,7 +1343,11 @@ var translations = map[string]*Strings{
 		MediaNoReply:      "किसी ऑडियो या वीडियो संदेश का जवाब दें।",
 		MediaProcessing:   "⏳ प्रसंस्करण हो रहा है...",
 		MediaFailed:       "मीडिया प्रसंस्करण विफल: %s",
-		TrimUsage:         "उपयोग: .trim <शुरुआत> [अंत]\nउदाहरण: .trim 0:10 1:30",
+		ChCreateUsage:  "उपयोग: .chcreate <नाम> | <विवरण>",
+			ChCreating:     "चैनल बना रहे हैं *%s*...",
+			ChCreateOK:     "चैनल बनाया गया!\n\n*नाम:* %s\n*JID:* %s\n*आमंत्रण:* https://whatsapp.com/channel/%s",
+			ChCreateFailed: "चैनल बनाने में विफल: %s",
+			TrimUsage:         "उपयोग: .trim <शुरुआत> [अंत]\nउदाहरण: .trim 0:10 1:30",
 	},
 	"fr": {
 		Pong:            "Pong",
@@ -1518,7 +1544,11 @@ var translations = map[string]*Strings{
 		MediaNoReply:      "Répondez à un message audio ou vidéo.",
 		MediaProcessing:   "⏳ Traitement en cours...",
 		MediaFailed:       "Échec du traitement média : %s",
-		TrimUsage:         "Utilisation : .trim <début> [fin]\nExemple : .trim 0:10 1:30",
+		ChCreateUsage:  "Utilisation : .chcreate <nom> | <description>",
+			ChCreating:     "Création du canal *%s*...",
+			ChCreateOK:     "Canal créé !\n\n*Nom :* %s\n*JID :* %s\n*Invitation :* https://whatsapp.com/channel/%s",
+			ChCreateFailed: "Échec de la création du canal : %s",
+			TrimUsage:         "Utilisation : .trim <début> [fin]\nExemple : .trim 0:10 1:30",
 	},
 	"de": {
 		Pong:            "Pong",
@@ -1715,7 +1745,11 @@ var translations = map[string]*Strings{
 		MediaNoReply:      "Antworte auf eine Audio- oder Videonachricht.",
 		MediaProcessing:   "⏳ Verarbeitung läuft...",
 		MediaFailed:       "Medienverarbeitung fehlgeschlagen: %s",
-		TrimUsage:         "Verwendung: .trim <Start> [Ende]\nBeispiel: .trim 0:10 1:30",
+		ChCreateUsage:  "Verwendung: .chcreate <Name> | <Beschreibung>",
+			ChCreating:     "Kanal wird erstellt *%s*...",
+			ChCreateOK:     "Kanal erstellt!\n\n*Name:* %s\n*JID:* %s\n*Einladung:* https://whatsapp.com/channel/%s",
+			ChCreateFailed: "Kanal konnte nicht erstellt werden: %s",
+			TrimUsage:         "Verwendung: .trim <Start> [Ende]\nBeispiel: .trim 0:10 1:30",
 	},
 	"ru": {
 		Pong:            "Понг",
@@ -1912,7 +1946,11 @@ var translations = map[string]*Strings{
 		MediaNoReply:      "Ответьте на аудио- или видеосообщение.",
 		MediaProcessing:   "⏳ Обработка...",
 		MediaFailed:       "Ошибка обработки медиа: %s",
-		TrimUsage:         "Использование: .trim <начало> [конец]\nПример: .trim 0:10 1:30",
+		ChCreateUsage:  "Использование: .chcreate <название> | <описание>",
+			ChCreating:     "Создание канала *%s*...",
+			ChCreateOK:     "Канал создан!\n\n*Название:* %s\n*JID:* %s\n*Приглашение:* https://whatsapp.com/channel/%s",
+			ChCreateFailed: "Не удалось создать канал: %s",
+			TrimUsage:         "Использование: .trim <начало> [конец]\nПример: .trim 0:10 1:30",
 	},
 	"tr": {
 		Pong:            "Pong",
@@ -2109,7 +2147,11 @@ var translations = map[string]*Strings{
 		MediaNoReply:      "Bir ses veya video mesajina yanit verin.",
 		MediaProcessing:   "⏳ Isleniyor...",
 		MediaFailed:       "Medya isleme basarisiz: %s",
-		TrimUsage:         "Kullanim: .trim <baslangic> [bitis]\nOrnek: .trim 0:10 1:30",
+		ChCreateUsage:  "Kullanim: .chcreate <ad> | <aciklama>",
+			ChCreating:     "Kanal olusturuluyor *%s*...",
+			ChCreateOK:     "Kanal olusturuldu!\n\n*Ad:* %s\n*JID:* %s\n*Davet:* https://whatsapp.com/channel/%s",
+			ChCreateFailed: "Kanal olusturulamadi: %s",
+			TrimUsage:         "Kullanim: .trim <baslangic> [bitis]\nOrnek: .trim 0:10 1:30",
 	},
 	"sw": {
 		Pong:            "Pong",
@@ -2306,7 +2348,11 @@ var translations = map[string]*Strings{
 		MediaNoReply:      "Jibu ujumbe wa sauti au video.",
 		MediaProcessing:   "⏳ Inashughulikiwa...",
 		MediaFailed:       "Kushughulikia midia kumeshindwa: %s",
-		TrimUsage:         "Matumizi: .trim <mwanzo> [mwisho]\nMfano: .trim 0:10 1:30",
+		ChCreateUsage:  "Matumizi: .chcreate <jina> | <maelezo>",
+			ChCreating:     "Inaunda channel *%s*...",
+			ChCreateOK:     "Channel imeundwa!\n\n*Jina:* %s\n*JID:* %s\n*Mwaliko:* https://whatsapp.com/channel/%s",
+			ChCreateFailed: "Imeshindwa kuunda channel: %s",
+			TrimUsage:         "Matumizi: .trim <mwanzo> [mwisho]\nMfano: .trim 0:10 1:30",
 	},
 "it": {
 Pong:            "Pong",
