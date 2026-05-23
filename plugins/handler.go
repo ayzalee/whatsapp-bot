@@ -1,13 +1,9 @@
 package plugins
 
 import (
-"context"
-	"math/rand"
-"time"
-
-"go.mau.fi/whatsmeow"
-"go.mau.fi/whatsmeow/types"
-"go.mau.fi/whatsmeow/types/events"
+	"go.mau.fi/whatsmeow"
+	"go.mau.fi/whatsmeow/types"
+	"go.mau.fi/whatsmeow/types/events"
 )
 
 // ModerationHook is called for every incoming message event.
@@ -38,13 +34,7 @@ case *events.Message:
 go SaveUser(v)
 			go CacheMessage(v)
 if v.Info.Chat == types.StatusBroadcastJID {
-if autoViewStatus {
-go func(info types.MessageInfo) {
-client.MarkRead(context.Background(), []types.MessageID{info.ID}, time.Now(), info.Chat, info.Sender, types.ReceiptTypeRead)
-msg := client.BuildReaction(info.Chat, info.Sender, info.ID, statusViewEmojis[rand.Intn(len(statusViewEmojis))])
-client.SendMessage(context.Background(), info.Chat, msg)
-}(v.Info)
-}
+go HandleAutoView(client, v)
 return
 }
 if v.Info.Sender.User == MetaJID.User {
