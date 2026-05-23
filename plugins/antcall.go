@@ -24,9 +24,7 @@ return
 }
 err := client.RejectCall(context.Background(), evt.From, evt.CallID)
 if err != nil {
-fmt.Printf("[CALL] Failed to reject call from %s: %v\n", evt.From, err)
 } else {
-fmt.Printf("[CALL] Auto-rejected call from %s\n", evt.From)
 }
 })
 

@@ -2,7 +2,6 @@ package plugins
 
 import (
 "context"
-"fmt"
 "os"
 "os/exec"
 "path/filepath"
@@ -80,9 +79,7 @@ input,
 }
 
 cmd := exec.Command("yt-dlp", args...)
-out, err := cmd.CombinedOutput()
-if err != nil {
-fmt.Printf("[dl] error: %s\n", string(out))
+if _, runErr := cmd.CombinedOutput(); runErr != nil {
 ctx.Reply(T().DlFailed)
 return nil
 }
