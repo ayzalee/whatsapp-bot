@@ -54,6 +54,8 @@ arg := strings.TrimSpace(ctx.Text)
 if arg == "off" {
 antiDeleteEnabled = false
 antiDeleteJID = ""
+BotSettings.AntiDelete = false
+SaveSettings()
 ctx.Reply(T().AntiDelOff)
 return nil
 }
@@ -72,6 +74,8 @@ antiDeleteJID = ctx.Event.Info.Chat.String()
 antiDeleteEnabled = true
 antiDeleteJID = arg
 }
+BotSettings.AntiDelete = true
+SaveSettings()
 ctx.Reply(fmt.Sprintf(T().AntiDelOn, antiDeleteJID))
 return nil
 }
@@ -309,3 +313,7 @@ id: id,
 }
 }()
 }
+
+func GetAntiDeleteEnabled() bool { return antiDeleteEnabled }
+
+func SetAntiDeleteEnabled(v bool) { antiDeleteEnabled = v }

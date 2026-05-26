@@ -27,6 +27,8 @@ ctx.Reply(T().ReadAlreadyOn)
 return nil
 }
 autoReadMessages = true
+BotSettings.AutoRead = true
+SaveSettings()
 ctx.Reply(T().ReadOn)
 case "off":
 if !autoReadMessages {
@@ -34,6 +36,8 @@ ctx.Reply(T().ReadAlreadyOff)
 return nil
 }
 autoReadMessages = false
+BotSettings.AutoRead = false
+SaveSettings()
 ctx.Reply(T().ReadOff)
 default:
 status := "off"
@@ -56,3 +60,7 @@ return
 }
 client.MarkRead(context.Background(), []types.MessageID{evt.Info.ID}, time.Now(), evt.Info.Chat, evt.Info.Sender)
 }
+
+func GetAutoReadEnabled() bool { return autoReadMessages }
+
+func SetAutoReadEnabled(v bool) { autoReadMessages = v }

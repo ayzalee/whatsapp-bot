@@ -41,6 +41,8 @@ ctx.Reply(T().AntcallAlreadyOn)
 return nil
 }
 autoRejectCalls = true
+BotSettings.CallReject = true
+SaveSettings()
 ctx.Reply(T().AntcallOn)
 case "off":
 if !autoRejectCalls {
@@ -48,6 +50,8 @@ ctx.Reply(T().AntcallAlreadyOff)
 return nil
 }
 autoRejectCalls = false
+BotSettings.CallReject = false
+SaveSettings()
 ctx.Reply(T().AntcallOff)
 default:
 status := "off"

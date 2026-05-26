@@ -50,6 +50,8 @@ switch {
 case lower == "on":
 autoViewStatus = true
 statusForwardJID = ""
+BotSettings.AutoStatusView = true
+SaveSettings()
 ctx.Reply(T().StatusEnabled)
 
 case lower == "off":
@@ -58,6 +60,8 @@ statusForwardJID = ""
 statusNoDL = false
 statusExceptView = nil
 statusOnlyView = nil
+BotSettings.AutoStatusView = false
+SaveSettings()
 ctx.Reply(T().StatusDisabled)
 
 case lower == "no-dl":

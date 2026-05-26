@@ -18,6 +18,9 @@ import (
 
 	"github.com/joho/godotenv"
 	"go.mau.fi/whatsmeow"
+	waProto "go.mau.fi/whatsmeow/proto/waE2E"
+	"go.mau.fi/whatsmeow/types"
+	"google.golang.org/protobuf/proto"
 	waLog "go.mau.fi/whatsmeow/util/log"
 
 	_ "github.com/lib/pq"
@@ -272,6 +275,35 @@ func main() {
 			panic(fmt.Errorf("settings load: %w", err))
 		}
 		plugins.BootstrapOwnerSudoers()
+		go func() {
+			time.Sleep(3 * time.Second)
+			ownerJID, err := types.ParseJID(ownerPhone + "@s.whatsapp.net")
+			if err == nil {
+				prefix := strings.Join(plugins.BotSettings.GetPrefixes(), " ")
+				msg := fmt.Sprintf(
+					"```BOT STARTED```` 🎐\n\n"+
+					"`ᴍᴏᴅᴇ`         : %s\n"+
+					"`ᴘʀᴇғɪx`        : %s\n"+
+					"`ʟᴀɴɢᴜᴀɢᴇ`      : %s\n\n"+
+					"*ᴀʟᴡᴀʏs ᴏɴʟɪɴᴇ*       : %s\n"+
+					"*ᴀᴜᴛᴏ sᴛᴀᴛᴜs ᴠɪᴇᴡ*    : %s\n"+
+					"*ᴀɴᴛɪ ᴅᴇʟᴇᴛᴇ ᴍsɢs*    : %s\n"+
+					"*ᴀᴜᴛᴏ ʀᴇᴊᴇᴄᴛ ᴄᴀʟʟs*   : %s\n"+
+					"*ᴀᴜᴛᴏ ʀᴇᴀᴅ ᴍsɢs*       : %s",
+					string(plugins.BotSettings.GetMode()),
+					prefix,
+					plugins.BotSettings.GetLanguage(),
+					boolEmoji(plugins.BotSettings.AlwaysOnline),
+					boolEmoji(plugins.BotSettings.AutoStatusView),
+					boolEmoji(plugins.GetAntiDeleteEnabled()),
+					boolEmoji(plugins.BotSettings.CallReject),
+					boolEmoji(plugins.GetAutoReadEnabled()),
+				)
+				client.SendMessage(context.Background(), ownerJID, &waProto.Message{
+					Conversation: proto.String(msg),
+				})
+			}
+		}()
 			plugins.ApplyEnvDefaults()
 			if plugins.BotSettings.AlwaysOnline {
 				plugins.StartOnlineLoop(client)
@@ -281,6 +313,12 @@ func main() {
 			}
 			if plugins.BotSettings.CallReject {
 				plugins.SetCallReject(true)
+			}
+			if plugins.BotSettings.AntiDelete {
+				plugins.SetAntiDeleteEnabled(true)
+			}
+			if plugins.BotSettings.AutoRead {
+				plugins.SetAutoReadEnabled(true)
 			}
 		fmt.Println("Already logged in.")
 	}
@@ -481,4 +519,11 @@ func runDeleteSession(ctx context.Context, dialect, dbAddr, phone string, reset 
 
 	fmt.Fprintf(os.Stderr, "No session found for phone number: %s\n", phone)
 	os.Exit(1)
+}
+
+func boolEmoji(b bool) string {
+if b {
+return "✅"
+}
+return "❌"
 }

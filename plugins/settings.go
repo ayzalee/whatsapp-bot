@@ -30,6 +30,8 @@ type Settings struct {
 	AlwaysOnline    bool
 	AutoStatusView  bool
 	CallReject      bool
+	AntiDelete      bool
+	AutoRead        bool
 }
 
 // BotSettings is the global settings instance, seeded with defaults.
@@ -125,6 +127,10 @@ func LoadSettings() error {
 			BotSettings.AutoStatusView = value == "true"
 		case "call_reject":
 			BotSettings.CallReject = value == "true"
+		case "anti_delete":
+			BotSettings.AntiDelete = value == "true"
+		case "auto_read":
+			BotSettings.AutoRead = value == "true"
 		}
 	}
 	return rows.Err()
@@ -166,6 +172,14 @@ func SaveSettings() error {
 	if BotSettings.CallReject {
 		callStr = "true"
 	}
+	antiDelStr := "false"
+	if BotSettings.AntiDelete {
+		antiDelStr = "true"
+	}
+	autoReadStr := "false"
+	if BotSettings.AutoRead {
+		autoReadStr = "true"
+	}
 
 	upsert := `INSERT INTO bot_settings (user, key, value) VALUES (?, ?, ?)
 		ON CONFLICT(user, key) DO UPDATE SET value = excluded.value`
@@ -185,6 +199,8 @@ func SaveSettings() error {
 		{"always_online", onlineStr},
 		{"auto_status_view", statusStr},
 		{"call_reject", callStr},
+		{"anti_delete", antiDelStr},
+		{"auto_read", autoReadStr},
 	} {
 		if _, err = tx.Exec(upsert, settingsUser, row[0], row[1]); err != nil {
 			tx.Rollback()
@@ -276,6 +292,7 @@ func (s *Settings) SetLanguage(lang string) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.Language = lang
+	go SaveSettings()
 }
 
 // DisableCmd adds name (lowercased) to the disabled-commands list.
