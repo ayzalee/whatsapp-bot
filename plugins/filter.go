@@ -34,7 +34,6 @@ func init() {
 	})
 }
 
-// filterHook auto-replies when an incoming message matches a registered filter.
 func filterHook(client *whatsmeow.Client, evt *events.Message) {
 	text := extractMsgText(evt)
 	if text == "" {
@@ -58,7 +57,6 @@ func filterHook(client *whatsmeow.Client, evt *events.Message) {
 	}
 }
 
-// filterListCmd shows all active filters for the current chat.
 func filterListCmd(ctx *Context) error {
 	isGroup := ctx.Event.Info.Chat.Server == types.GroupServer
 	var filters map[string]string
@@ -79,12 +77,10 @@ func filterListCmd(ctx *Context) error {
 	return nil
 }
 
-// gfilterCmd handles .gfilter set/get/del for group-scoped filters.
 func gfilterCmd(ctx *Context) error {
 	return handleFilterCmd(ctx, "group", ctx.Event.Info.Chat.String())
 }
 
-// dfilterCmd handles .dfilter set/get/del for DM-scoped filters.
 func dfilterCmd(ctx *Context) error {
 	return handleFilterCmd(ctx, "dm", "dm")
 }

@@ -47,7 +47,7 @@ func TestDbConfig_FilePrefix(t *testing.T) {
 	if dialect != "sqlite" {
 		t.Fatalf("expected 'sqlite', got %q", dialect)
 	}
-	// Should not double the file: prefix
+	
 	if strings.Count(addr, "file:") != 1 {
 		t.Fatalf("expected exactly one 'file:' in addr, got %q", addr)
 	}

@@ -31,13 +31,10 @@ func init() {
 	})
 }
 
-// quotedMsg returns the quoted message from the event's ContextInfo,
-// or nil if the user did not reply to a message.
 func quotedMsg(ctx *Context) *waProto.Message {
 	return ctx.Event.Message.GetExtendedTextMessage().GetContextInfo().GetQuotedMessage()
 }
 
-// runFFmpeg runs ffmpeg with the given arguments and returns stdout+stderr on failure.
 func runFFmpeg(args ...string) error {
 	cmd := exec.Command("ffmpeg", args...)
 	out, err := cmd.CombinedOutput()
@@ -47,7 +44,6 @@ func runFFmpeg(args ...string) error {
 	return nil
 }
 
-// mp3Cmd converts quoted audio/video to an mp3 file and sends it.
 func mp3Cmd(ctx *Context) error {
 	quoted := quotedMsg(ctx)
 	if quoted == nil {
@@ -55,7 +51,7 @@ func mp3Cmd(ctx *Context) error {
 		return nil
 	}
 
-	// accept audio or video
+	
 	var data []byte
 	var err error
 	if quoted.GetAudioMessage() != nil {
@@ -124,7 +120,6 @@ func mp3Cmd(ctx *Context) error {
 	return nil
 }
 
-// blackCmd converts quoted audio to a black-screen video.
 func blackCmd(ctx *Context) error {
 	quoted := quotedMsg(ctx)
 	if quoted == nil || quoted.GetAudioMessage() == nil {
@@ -198,8 +193,6 @@ func blackCmd(ctx *Context) error {
 	return nil
 }
 
-// trimCmd trims quoted audio or video. Args: <start> [end]
-// Times can be in seconds (e.g., "10") or mm:ss (e.g., "1:30").
 func trimCmd(ctx *Context) error {
 	if len(ctx.Args) < 1 {
 		ctx.Reply(T().TrimUsage)
@@ -292,7 +285,7 @@ func trimCmd(ctx *Context) error {
 		if mime == "" {
 			mime = "audio/mpeg"
 		}
-		// keep ogg/opus as-is if the source was ogg (trim -c copy preserves codec)
+		
 		if strings.HasSuffix(ext, ".mp3") && strings.Contains(mime, "ogg") {
 			outFile = strings.TrimSuffix(outFile, ".mp3") + ".ogg"
 			mime = "audio/ogg; codecs=opus"

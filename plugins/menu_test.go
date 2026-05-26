@@ -5,8 +5,6 @@ import (
 	"testing"
 )
 
-// toFancy ─────────────────────────────────────────────────────────────────────
-
 func TestToFancy_Letters(t *testing.T) {
 	got := toFancy("ping")
 	if got != "ᴘɪɴɢ" {
@@ -40,8 +38,6 @@ func TestToFancy_NonAlpha_PassThrough(t *testing.T) {
 		t.Fatalf("non-alpha char should pass through unchanged, got %q", got)
 	}
 }
-
-// CategoryMenu ────────────────────────────────────────────────────────────────
 
 func TestCategoryMenu_Known(t *testing.T) {
 	result := CategoryMenu("utility")

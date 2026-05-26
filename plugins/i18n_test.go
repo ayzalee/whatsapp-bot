@@ -5,8 +5,6 @@ import (
 	"testing"
 )
 
-// T() ─────────────────────────────────────────────────────────────────────────
-
 func TestT_DefaultIsEnglish(t *testing.T) {
 	BotSettings.SetLanguage("en")
 	s := T()
@@ -59,8 +57,6 @@ func TestT_AllLanguagesHaveRequiredFields(t *testing.T) {
 	}
 }
 
-// availableLangs ──────────────────────────────────────────────────────────────
-
 func TestAvailableLangs_ContainsAllCodes(t *testing.T) {
 	result := availableLangs()
 	for code := range translations {
@@ -79,8 +75,6 @@ func TestAvailableLangs_IsSorted(t *testing.T) {
 		}
 	}
 }
-
-// langList ────────────────────────────────────────────────────────────────────
 
 func TestLangList_Format(t *testing.T) {
 	result := langList()
@@ -102,8 +96,6 @@ func TestLangList_NoTrailingNewline(t *testing.T) {
 		t.Fatal("langList should not end with a newline")
 	}
 }
-
-// LangNames ───────────────────────────────────────────────────────────────────
 
 func TestLangNames_MatchTranslations(t *testing.T) {
 	for code := range translations {

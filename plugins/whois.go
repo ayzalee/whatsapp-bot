@@ -25,7 +25,6 @@ Func:     whoisCmd,
 func whoisCmd(ctx *Context) error {
 var targetJID types.JID
 
-// Get target from reply or mention
 ci := ctx.Event.Message.GetExtendedTextMessage().GetContextInfo()
 if ci.GetParticipant() != "" {
 parsed, err := types.ParseJID(ci.GetParticipant())
@@ -38,7 +37,7 @@ if err == nil {
 targetJID = parsed.ToNonAD()
 }
 } else if ctx.Text != "" {
-// Try parsing as phone number
+
 num := strings.TrimPrefix(strings.TrimSpace(ctx.Text), "+")
 parsed, err := types.ParseJID(num + "@s.whatsapp.net")
 if err == nil {
@@ -50,7 +49,6 @@ if targetJID.IsEmpty() {
 targetJID = ctx.Event.Info.Sender.ToNonAD()
 }
 
-// Get user info
 infoMap, err := ctx.Client.GetUserInfo(context.Background(), []types.JID{targetJID})
 if err != nil {
 ctx.Reply(T().WhoisFailed)
@@ -63,7 +61,6 @@ ctx.Reply(T().WhoisNotFound)
 return nil
 }
 
-// Get contact name from store
 contact, _ := ctx.Client.Store.Contacts.GetContact(context.Background(), targetJID)
 name := contact.FullName
 if name == "" {
@@ -73,7 +70,6 @@ if name == "" {
 name = "Unknown"
 }
 
-// Build caption
 status := info.Status
 if status == "" {
 status = "No status"
@@ -81,18 +77,16 @@ status = "No status"
 
 caption := fmt.Sprintf(T().WhoisCaption, targetJID.User, name, status, len(info.Devices))
 
-// Try to get profile picture
 picInfo, err := ctx.Client.GetProfilePictureInfo(context.Background(), targetJID, &whatsmeow.GetProfilePictureParams{
 Preview: false,
 })
 
 if err != nil || picInfo == nil {
-// No picture — send text only
+
 ctx.Reply(caption)
 return nil
 }
 
-// Download picture
 resp, err := http.Get(picInfo.URL)
 if err != nil {
 ctx.Reply(caption)

@@ -14,8 +14,6 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// isGroupStatusMsg returns true for messages that are group status updates
-// (status mentions, group status posts) that antistatus should remove.
 func isGroupStatusMsg(evt *events.Message) bool {
 	m := evt.Message
 	if m.GetGroupStatusMentionMessage() != nil {
@@ -27,7 +25,7 @@ func isGroupStatusMsg(evt *events.Message) bool {
 	if m.GetGroupStatusMessageV2() != nil {
 		return true
 	}
-	// Also catch via ContextInfo flag.
+	
 	if ci := m.GetExtendedTextMessage().GetContextInfo(); ci != nil && ci.GetIsGroupStatus() {
 		return true
 	}
@@ -77,8 +75,6 @@ func relativeDuration(t time.Time) string {
 	}
 }
 
-// ── antispam state ────────────────────────────────────────────────────────────
-
 var (
 	spamTimestamps = map[string][]time.Time{}
 	spamMsgIDs     = map[string][]string{}
@@ -92,14 +88,12 @@ var (
 	afkCooldownMu sync.Mutex
 )
 
-// ── hook registration ─────────────────────────────────────────────────────────
-
 func init() {
 	RegisterModerationHook(moderationHook)
 }
 
 func moderationHook(client *whatsmeow.Client, evt *events.Message) {
-	// Derive our own phone and LID from the client store.
+	
 	myPhone := ""
 	myLID := ""
 	if client.Store.ID != nil {
@@ -107,8 +101,8 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 	}
 	myLID = client.Store.LID.User
 
-	// Recompute isFromMe: compare sender/senderAlt against our phone and LID.
-	// Guard against empty-string false positives (only compare when non-empty).
+	
+	
 	su := evt.Info.Sender.User
 	sa := evt.Info.SenderAlt.User
 	isFromMe := false
@@ -118,13 +112,13 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 	if !isFromMe && myLID != "" && (su == myLID || sa == myLID) {
 		isFromMe = true
 	}
-	// Fall back to whatsmeow's own flag when we can't determine from store.
+	
 	if myPhone == "" && myLID == "" {
 		isFromMe = evt.Info.IsFromMe
 	}
 
-	// When the owner sends any message, clear their AFK —
-	// but not when they're explicitly setting it.
+	
+	
 	if isFromMe {
 		if ownerPhone != "" {
 			text := extractMsgText(evt)
@@ -142,7 +136,7 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 	isGroup := evt.Info.Chat.Server == types.GroupServer
 	msgText := extractMsgText(evt)
 
-	// ── AFK auto-reply ────────────────────────────────────────────────────────
+	
 	if ownerPhone != "" {
 		if status := getAFK(ownerPhone); status != nil {
 			shouldReply := false
@@ -189,9 +183,9 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		}
 	}
 
-	// ── DM antispam ───────────────────────────────────────────────────────────
+	
 	if !isGroup {
-		// Skip old messages arriving during device sync.
+		
 		if time.Since(evt.Info.Timestamp) > 30*time.Second {
 			return
 		}
@@ -232,7 +226,7 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		return
 	}
 
-	// ── Group-specific moderation ─────────────────────────────────────────────
+	
 	var (
 		participants    []types.GroupParticipant
 		groupInfoLoaded bool
@@ -262,7 +256,7 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		return p != nil && (p.IsAdmin || p.IsSuperAdmin)
 	}
 
-	// 0. antistatus
+	
 	if getAntistatusEnabled(chatJID) && isBotAdmin() && !isSenderAdmin() {
 		if isGroupStatusMsg(evt) {
 			revokeMsg(client, evt.Info.Chat, evt.Info.Sender, string(evt.Info.ID))
@@ -270,13 +264,13 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		}
 	}
 
-	// 1. shh
+	
 	if isShhed(chatJID, senderUser) && isBotAdmin() {
 		revokeMsg(client, evt.Info.Chat, evt.Info.Sender, string(evt.Info.ID))
 		return
 	}
 
-	// 2. antilink
+	
 	if mode := getAntilinkMode(chatJID); mode != "off" && msgText != "" {
 		if isBotAdmin() && !isSenderAdmin() {
 			if urlRegex.MatchString(msgText) {
@@ -295,7 +289,7 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		}
 	}
 
-	// 3. antiword
+	
 	if words := getAntiwords(chatJID); len(words) > 0 && msgText != "" {
 		if isBotAdmin() && !isSenderAdmin() {
 			lower := strings.ToLower(msgText)
@@ -308,9 +302,9 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		}
 	}
 
-	// 4. antispam (group)
+	
 	if getAntispamMode(chatJID) != "off" {
-		// Skip old messages arriving during device sync.
+		
 		if time.Since(evt.Info.Timestamp) <= 30*time.Second && !isAntispamWhitelisted(chatJID, senderUser) {
 			spamKey := chatJID + ":" + senderUser
 			spamMu.Lock()

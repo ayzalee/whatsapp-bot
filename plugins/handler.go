@@ -6,22 +6,18 @@ import (
 	"go.mau.fi/whatsmeow/types/events"
 )
 
-// ModerationHook is called for every incoming message event.
 type ModerationHook func(client *whatsmeow.Client, evt *events.Message)
 
 var modHooks []ModerationHook
 
-// RegisterModerationHook registers fn to run on every incoming message.
 func RegisterModerationHook(fn ModerationHook) {
 modHooks = append(modHooks, fn)
 }
 
-// extractMsgText extracts the human-readable text from a message event.
 func extractMsgText(evt *events.Message) string {
 return extractText(evt)
 }
 
-// NewHandler returns a whatsmeow event handler that drives the plugin system.
 func NewHandler(client *whatsmeow.Client) func(evt any) {
 return func(evt any) {
 switch v := evt.(type) {

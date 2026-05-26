@@ -21,15 +21,8 @@ import (
 	"go.mau.fi/whatsmeow/util/keys"
 )
 
-// ErrInvalidLength is returned by some database getters if the database returned a byte array with an unexpected length.
-// This should be impossible, as the database schema contains CHECK()s for all the relevant columns.
 var ErrInvalidLength = errors.New("database returned byte array with illegal length")
 
-// PostgresArrayWrapper is a function to wrap array values before passing them to the sql package.
-//
-// When using github.com/lib/pq, you should set
-//
-//	whatsmeow.PostgresArrayWrapper = pq.Array
 var PostgresArrayWrapper func(any) interface {
 	driver.Valuer
 	sql.Scanner
@@ -47,10 +40,6 @@ type SQLStore struct {
 	migratedPNSessionsCache *exsync.Set[string]
 }
 
-// NewSQLStore creates a new SQLStore with the given database container and user JID.
-// It contains implementations of all the different stores in the store package.
-//
-// In general, you should use Container.NewDevice or Container.GetDevice instead of this.
 func NewSQLStore(c *Container, jid types.JID) *SQLStore {
 	return &SQLStore{
 		Container:    c,
@@ -92,7 +81,7 @@ func (s *SQLStore) IsTrustedIdentity(ctx context.Context, address string, key [3
 	var existingIdentity []byte
 	err := s.db.QueryRow(ctx, getIdentityQuery, s.JID, address).Scan(&existingIdentity)
 	if errors.Is(err, sql.ErrNoRows) {
-		// Trust if not known, it'll be saved automatically later
+		
 		return true, nil
 	} else if err != nil {
 		return false, err
@@ -505,17 +494,17 @@ func (s *SQLStore) GetAppStateVersion(ctx context.Context, name string) (version
 	var uncheckedHash []byte
 	err = s.db.QueryRow(ctx, getAppStateVersionQuery, s.JID, name).Scan(&version, &uncheckedHash)
 	if errors.Is(err, sql.ErrNoRows) {
-		// version will be 0 and hash will be an empty array, which is the correct initial state
+		
 		err = nil
 	} else if err != nil {
-		// There's an error, just return it
+		
 	} else if len(uncheckedHash) != 128 {
-		// This shouldn't happen
+		
 		err = ErrInvalidLength
 	} else if version == 0 {
 		err = fmt.Errorf("invalid saved app state version 0 for name %s (hash %x)", name, uncheckedHash)
 	} else {
-		// No errors, convert hash slice to array
+		
 		hash = *(*[128]byte)(uncheckedHash)
 	}
 	return
@@ -714,7 +703,7 @@ func (s *SQLStore) PutAllContactNames(ctx context.Context, contacts []store.Cont
 		return err
 	}
 	s.contactCacheLock.Lock()
-	// Just clear the cache, fetching pushnames and business names would be too much effort
+	
 	s.contactCache = make(map[types.JID]*types.ContactInfo)
 	s.contactCacheLock.Unlock()
 	return nil
@@ -1017,8 +1006,8 @@ func (s *SQLStore) ClearBufferedEventPlaintext(ctx context.Context, ciphertextHa
 }
 
 func (s *SQLStore) DeleteOldBufferedHashes(ctx context.Context) error {
-	// The WhatsApp servers only buffer events for 14 days,
-	// so we can safely delete anything older than that.
+	
+	
 	_, err := s.db.Exec(ctx, deleteOldBufferedHashesQuery, time.Now().Add(-14*24*time.Hour).UnixMilli())
 	return err
 }

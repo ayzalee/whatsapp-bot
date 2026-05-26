@@ -6,7 +6,6 @@ import (
 	"strings"
 )
 
-// urlRegex matches HTTP/HTTPS URLs and bare www. links.
 var urlRegex = regexp.MustCompile(`(?i)https?://[^\s]+|www\.[^\s]+`)
 
 func init() {

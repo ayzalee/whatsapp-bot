@@ -16,9 +16,9 @@ waProto "go.mau.fi/whatsmeow/proto/waE2E"
 var (
 autoViewStatus   bool
 statusForwardJID string
-statusNoDL       bool              // don't download/forward media
-statusExceptView []string          // skip viewing these JIDs
-statusOnlyView   []string          // only view these JIDs
+statusNoDL       bool              
+statusExceptView []string          
+statusOnlyView   []string          
 )
 
 var statusViewEmojis = []string{"❤️", "🪻", "🤍", "🎐", "🌸", "💫"}
@@ -106,10 +106,10 @@ autoViewStatus = true
 ctx.Reply(fmt.Sprintf(T().StatusOnly, len(statusOnlyView)))
 
 case len(arg) > 5:
-// Phone number or JID — enable + forward
+
 jid := arg
 if !strings.Contains(jid, "@") {
-// If it looks like a group JID (long number) use @g.us, else @s.whatsapp.net
+
 if len(jid) > 15 {
 jid = jid + "@g.us"
 } else {
@@ -135,7 +135,6 @@ return
 
 senderJID := evt.Info.Sender.String()
 
-// Check only-view filter
 if len(statusOnlyView) > 0 {
 found := false
 for _, j := range statusOnlyView {
@@ -149,17 +148,14 @@ return
 }
 }
 
-// Check except-view filter
 for _, j := range statusExceptView {
 if j == senderJID || strings.HasPrefix(senderJID, strings.TrimSuffix(j, "@s.whatsapp.net")) {
 return
 }
 }
 
-// Mark as viewed
 client.MarkRead(context.Background(), []types.MessageID{evt.Info.ID}, time.Now(), evt.Info.Chat, evt.Info.Sender, types.ReceiptTypeRead)
 
-// React with random emoji
 if len(statusViewEmojis) > 0 {
 emojiIdx := time.Now().UnixNano() % int64(len(statusViewEmojis))
 emoji := statusViewEmojis[emojiIdx]
@@ -167,7 +163,6 @@ reactMsg := client.BuildReaction(evt.Info.Chat, evt.Info.Sender, evt.Info.ID, em
 client.SendMessage(context.Background(), evt.Info.Chat, reactMsg)
 }
 
-// Forward if set and not no-dl
 if statusForwardJID == "" || statusNoDL {
 return
 }

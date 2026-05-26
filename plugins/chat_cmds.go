@@ -73,7 +73,7 @@ func pinToggle(ctx *Context, pin bool) error {
 	msgID := ci.GetStanzaID()
 	participant := ci.GetParticipant()
 
-	// If replying to a message, pin/unpin that specific message.
+	
 	if msgID != "" {
 		var senderJID types.JID
 		if participant != "" {
@@ -98,7 +98,7 @@ func pinToggle(ctx *Context, pin bool) error {
 		}
 
 		pinType := waE2E.PinInChatMessage_PIN_FOR_ALL
-		var duration uint32 = 604800 // 7 days
+		var duration uint32 = 604800 
 		if !pin {
 			pinType = waE2E.PinInChatMessage_UNPIN_FOR_ALL
 			duration = 0
@@ -131,7 +131,7 @@ func pinToggle(ctx *Context, pin bool) error {
 		return nil
 	}
 
-	// No reply — pin/unpin the chat itself.
+	
 	patch := appstate.BuildPin(chat, pin)
 	if err := ctx.Client.SendAppState(context.Background(), patch); err != nil {
 		if pin {

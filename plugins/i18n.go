@@ -5,80 +5,78 @@ import (
 	"strings"
 )
 
-// Strings holds every user-facing message the bot can send.
-// Format-string fields use standard fmt verbs (%s, %d, etc.).
 type Strings struct {
-	// ping
+	
 	Pong        string
-	PongLatency string // fmt: latency in ms (float, e.g. "Pong (1.23ms)")
+	PongLatency string 
 
-	// meta
+	
 	MetaUsage string
 
-	// dispatch
+	
 	GroupOnly string
 	SudoOnly  string
 
-	// setprefix
+	
 	SetPrefixUsage   string
-	SetPrefixUpdated string // fmt: prefix list
-	SaveFailed       string // fmt: error string
+	SetPrefixUpdated string 
+	SaveFailed       string 
 
-	// setsudo / delsudo / getsudo
+	
 	SetSudoUsage  string
 	DelSudoUsage  string
-	SudoAdded     string // fmt: identifier
-	SudoRemoved   string // fmt: identifier
-	SudoNotFound  string // fmt: identifier
-	SudoList      string // fmt: newline-separated list
+	SudoAdded     string 
+	SudoRemoved   string 
+	SudoNotFound  string 
+	SudoList      string 
 	SudoListEmpty string
 	UnknownAction string
 
-	// setmode
+	
 	SetModeUsage   string
 	ModePublicSet  string
 	ModePrivateSet string
 
-	// enablecmd / disablecmd
+	
 	EnableCmdUsage string
 	DisableCmdUsage string
-	CmdEnabled     string // fmt: command name
-	CmdDisabledOK  string // fmt: command name
-	CmdIsDisabled  string // shown when a disabled command is called
-	CmdNotFound    string // fmt: command name
+	CmdEnabled     string 
+	CmdDisabledOK  string 
+	CmdIsDisabled  string 
+	CmdNotFound    string 
 
-	// ban / delban / getban
+	
 	BanUsage    string
 	DelBanUsage string
-	UserBanned  string // fmt: identifier
-	UserUnbanned string // fmt: identifier
-	UserNotBanned string // fmt: identifier
-	BanList     string // fmt: newline-separated list
+	UserBanned  string 
+	UserUnbanned string 
+	UserNotBanned string 
+	BanList     string 
 	BanListEmpty string
 
-	// disablegc / enablegc
+	
 	GCDisabledSet   string
 	GCEnabledSet    string
 	GCAlreadyDisabled string
 	GCAlreadyEnabled  string
 
-	// lang
-	LangCurrent string // fmt: language name
-	LangSet     string // fmt: language name
-	LangUnknown string // fmt: attempted code, available codes
-	LangUsage   string // fmt: available codes
+	
+	LangCurrent string 
+	LangSet     string 
+	LangUnknown string 
+	LangUsage   string 
 
-	// menu
-	MenuGreeting string // fmt: push name
+	
+	MenuGreeting string 
 
-	// shared group/moderation errors
+	
 	UserNotFound    string
 	GroupInfoFailed string
 	UserResolveFail string
 	BotNotAdmin     string
 	SenderNotAdmin  string
 
-	// promote/demote
+	
 	PromoteUsage        string
 	PromoteAlreadyAdmin string
 	PromoteOK           string
@@ -87,14 +85,14 @@ type Strings struct {
 	DemoteSuperAdmin    string
 	DemoteOK            string
 
-	// kick/kickall
+	
 	KickUsage      string
 	KickSuperAdmin string
 	KickOK         string
 	KickAllStart   string
 	KickAllDone    string
 
-	// mute/unmute
+	
 	MuteUsage      string
 	MuteAlready    string
 	MuteOK         string
@@ -102,7 +100,7 @@ type Strings struct {
 	UnmuteNotMuted string
 	UnmuteOK       string
 
-	// messages / active / inactive
+	
 	MessagesEmpty  string
 	MessagesHeader string
 	ActiveHeader   string
@@ -110,13 +108,13 @@ type Strings struct {
 	InactiveHeader string
 	InactiveEmpty  string
 
-	// warn
+	
 	WarnUsage   string
 	WarnText    string
 	WarnKicked  string
 	WarnBlocked string
 
-	// antilink
+	
 	AntilinkUsage      string
 	AntilinkStatus     string
 	AntilinkOff        string
@@ -126,7 +124,7 @@ type Strings struct {
 	AntilinkNotify     string
 	AntilinkSet        string
 
-	// antiword
+	
 	AntiwordUsage       string
 	AntiwordEmpty       string
 	AntiwordList        string
@@ -135,15 +133,15 @@ type Strings struct {
 	AntiwordRemoveUsage string
 	AntiwordRemoved     string
 
-	// afk
+	
 	AFKEnabled    string
 	AFKOff        string
 	AFKNotActive  string
 	AFKSetUsage   string
 	AFKDefaultMsg string
-	AFKAutoReply  string // fmt: lastSeen (time string), message
+	AFKAutoReply  string 
 
-	// antispam
+	
 	AntispamUsage   string
 	AntispamStatus  string
 	AntispamOn      string
@@ -151,7 +149,7 @@ type Strings struct {
 	AntispamAllowed string
 	AntispamWarn    string
 
-	// shh
+	
 	ShhUsage    string
 	ShhAlready  string
 	ShhOK       string
@@ -159,52 +157,52 @@ type Strings struct {
 	ShhNotShhed string
 	ShhOffOK    string
 
-	// block/unblock
+	
 	BlockUsage   string
 	BlockOK      string
 	UnblockUsage string
 	UnblockOK    string
 
-	// newgc
+	
 	NewGCUsage       string
 	NewGCNameTooLong string
 	NewGCCreating    string
 	NewGCSettingDesc string
 	NewGCFetchingIcon string
 	NewGCFetchingLink string
-	NewGCFailed      string // fmt: error
-	NewGCDone        string // fmt: name, invite link
+	NewGCFailed      string 
+	NewGCDone        string 
 	NewGCDefaultDesc string
 
-	// filter / gfilter / dfilter
+	
 	FilterNone     string
-	FilterList     string // fmt: list of entries
+	FilterList     string 
 	FilterSetUsage string
-	FilterSet      string // fmt: keyword
+	FilterSet      string 
 	FilterDelUsage string
-	FilterDeleted  string // fmt: keyword
-	FilterNotFound string // fmt: keyword
+	FilterDeleted  string 
+	FilterNotFound string 
 
-	// antistatus
+	
 	AntistatusOn     string
 	AntistatusOff    string
-	AntistatusNotify string // fmt: user phone/lid
+	AntistatusNotify string 
 
-	// antcall
+	
 	AntcallAlreadyOn  string
 	AntcallOn         string
 	AntcallAlreadyOff string
 	AntcallOff        string
 	AntcallStatus     string
 
-	// online
+	
 	OnlineAlready  string
 	OnlineOn       string
 	OfflineAlready string
 	OnlineOff      string
 	OnlineStatus   string
 
-	// status
+	
 	StatusEnabled     string
 	StatusSkip        string
 	StatusOnly        string
@@ -218,61 +216,61 @@ type Strings struct {
 	StatusOff        string
 	StatusInfo       string
 
-	// read
+	
 	ReadAlreadyOn  string
 	ReadOn         string
 	ReadAlreadyOff string
 	ReadOff        string
 	ReadStatus     string
 
-	// antidelete
+	
 	AntiDelAlreadyOn  string
 	AntiDelOn         string
 	AntiDelOff        string
 	AntiDelStatus     string
 
-	// sticker
+	
 	StickerNoReply string
 	StickerFailed  string
 
-	// whois
+	
 	WhoisNotFound  string
 	WhoisFailed    string
 	WhoisCaption   string
 
-	// invite
+	
 	InviteLink   string
 	InviteFailed string
 
-	// download
+	
 	MediaNotFound string
 	DlUsage       string
 	DlFailed      string
 	DlNoFile      string
 	IgUsage       string
 
-	// del
+	
 	DelUsage string
 
-	// pin/unpin (chat)
+	
 	PinOK       string
 	PinFailed   string
 	UnpinOK     string
 	UnpinFailed string
 
-	// pin/unpin (message)
+	
 	MsgPinOK       string
 	MsgPinFailed   string
 	MsgUnpinOK     string
 	MsgUnpinFailed string
 
-	// archive/unarchive
+	
 	ArchiveOK      string
 	ArchiveFailed  string
 	UnarchiveOK    string
 	UnarchiveFailed string
 
-	// star/unstar
+	
 	StarUsage   string
 	StarOK      string
 	StarFailed  string
@@ -280,26 +278,26 @@ type Strings struct {
 	UnstarOK    string
 	UnstarFailed string
 
-	// leave
+	
 	LeaveOK string
 
-	// clear
+	
 	ClearOK     string
 	ClearFailed string
 
-	// report
+	
 	ReportUsage   string
-	ReportDone    string // fmt: report ID
+	ReportDone    string 
 	ReportDoneNoID string
-	ReportFailed  string // fmt: error
+	ReportFailed  string 
 
-	// media (mp3 / black / trim)
+	
 	MediaNoReply   string
 	MediaProcessing string
-	MediaFailed    string // fmt: error
+	MediaFailed    string 
 	TrimUsage      string
 
-	// extplugin
+	
 	PluginRemoveUsage   string
 	PluginNotFound      string
 	PluginRemoveFail    string
@@ -318,14 +316,13 @@ type Strings struct {
 	PluginNone          string
 	PluginList          string
 
-	// channel
+	
 	ChCreateUsage   string
 	ChCreating      string
-	ChCreateOK      string // fmt: name, jid, invite
-	ChCreateFailed  string // fmt: error
+	ChCreateOK      string 
+	ChCreateFailed  string 
 }
 
-// LangNames maps ISO language codes to their native display names.
 var LangNames = map[string]string{
 	"en": "English",
 	"es": "Español",
@@ -340,8 +337,6 @@ var LangNames = map[string]string{
 	"it": "Italiano",
 }
 
-// availableLangs returns an alphabetically sorted, comma-separated list of
-// all registered language codes.
 func availableLangs() string {
 	codes := make([]string, 0, len(translations))
 	for code := range translations {
@@ -351,8 +346,6 @@ func availableLangs() string {
 	return strings.Join(codes, ", ")
 }
 
-// langList returns a formatted list of all supported languages, one per line,
-// in the form "English - en".
 func langList() string {
 	codes := make([]string, 0, len(LangNames))
 	for code := range LangNames {
@@ -366,8 +359,6 @@ func langList() string {
 	return strings.TrimRight(b.String(), "\n")
 }
 
-// T returns the Strings set for the current bot language, falling back to
-// English when the stored code has no registered translation.
 func T() *Strings {
 	lang := BotSettings.GetLanguage()
 	if s, ok := translations[lang]; ok {
@@ -376,7 +367,6 @@ func T() *Strings {
 	return translations["en"]
 }
 
-// translations is the registry of all supported languages.
 var translations = map[string]*Strings{
 	"en": {
 		Pong:            "Pong",

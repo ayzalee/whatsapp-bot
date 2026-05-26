@@ -98,7 +98,7 @@ func (s *CachedLIDMap) getLIDMapping(ctx context.Context, source types.JID, targ
 	defer s.lidCacheLock.Unlock()
 	err := s.db.QueryRow(ctx, query, source.User).Scan(&targetUser)
 	if errors.Is(err, sql.ErrNoRows) {
-		// continue with empty result
+		
 	} else if err != nil {
 		return types.JID{}, err
 	}

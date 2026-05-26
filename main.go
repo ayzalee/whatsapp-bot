@@ -27,18 +27,11 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-// sourceDir is injected at build time via:
-//
-//	-ldflags "-X main.sourceDir=/path/to/src"
 var sourceDir string
 
-// ── CLI presentation helpers ──────────────────────────────────────────────────
-
-// startSpinner prints a rotating spinner with msg until the returned stop
-// function is called. stop(done) clears the line and prints done.
 func startSpinner(msg string) func(done string) {
 	frames := []byte{'|', '/', '-', '\\'}
-	stop := make(chan string) // unbuffered — send blocks until goroutine receives
+	stop := make(chan string) 
 	finished := make(chan struct{})
 	go func() {
 		i := 0
@@ -57,13 +50,11 @@ func startSpinner(msg string) func(done string) {
 		}
 	}()
 	return func(doneMsg string) {
-		stop <- doneMsg // blocks until goroutine receives and clears the line
-		<-finished      // blocks until done message is printed
+		stop <- doneMsg 
+		<-finished      
 	}
 }
 
-// cliProgress prints an in-place progress bar.
-// When pct == 100 it prints a newline to finalise the line.
 func cliProgress(pct int, label string) {
 	const w = 28
 	filled := w * pct / 100
@@ -75,7 +66,6 @@ func cliProgress(pct int, label string) {
 	}
 }
 
-// printHelp prints a formatted usage/help screen and exits.
 func printHelp() {
 	fmt.Print(`
  ╔══════════════════════════════════════════╗
@@ -110,9 +100,6 @@ func loadEnv() {
 	}
 }
 
-// dbConfig returns the sql dialect and connection address derived from DATABASE_URL.
-// A bare filename (no scheme) or a path ending in .db is treated as SQLite;
-// anything starting with postgres:// or postgresql:// is treated as PostgreSQL.
 func dbConfig() (dialect, addr string) {
 	url := os.Getenv("DATABASE_URL")
 	if url == "" {
@@ -123,8 +110,8 @@ func dbConfig() (dialect, addr string) {
 		return "postgres", url
 	}
 
-	// SQLite – build the connection string with recommended pragmas.
-	// Strip a leading "file:" if present so we can normalise the path.
+	
+	
 	path := strings.TrimPrefix(url, "file:")
 	addr = "file:" + path +
 		"?_pragma=foreign_keys(1)" +
@@ -137,9 +124,6 @@ func dbConfig() (dialect, addr string) {
 	return "sqlite", addr
 }
 
-// getDevice returns the device for the given phone number.
-// If phone is empty it falls back to the first stored device (or a new one).
-// If phone is provided and no matching device exists, a new (unpaired) device is returned.
 func getDevice(ctx context.Context, container *sqlstore.Container, phone string) (*store.Device, error) {
 	if phone == "" {
 		return container.GetFirstDevice(ctx)
@@ -153,20 +137,20 @@ func getDevice(ctx context.Context, container *sqlstore.Container, phone string)
 		if dev.ID == nil {
 			continue
 		}
-		// Device JID User field may be "phone.deviceIndex" – compare only the phone part.
+		
 		userPhone := strings.SplitN(dev.ID.User, ".", 2)[0]
 		if userPhone == phone {
 			return dev, nil
 		}
 	}
-	// No existing session for this number – return a fresh device for pairing.
+	
 	return container.NewDevice(), nil
 }
 
 func main() {
 	loadEnv()
 
-	// ── CLI flags ────────────────────────────────────────────────────────────
+	
 	flag.Usage = printHelp
 	helpFlag := flag.Bool("help", false, "")
 	phoneArg := flag.String("phone-number", "", "Phone number (international format) used to identify or pair a device")
@@ -182,7 +166,7 @@ func main() {
 
 	ctx := context.Background()
 
-	// ── Management commands (exit after completion) ───────────────────────────
+	
 	if *updateFlag {
 		runUpdate()
 		return
@@ -203,7 +187,7 @@ func main() {
 		return
 	}
 
-	// ── Normal bot startup ────────────────────────────────────────────────────
+	
 	dbLog := waLog.Stdout("Database", "ERROR", true)
 
 	container, err := sqlstore.New(ctx, dialect, dbAddr, dbLog)
@@ -227,13 +211,13 @@ func main() {
 	client.UseRetryMessageStore = true
 	client.AddEventHandler(plugins.NewHandler(client))
 
-	// Pre-warm LID↔PN in-memory cache so DM sends don't pay per-lookup
-	// SQLite overhead on first contact.
+	
+	
 	if err := container.LIDMap.FillCache(ctx); err != nil {
 		fmt.Fprintf(os.Stderr, "warn: FillCache: %v\n", err)
 	}
 
-	// Wire update command with source dir and restart capability.
+	
 	plugins.InitSourceDir(sourceDir)
 	plugins.SetRestartFunc(func() {
 		client.Disconnect()
@@ -330,10 +314,6 @@ func main() {
 	client.Disconnect()
 }
 
-// ── Management command handlers ───────────────────────────────────────────────
-
-// candidateSourceDirs returns the standard install-time source directories
-// to check when the binary was not built with -X main.sourceDir.
 func candidateSourceDirs() []string {
 	candidates := []string{"/opt/zaelix/src"}
 	if pd := os.Getenv("ProgramData"); pd != "" {
@@ -345,8 +325,6 @@ func candidateSourceDirs() []string {
 	return candidates
 }
 
-// resolveSourceDir returns sourceDir if set, otherwise searches well-known
-// install locations for a valid git repository.
 func resolveSourceDir() string {
 	if sourceDir != "" {
 		return sourceDir
@@ -359,7 +337,6 @@ func resolveSourceDir() string {
 	return ""
 }
 
-// runUpdate pulls the latest source and rebuilds the binary in-place.
 func runUpdate() {
 	src := resolveSourceDir()
 	if src == "" {
@@ -378,7 +355,7 @@ func runUpdate() {
 	}
 	cliProgress(15, "Fetch complete")
 
-	// Check if there is anything to pull.
+	
 	countOut, _ := exec.Command("git", "-C", sourceDir, "rev-list", "HEAD..FETCH_HEAD", "--count").Output()
 	if strings.TrimSpace(string(countOut)) == "0" {
 		cliProgress(100, "Already up to date.")
@@ -417,7 +394,7 @@ func runUpdate() {
 		buildDone <- cmd.Run()
 	}()
 
-	// Animate 52→88% while build runs (tick every 500ms).
+	
 	ticker := time.NewTicker(500 * time.Millisecond)
 	pct := 52
 	var buildErr error
@@ -450,7 +427,6 @@ buildLoop:
 	cliProgress(100, "Zaelix updated successfully.")
 }
 
-// runListSessions opens the database and prints all paired sessions.
 func runListSessions(ctx context.Context, dialect, dbAddr string) {
 	dbLog := waLog.Stdout("Database", "ERROR", true)
 	container, err := sqlstore.New(ctx, dialect, dbAddr, dbLog)
@@ -483,8 +459,6 @@ func runListSessions(ctx context.Context, dialect, dbAddr string) {
 	}
 }
 
-// runDeleteSession removes the stored session for the given phone number.
-// When reset is true the message instructs the user to re-pair.
 func runDeleteSession(ctx context.Context, dialect, dbAddr, phone string, reset bool) {
 	dbLog := waLog.Stdout("Database", "ERROR", true)
 	container, err := sqlstore.New(ctx, dialect, dbAddr, dbLog)

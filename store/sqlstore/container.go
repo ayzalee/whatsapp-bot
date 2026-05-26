@@ -20,7 +20,6 @@ import (
 	waLog "go.mau.fi/whatsmeow/util/log"
 )
 
-// Container is a wrapper for a SQL database that can contain multiple whatsmeow sessions.
 type Container struct {
 	db     *dbutil.Database
 	log    waLog.Logger
@@ -29,15 +28,6 @@ type Container struct {
 
 var _ store.DeviceContainer = (*Container)(nil)
 
-// New connects to the given SQL database and wraps it in a Container.
-//
-// Only SQLite and Postgres are currently fully supported.
-//
-// The logger can be nil and will default to a no-op logger.
-//
-// When using SQLite, it's strongly recommended to enable foreign keys by adding `?_foreign_keys=true`:
-//
-//	container, err := sqlstore.New(context.Background(), "sqlite3", "file:yoursqlitefile.db?_foreign_keys=on", nil)
 func New(ctx context.Context, dialect, address string, log waLog.Logger) (*Container, error) {
 	db, err := sql.Open(dialect, address)
 	if err != nil {
@@ -51,28 +41,10 @@ func New(ctx context.Context, dialect, address string, log waLog.Logger) (*Conta
 	return container, nil
 }
 
-// NewWithDB wraps an existing SQL connection in a Container.
-//
-// Only SQLite and Postgres are currently fully supported.
-//
-// The logger can be nil and will default to a no-op logger.
-//
-// When using SQLite, it's strongly recommended to enable foreign keys by adding `?_foreign_keys=true`:
-//
-//	db, err := sql.Open("sqlite3", "file:yoursqlitefile.db?_foreign_keys=on")
-//	if err != nil {
-//	    panic(err)
-//	}
-//	container := sqlstore.NewWithDB(db, "sqlite3", nil)
-//
-// This method does not call Upgrade automatically like New does, so you must call it yourself:
-//
-//	container := sqlstore.NewWithDB(...)
-//	err := container.Upgrade()
 func NewWithDB(db *sql.DB, dialect string, log waLog.Logger) *Container {
 	wrapped, err := dbutil.NewWithDB(db, dialect)
 	if err != nil {
-		// This will only panic if the dialect is invalid
+		
 		panic(err)
 	}
 	wrapped.UpgradeTable = upgrades.Table
@@ -91,7 +63,6 @@ func NewWithWrappedDB(wrapped *dbutil.Database, log waLog.Logger) *Container {
 	}
 }
 
-// Upgrade upgrades the database from the current to the latest version available.
 func (c *Container) Upgrade(ctx context.Context) error {
 	if c.db.Dialect == dbutil.SQLite {
 		var foreignKeysEnabled bool
@@ -147,7 +118,6 @@ func (c *Container) scanDevice(row dbutil.Scannable) (*store.Device, error) {
 	return &device, nil
 }
 
-// GetAllDevices finds all the devices in the database.
 func (c *Container) GetAllDevices(ctx context.Context) ([]*store.Device, error) {
 	res, err := c.db.Query(ctx, getAllDevicesQuery)
 	if err != nil {
@@ -164,9 +134,6 @@ func (c *Container) GetAllDevices(ctx context.Context) ([]*store.Device, error) 
 	return sessions, nil
 }
 
-// GetFirstDevice is a convenience method for getting the first device in the store. If there are
-// no devices, then a new device will be created. You should only use this if you don't want to
-// have multiple sessions simultaneously.
 func (c *Container) GetFirstDevice(ctx context.Context) (*store.Device, error) {
 	devices, err := c.GetAllDevices(ctx)
 	if err != nil {
@@ -179,11 +146,6 @@ func (c *Container) GetFirstDevice(ctx context.Context) (*store.Device, error) {
 	}
 }
 
-// GetDevice finds the device with the specified JID in the database.
-//
-// If the device is not found, nil is returned instead.
-//
-// Note that the parameter usually must be an AD-JID.
 func (c *Container) GetDevice(ctx context.Context, jid types.JID) (*store.Device, error) {
 	sess, err := c.scanDevice(c.db.QueryRow(ctx, getDeviceQuery, jid))
 	if errors.Is(err, sql.ErrNoRows) {
@@ -209,10 +171,6 @@ const (
 	deleteDeviceQuery = `DELETE FROM device WHERE jid=$1`
 )
 
-// NewDevice creates a new device in this database.
-//
-// No data is actually stored before Save is called. However, the pairing process will automatically
-// call Save after a successful pairing, so you most likely don't need to call it yourself.
 func (c *Container) NewDevice() *store.Device {
 	device := &store.Device{
 		Log:       c.log,
@@ -227,10 +185,8 @@ func (c *Container) NewDevice() *store.Device {
 	return device
 }
 
-// ErrDeviceIDMustBeSet is the error returned by PutDevice if you try to save a device before knowing its JID.
 var ErrDeviceIDMustBeSet = errors.New("device JID must be known before accessing database")
 
-// Close will close the container's database
 func (c *Container) Close() error {
 	if c != nil && c.db != nil {
 		return c.db.Close()
@@ -238,14 +194,10 @@ func (c *Container) Close() error {
 	return nil
 }
 
-// DB returns the underlying *sql.DB so callers can run their own queries
-// against the same connection (e.g. for the bot_settings table).
 func (c *Container) DB() *sql.DB {
 	return c.db.RawDB
 }
 
-// PutDevice stores the given device in this database. This should be called through Device.Save()
-// (which usually doesn't need to be called manually, as the library does that automatically when relevant).
 func (c *Container) PutDevice(ctx context.Context, device *store.Device) error {
 	if device.ID == nil {
 		return ErrDeviceIDMustBeSet
@@ -282,7 +234,6 @@ func (c *Container) initializeDevice(device *store.Device) {
 	device.Initialized = true
 }
 
-// DeleteDevice deletes the given device from this database. This should be called through Device.Delete()
 func (c *Container) DeleteDevice(ctx context.Context, store *store.Device) error {
 	if store.ID == nil {
 		return ErrDeviceIDMustBeSet

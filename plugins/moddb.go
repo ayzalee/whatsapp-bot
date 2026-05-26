@@ -61,8 +61,6 @@ func initModTables() error {
 	return nil
 }
 
-// ── warns ─────────────────────────────────────────────────────────────────────
-
 func addWarn(chatJID, userID string) int {
 	settingsDB.Exec(
 		`INSERT INTO warns (chat_jid, user_id, count) VALUES (?, ?, 1)
@@ -84,8 +82,6 @@ func getWarnCount(chatJID, userID string) int {
 	return n
 }
 
-// ── shh ───────────────────────────────────────────────────────────────────────
-
 func isShhed(chatJID, userID string) bool {
 	var dummy string
 	err := settingsDB.QueryRow(
@@ -106,8 +102,6 @@ func setUnShh(chatJID, userID string) {
 	)
 }
 
-// ── antilink ──────────────────────────────────────────────────────────────────
-
 func getAntilinkMode(chatJID string) string {
 	var mode string
 	if err := settingsDB.QueryRow(
@@ -125,8 +119,6 @@ func setAntilinkMode(chatJID, mode string) {
 		chatJID, mode,
 	)
 }
-
-// ── antiword ──────────────────────────────────────────────────────────────────
 
 func getAntiwords(chatJID string) []string {
 	rows, err := settingsDB.Query(
@@ -157,8 +149,6 @@ func removeAntiword(chatJID, word string) {
 		`DELETE FROM antiword_settings WHERE chat_jid = ? AND word = ?`, chatJID, word,
 	)
 }
-
-// ── antispam ──────────────────────────────────────────────────────────────────
 
 func getAntispamMode(chatJID string) string {
 	var mode string
@@ -198,9 +188,6 @@ func setAntispamWhitelist(chatJID, userID string, allow bool) {
 	}
 }
 
-// ── AFK ───────────────────────────────────────────────────────────────────────
-
-// AFKStatus holds an active AFK entry.
 type AFKStatus struct {
 	Message string
 	SetAt   time.Time
@@ -229,8 +216,6 @@ func setAFK(userID, message string) {
 func clearAFK(userID string) {
 	settingsDB.Exec(`DELETE FROM afk_status WHERE user_id = ?`, userID)
 }
-
-// ── filters ───────────────────────────────────────────────────────────────────
 
 func getFilters(scope, chatJID string) map[string]string {
 	rows, err := settingsDB.Query(
@@ -288,8 +273,6 @@ func matchFilter(scope, chatJID, text string) (response string, found bool) {
 	}
 	return "", false
 }
-
-// ── antistatus ────────────────────────────────────────────────────────────────
 
 func getAntistatusEnabled(chatJID string) bool {
 	var enabled int

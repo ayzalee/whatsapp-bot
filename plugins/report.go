@@ -42,7 +42,7 @@ func reportCmd(ctx *Context) error {
 
 	ts := uint64(ctx.Event.Info.Timestamp.Unix())
 
-	// Build the spam_list node matching WhatsApp's wire format.
+	
 	msgAttrs := waBinary.Attrs{
 		"id": msgID,
 		"t":  strconv.FormatUint(ts, 10),
@@ -70,11 +70,11 @@ func reportCmd(ctx *Context) error {
 		},
 	}
 
-	// whatsmeow has no stable public API for sending arbitrary IQ stanzas;
-	// DangerousInternals is the only available escape hatch.
-	//nolint:staticcheck
+	
+	
+	
 	internal := ctx.Client.DangerousInternals()
-	resp, err := internal.SendIQ(context.Background(), whatsmeow.DangerousInfoQuery{ //nolint:staticcheck
+	resp, err := internal.SendIQ(context.Background(), whatsmeow.DangerousInfoQuery{ 
 		Namespace: "spam",
 		Type:      "set",
 		To:        types.ServerJID,

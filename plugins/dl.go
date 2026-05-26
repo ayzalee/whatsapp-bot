@@ -42,7 +42,7 @@ isAudio := false
 isURL := strings.HasPrefix(input, "http://") || strings.HasPrefix(input, "https://")
 
 if strings.HasPrefix(input, "mp3 ") {
-// Audio from URL
+
 isAudio = true
 url := strings.TrimPrefix(input, "mp3 ")
 args = []string{
@@ -54,7 +54,7 @@ args = []string{
 url,
 }
 } else if isURL {
-// Video from URL
+
 args = []string{
 "-f", "best[ext=mp4]/best",
 "--no-playlist",
@@ -65,7 +65,7 @@ args = []string{
 input,
 }
 } else {
-// Search by name — download as audio (song)
+
 isAudio = true
 args = []string{
 "-f", "bestaudio/best",

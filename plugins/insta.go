@@ -35,8 +35,6 @@ ctx.Reply(T().IgUsage)
 return nil
 }
 
-
-
 apiURL := "https://api-25ca.onrender.com/api/instagram?url=" + url.QueryEscape(link)
 resp, err := http.Get(apiURL)
 if err != nil {
@@ -64,7 +62,6 @@ return nil
 }
 videoURL := result.Result[0]
 
-// Download video bytes
 vResp, err := http.Get(videoURL)
 if err != nil {
 ctx.Reply(fmt.Sprintf("❌ Failed to download video: %v", err))
@@ -77,7 +74,6 @@ ctx.Reply(fmt.Sprintf("❌ Failed to read video: %v", err))
 return nil
 }
 
-// Upload to WhatsApp
 uploaded, err := ctx.Client.Upload(context.Background(), videoBytes, whatsmeow.MediaVideo)
 if err != nil {
 ctx.Reply(fmt.Sprintf("❌ Failed to upload: %v", err))

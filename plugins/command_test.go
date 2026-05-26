@@ -4,8 +4,6 @@ import (
 	"testing"
 )
 
-// parseCommand ────────────────────────────────────────────────────────────────
-
 func TestParseCommand_BasicMatch(t *testing.T) {
 	prefix, name, rest, ok := parseCommand(".ping", []string{"."})
 	if !ok || prefix != "." || name != "ping" || rest != "" {
@@ -62,8 +60,6 @@ func TestParseCommand_CaseInsensitive(t *testing.T) {
 	}
 }
 
-// findCommand / Register ──────────────────────────────────────────────────────
-
 func TestFindCommand_ByPattern(t *testing.T) {
 	if findCommand("ping") == nil {
 		t.Fatal("expected to find 'ping' command")
@@ -97,7 +93,7 @@ func TestFindCommand_NotFound(t *testing.T) {
 }
 
 func TestRegister_MapsPopulated(t *testing.T) {
-	// registryMap and categoryMap are built during init(); verify both.
+	
 	if len(registryMap) == 0 {
 		t.Fatal("registryMap is empty after init")
 	}

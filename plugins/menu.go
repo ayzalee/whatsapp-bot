@@ -103,7 +103,6 @@ totalCmds := len(registry)
 
 var sb strings.Builder
 
-// Header
 prefix := strings.Join(BotSettings.GetPrefixes(), " ")
 sb.WriteString("╭═══〔 𝐙ᴀᴇʟɪx 〕═══⊷\n")
 sb.WriteString("┃❒╭──────────────\n")
@@ -119,7 +118,6 @@ sb.WriteString("┃❒│ *ᴘʟᴀᴛғᴏʀᴍ* : `" + getOS() + "`\n")
 sb.WriteString("┃❒╰──────────────\n")
 sb.WriteString("╰═════════════════⊷\n")
 
-// Categories
 var catOrder []string
 catMap := map[string][]*Command{}
 for _, cmd := range registry {
@@ -138,8 +136,6 @@ sb.WriteString("\n╭─〔 *✦ " + toFancy(cat) + " ✦* 〕\n")
 sb.WriteString(cmdLines(catMap[cat]))
 sb.WriteString("╰────────────────⊷\n")
 }
-
-
 
 ctx.Reply(strings.TrimRight(sb.String(), "\n"))
 return nil

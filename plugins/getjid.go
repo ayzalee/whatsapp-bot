@@ -9,10 +9,10 @@ Category: "utility",
 Func: func(ctx *Context) error {
 quoted := quotedMsg(ctx)
 if quoted != nil {
-// Get phone from SenderAlt (real phone number)
+
 phone := ctx.Event.Info.SenderAlt.User
 if phone == "" {
-// Try to resolve LID to phone
+
 phone = GetAltID(ctx.Event.Info.Sender.String())
 }
 if phone == "" {

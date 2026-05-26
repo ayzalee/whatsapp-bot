@@ -101,12 +101,12 @@ func init() {
 			copy(all, BotSettings.Sudoers)
 			BotSettings.mu.RUnlock()
 
-			// Only show phone-number entries; skip LID entries (those whose
-			// reverse lookup returns a phone, meaning they ARE a LID).
+			
+			
 			var phones []string
 			for _, s := range all {
 				if GetAltID(s+"@lid") == "" {
-					// Can't resolve s as a LID → treat it as a phone.
+					
 					phones = append(phones, s)
 				}
 			}
@@ -285,7 +285,7 @@ func init() {
 			copy(all, BotSettings.BannedUsers)
 			BotSettings.mu.RUnlock()
 
-			// Filter out LID entries — only show phone numbers.
+			
 			var phones []string
 			for _, s := range all {
 				if GetAltID(s+"@lid") == "" {
@@ -303,21 +303,17 @@ func init() {
 	})
 }
 
-// resolveSudoTarget resolves the target for setsudo/delsudo/ban/delban.
-// Priority:
-//  1. DM with no arg → the chat partner.
-//  2. arg provided → ResolveTarget (reply/mention/phone/LID).
 func resolveSudoTarget(ctx *Context, arg string) (phone, lid string) {
 	arg = strings.TrimSpace(arg)
 
-	// Auto-target the DM chat partner when no argument is given.
+	
 	if arg == "" && !ctx.Event.Info.IsGroup {
 		chat := ctx.Event.Info.Chat
 		if chat.Server == types.HiddenUserServer {
 			phone, lid = resolveJIDString(chat.String())
 			if phone == "" && lid == "" {
-				// LID not in store yet; use the raw LID user part so we can
-				// still add it to sudoers before the mapping is saved.
+				
+				
 				lid = chat.User
 			}
 		}

@@ -20,7 +20,6 @@ func init() {
 	})
 }
 
-// isOwnJID reports whether userPart belongs to the bot owner.
 func isOwnJID(client *whatsmeow.Client, userPart string) bool {
 	if userPart == "" {
 		return false
@@ -58,15 +57,15 @@ func delCmd(ctx *Context) error {
 		}
 	}
 
-	// Determine whether the quoted message was sent by the bot owner.
+	
 	targetIsOwn := isOwnJID(ctx.Client, targetSender.User)
 
-	// Per docs:
-	//   - Own messages:             BuildRevoke(chat, types.EmptyJID, msgID) → send to chat
-	//   - Others' messages (admin): BuildRevoke(chat, senderJID,     msgID) → send to chat
-	//   - Delete for me:            BuildRevoke(chat, senderJID,     msgID) → send to self
+	
+	
+	
+	
 	if targetIsOwn {
-		// Revoking our own message — works in any context.
+		
 		ctx.Client.SendMessage(context.Background(), chat,
 			ctx.Client.BuildRevoke(chat, types.EmptyJID, msgID))
 		return nil
@@ -78,22 +77,20 @@ func delCmd(ctx *Context) error {
 			botAdmin = botIsAdmin(gi.Participants, ownerPhone, ctx.Client.Store.ID.ToNonAD().User)
 		}
 		if botAdmin {
-			// Delete for everyone.
+			
 			ctx.Client.SendMessage(context.Background(), chat,
 				ctx.Client.BuildRevoke(chat, targetSender, msgID))
 		} else {
-			// Not admin — delete for me only.
+			
 			deleteForMe(ctx, chat, msgID, targetIsOwn, 0)
 		}
 	} else {
-		// DM from someone else → delete for me via app state.
+		
 		deleteForMe(ctx, chat, msgID, false, 0)
 	}
 	return nil
 }
 
-// deleteForMe sends a deleteMessageForMeAction app state patch so WhatsApp
-// removes the message only on the owner's devices.
 func deleteForMe(ctx *Context, chatJID types.JID, msgID types.MessageID, fromMe bool, timestampUnix int64) {
 	fromMeStr := "0"
 	if fromMe {

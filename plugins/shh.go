@@ -21,7 +21,7 @@ func init() {
 				return nil
 			}
 
-			// "off user" → unshh
+			
 			if strings.ToLower(args[0]) == "off" {
 				arg := ""
 				if len(args) > 1 {
@@ -58,7 +58,7 @@ func init() {
 				return nil
 			}
 
-			// Normal: shh user
+			
 			arg0 := ""
 			if len(args) > 0 {
 				arg0 = args[0]

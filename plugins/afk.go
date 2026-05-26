@@ -16,7 +16,7 @@ ctx.Reply(menuHeader("afk") + "on — enable AFK\noff — disable AFK\nset <mess
 return nil
 }
 sub := strings.ToLower(args[0])
-// Always key AFK by ownerPhone since the bot is the owner.
+
 userKey := ownerPhone
 if userKey == "" {
 userKey = ctx.Event.Info.Sender.User

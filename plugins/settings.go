@@ -9,7 +9,6 @@ import (
 	"sync"
 )
 
-// Mode controls who can use bot commands.
 type Mode string
 
 const (
@@ -17,7 +16,6 @@ const (
 	ModePrivate Mode = "private"
 )
 
-// Settings holds the in-memory bot configuration.
 type Settings struct {
 	mu           sync.RWMutex
 	Prefixes     []string
@@ -34,7 +32,6 @@ type Settings struct {
 	AutoRead        bool
 }
 
-// BotSettings is the global settings instance, seeded with defaults.
 var BotSettings = &Settings{
 	Prefixes: []string{"."},
 	Sudoers:  []string{},
@@ -43,10 +40,8 @@ var BotSettings = &Settings{
 }
 
 var settingsDB   *sql.DB
-var settingsUser string // bare phone number of the bot owner
+var settingsUser string 
 
-// InitDB creates the bot_settings table if it doesn't exist.
-// Call this as soon as the database is available (before Connect).
 func InitDB(db *sql.DB) error {
 	settingsDB = db
 	_, err := db.Exec(`CREATE TABLE IF NOT EXISTS bot_settings (
@@ -61,20 +56,15 @@ func InitDB(db *sql.DB) error {
 	return initModTables()
 }
 
-// InitSettings sets the active user and loads their settings from the database.
-// Call this after Connect() once the owner phone is known.
-// If no rows exist for this user the in-memory defaults are kept and a first
-// save is written so the row appears in the table.
 func InitSettings(user string) error {
 	settingsUser = user
 	if err := LoadSettings(); err != nil {
 		return err
 	}
-	// Write defaults for this user if nothing was stored yet.
+	
 	return SaveSettings()
 }
 
-// LoadSettings reads all rows for the current user from bot_settings.
 func LoadSettings() error {
 	if settingsUser == "" {
 		return nil
@@ -136,7 +126,6 @@ func LoadSettings() error {
 	return rows.Err()
 }
 
-// SaveSettings persists the entire current state to the database for the active user.
 func SaveSettings() error {
 	if settingsUser == "" {
 		return nil
@@ -235,8 +224,6 @@ func (s *Settings) GetMode() Mode {
 	return s.Mode
 }
 
-// SetPrefixes parses a space-separated list of prefixes.
-// Use the token "empty" to include an empty (no-prefix) entry.
 func (s *Settings) SetPrefixes(raw string) {
 	parts := strings.Fields(raw)
 	for i, p := range parts {
@@ -260,7 +247,6 @@ func (s *Settings) AddSudo(phone string) {
 	s.Sudoers = append(s.Sudoers, phone)
 }
 
-// RemoveSudo removes a phone from sudoers and returns true if it was present.
 func (s *Settings) RemoveSudo(phone string) bool {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -295,7 +281,6 @@ func (s *Settings) SetLanguage(lang string) {
 	go SaveSettings()
 }
 
-// DisableCmd adds name (lowercased) to the disabled-commands list.
 func (s *Settings) DisableCmd(name string) {
 	name = strings.ToLower(name)
 	s.mu.Lock()
@@ -308,7 +293,6 @@ func (s *Settings) DisableCmd(name string) {
 	s.DisabledCmds = append(s.DisabledCmds, name)
 }
 
-// EnableCmd removes name from the disabled-commands list. Returns true if it was present.
 func (s *Settings) EnableCmd(name string) bool {
 	name = strings.ToLower(name)
 	s.mu.Lock()
@@ -322,7 +306,6 @@ func (s *Settings) EnableCmd(name string) bool {
 	return false
 }
 
-// IsCmdDisabled reports whether name (or any of its aliases) is disabled.
 func (s *Settings) IsCmdDisabled(name string) bool {
 	name = strings.ToLower(name)
 	s.mu.RLock()
@@ -356,7 +339,6 @@ func (s *Settings) BanUser(id string) {
 	s.BannedUsers = append(s.BannedUsers, id)
 }
 
-// UnbanUser removes id from the ban list and returns true if it was present.
 func (s *Settings) UnbanUser(id string) bool {
 	s.mu.Lock()
 	defer s.mu.Unlock()

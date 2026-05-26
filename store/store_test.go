@@ -47,7 +47,7 @@ func TestNoopDevice_NotNil(t *testing.T) {
 }
 
 func TestNoopStore_ImplementsAllStores(t *testing.T) {
-	// compile-time check: NoopStore must satisfy AllStores and DeviceContainer
+	
 	var _ store.AllStores = (*store.NoopStore)(nil)
 	var _ store.DeviceContainer = (*store.NoopStore)(nil)
 }

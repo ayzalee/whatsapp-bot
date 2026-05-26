@@ -25,7 +25,7 @@ func newTestContainer(t *testing.T) *sqlstore.Container {
 }
 
 func TestContainer_Upgrade(t *testing.T) {
-	// Just verify that Upgrade runs without error on a fresh DB.
+	
 	newTestContainer(t)
 }
 

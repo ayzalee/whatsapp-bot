@@ -9,7 +9,6 @@ import (
 	"go.mau.fi/whatsmeow/types"
 )
 
-// findParticipant finds a group participant by phone number or LID.
 func findParticipant(participants []types.GroupParticipant, phone, lid string) *types.GroupParticipant {
 	for i := range participants {
 		p := &participants[i]
@@ -23,7 +22,6 @@ func findParticipant(participants []types.GroupParticipant, phone, lid string) *
 	return nil
 }
 
-// botIsAdmin reports whether the bot (identified by phone or user) is an admin.
 func botIsAdmin(participants []types.GroupParticipant, phone, user string) bool {
 	p := findParticipant(participants, phone, user)
 	if p == nil {
@@ -342,7 +340,7 @@ func init() {
 					continue
 				}
 				n++
-				// senderJID is already a full JID string from the DB
+				
 				userPart := senderJID
 				if idx := strings.Index(senderJID, "@"); idx != -1 {
 					userPart = senderJID[:idx]
@@ -394,7 +392,7 @@ func init() {
 				}
 			}
 
-			// resolve message count for a participant, checking JID, LID and PhoneNumber
+			
 			getMsgCount := func(p types.GroupParticipant) int {
 				if cnt, ok := msgCounts[p.JID.User]; ok {
 					return cnt
@@ -412,7 +410,7 @@ func init() {
 				return 0
 			}
 
-			// inactive = participants with zero messages in this group
+			
 			type entry struct {
 				jid types.GroupParticipant
 				cnt int
@@ -437,7 +435,7 @@ func init() {
 			sb.WriteString(T().InactiveHeader)
 			var mentions []string
 			for i, e := range inactive {
-				// prefer phone number for display
+				
 				displayUser := e.jid.PhoneNumber.User
 				if displayUser == "" {
 					displayUser = e.jid.JID.User

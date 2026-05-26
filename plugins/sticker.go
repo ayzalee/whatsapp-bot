@@ -51,7 +51,6 @@ ctx.Reply(T().StickerNoReply)
 return nil
 }
 
-// Write input to temp file
 tmpDir, _ := os.MkdirTemp("", "sticker-*")
 defer os.RemoveAll(tmpDir)
 
@@ -65,7 +64,7 @@ return nil
 
 var cmd *exec.Cmd
 if isAnimated {
-// Animated WebP from video
+
 cmd = exec.Command("ffmpeg", "-i", inFile,
 "-vf", "scale=512:512:force_original_aspect_ratio=decrease,fps=15",
 "-vcodec", "libwebp",
@@ -78,7 +77,7 @@ cmd = exec.Command("ffmpeg", "-i", inFile,
 outFile,
 )
 } else {
-// Static WebP from image
+
 cmd = exec.Command("convert", inFile, "-resize", "512x512", "-quality", "80", outFile)
 }
 

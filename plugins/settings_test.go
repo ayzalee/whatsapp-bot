@@ -13,8 +13,6 @@ func newSettings() *Settings {
 	}
 }
 
-// IsSudo ──────────────────────────────────────────────────────────────────────
-
 func TestIsSudo_EmptySudoers(t *testing.T) {
 	s := newSettings()
 	if s.IsSudo("123") {
@@ -37,8 +35,6 @@ func TestIsSudo_NotFound(t *testing.T) {
 		t.Fatal("expected false for non-sudoer")
 	}
 }
-
-// AddSudo / RemoveSudo ────────────────────────────────────────────────────────
 
 func TestAddSudo_AddsEntry(t *testing.T) {
 	s := newSettings()
@@ -82,8 +78,6 @@ func TestRemoveSudo_NotPresent(t *testing.T) {
 	}
 }
 
-// Prefixes ────────────────────────────────────────────────────────────────────
-
 func TestGetPrefixes_Default(t *testing.T) {
 	s := newSettings()
 	p := s.GetPrefixes()
@@ -110,8 +104,6 @@ func TestSetPrefixes_EmptyToken(t *testing.T) {
 	}
 }
 
-// Mode ────────────────────────────────────────────────────────────────────────
-
 func TestGetMode_Default(t *testing.T) {
 	s := newSettings()
 	if s.GetMode() != ModePublic {
@@ -126,8 +118,6 @@ func TestSetMode(t *testing.T) {
 		t.Fatal("expected ModePrivate after SetMode")
 	}
 }
-
-// Language ────────────────────────────────────────────────────────────────────
 
 func TestGetLanguage_Default(t *testing.T) {
 	s := newSettings()

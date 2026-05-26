@@ -75,7 +75,6 @@ return parts[len(parts)-1]
 func pluginCmd(ctx *Context) error {
 arg := strings.TrimSpace(ctx.Text)
 
-// .remove <name>
 if ctx.Matched == "remove" {
 if arg == "" {
 ctx.Reply(T().PluginRemoveUsage)
@@ -102,7 +101,6 @@ rebuildAndRestart(ctx)
 return nil
 }
 
-// .plugin with no args
 if arg == "" {
 ctx.Reply(T().PluginManager)
 return nil
