@@ -10,6 +10,7 @@ import (
 
 var Table dbutil.UpgradeTable
 
+//go:embed *.sql
 var upgrades embed.FS
 
 func init() {
