@@ -57,15 +57,10 @@ func delCmd(ctx *Context) error {
 		}
 	}
 
-	
 	targetIsOwn := isOwnJID(ctx.Client, targetSender.User)
 
-	
-	
-	
-	
 	if targetIsOwn {
-		
+
 		ctx.Client.SendMessage(context.Background(), chat,
 			ctx.Client.BuildRevoke(chat, types.EmptyJID, msgID))
 		return nil
@@ -77,15 +72,15 @@ func delCmd(ctx *Context) error {
 			botAdmin = botIsAdmin(gi.Participants, ownerPhone, ctx.Client.Store.ID.ToNonAD().User)
 		}
 		if botAdmin {
-			
+
 			ctx.Client.SendMessage(context.Background(), chat,
 				ctx.Client.BuildRevoke(chat, targetSender, msgID))
 		} else {
-			
+
 			deleteForMe(ctx, chat, msgID, targetIsOwn, 0)
 		}
 	} else {
-		
+
 		deleteForMe(ctx, chat, msgID, false, 0)
 	}
 	return nil

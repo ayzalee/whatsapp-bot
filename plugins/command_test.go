@@ -93,7 +93,7 @@ func TestFindCommand_NotFound(t *testing.T) {
 }
 
 func TestRegister_MapsPopulated(t *testing.T) {
-	
+
 	if len(registryMap) == 0 {
 		t.Fatal("registryMap is empty after init")
 	}

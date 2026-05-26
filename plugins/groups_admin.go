@@ -340,7 +340,7 @@ func init() {
 					continue
 				}
 				n++
-				
+
 				userPart := senderJID
 				if idx := strings.Index(senderJID, "@"); idx != -1 {
 					userPart = senderJID[:idx]
@@ -392,7 +392,6 @@ func init() {
 				}
 			}
 
-			
 			getMsgCount := func(p types.GroupParticipant) int {
 				if cnt, ok := msgCounts[p.JID.User]; ok {
 					return cnt
@@ -410,7 +409,6 @@ func init() {
 				return 0
 			}
 
-			
 			type entry struct {
 				jid types.GroupParticipant
 				cnt int
@@ -435,7 +433,7 @@ func init() {
 			sb.WriteString(T().InactiveHeader)
 			var mentions []string
 			for i, e := range inactive {
-				
+
 				displayUser := e.jid.PhoneNumber.User
 				if displayUser == "" {
 					displayUser = e.jid.JID.User

@@ -25,11 +25,11 @@ type Command struct {
 type Context struct {
 	Client     *whatsmeow.Client
 	Event      *events.Message
-	Args       []string  
-	Text       string    
-	Prefix     string    
-	Matched    string    
-	ReceivedAt time.Time 
+	Args       []string
+	Text       string
+	Prefix     string
+	Matched    string
+	ReceivedAt time.Time
 }
 
 func (c *Context) Reply(text string) (whatsmeow.SendResponse, error) {
@@ -99,7 +99,7 @@ func parseCommand(text string, prefixes []string) (prefix, name, rest string, ok
 		if afterLower == "" {
 			continue
 		}
-		
+
 		trimmed := len(afterOrig) - len(strings.TrimLeft(afterOrig, " "))
 		afterOrig = afterOrig[trimmed:]
 		if i := strings.IndexByte(afterLower, ' '); i != -1 {
@@ -134,16 +134,15 @@ func extractText(evt *events.Message) string {
 }
 
 func Dispatch(client *whatsmeow.Client, evt *events.Message) {
-	receivedAt := time.Now() 
+	receivedAt := time.Now()
 	text := extractText(evt)
 	if text == "" {
 		return
 	}
 
-	senderID := evt.Info.Sender.User 
+	senderID := evt.Info.Sender.User
 	isGroup := evt.Info.Chat.Server == types.GroupServer
 
-	
 	if isGroup && BotSettings.IsGCDisabled() {
 		return
 	}
@@ -155,7 +154,7 @@ func Dispatch(client *whatsmeow.Client, evt *events.Message) {
 
 	cmd := findCommand(name)
 	if cmd == nil {
-		
+
 		if menu := CategoryMenu(name); menu != "" {
 			miniCtx := &Context{Client: client, Event: evt}
 			miniCtx.Reply(menu)
@@ -174,12 +173,11 @@ func Dispatch(client *whatsmeow.Client, evt *events.Message) {
 	}
 
 	isSudo := BotSettings.IsSudo(senderID)
-	
+
 	if !isSudo && evt.Info.SenderAlt.User != "" {
 		isSudo = BotSettings.IsSudo(evt.Info.SenderAlt.User)
 	}
 
-	
 	isBanned := BotSettings.IsBanned(senderID)
 	if !isBanned && evt.Info.SenderAlt.User != "" {
 		isBanned = BotSettings.IsBanned(evt.Info.SenderAlt.User)
@@ -189,7 +187,6 @@ func Dispatch(client *whatsmeow.Client, evt *events.Message) {
 	}
 	mode := BotSettings.GetMode()
 
-	
 	if mode == ModePrivate && !isSudo {
 		return
 	}

@@ -21,7 +21,6 @@ func init() {
 				return nil
 			}
 
-			
 			if strings.ToLower(args[0]) == "off" {
 				arg := ""
 				if len(args) > 1 {
@@ -58,7 +57,6 @@ func init() {
 				return nil
 			}
 
-			
 			arg0 := ""
 			if len(args) > 0 {
 				arg0 = args[0]

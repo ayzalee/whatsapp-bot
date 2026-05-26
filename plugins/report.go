@@ -42,7 +42,6 @@ func reportCmd(ctx *Context) error {
 
 	ts := uint64(ctx.Event.Info.Timestamp.Unix())
 
-	
 	msgAttrs := waBinary.Attrs{
 		"id": msgID,
 		"t":  strconv.FormatUint(ts, 10),
@@ -70,11 +69,8 @@ func reportCmd(ctx *Context) error {
 		},
 	}
 
-	
-	
-	
 	internal := ctx.Client.DangerousInternals()
-	resp, err := internal.SendIQ(context.Background(), whatsmeow.DangerousInfoQuery{ 
+	resp, err := internal.SendIQ(context.Background(), whatsmeow.DangerousInfoQuery{
 		Namespace: "spam",
 		Type:      "set",
 		To:        types.ServerJID,

@@ -20,8 +20,8 @@ import (
 	"go.mau.fi/whatsmeow"
 	waProto "go.mau.fi/whatsmeow/proto/waE2E"
 	"go.mau.fi/whatsmeow/types"
-	"google.golang.org/protobuf/proto"
 	waLog "go.mau.fi/whatsmeow/util/log"
+	"google.golang.org/protobuf/proto"
 
 	_ "github.com/lib/pq"
 	_ "modernc.org/sqlite"
@@ -31,7 +31,7 @@ var sourceDir string
 
 func startSpinner(msg string) func(done string) {
 	frames := []byte{'|', '/', '-', '\\'}
-	stop := make(chan string) 
+	stop := make(chan string)
 	finished := make(chan struct{})
 	go func() {
 		i := 0
@@ -50,8 +50,8 @@ func startSpinner(msg string) func(done string) {
 		}
 	}()
 	return func(doneMsg string) {
-		stop <- doneMsg 
-		<-finished      
+		stop <- doneMsg
+		<-finished
 	}
 }
 
@@ -110,8 +110,6 @@ func dbConfig() (dialect, addr string) {
 		return "postgres", url
 	}
 
-	
-	
 	path := strings.TrimPrefix(url, "file:")
 	addr = "file:" + path +
 		"?_pragma=foreign_keys(1)" +
@@ -137,20 +135,19 @@ func getDevice(ctx context.Context, container *sqlstore.Container, phone string)
 		if dev.ID == nil {
 			continue
 		}
-		
+
 		userPhone := strings.SplitN(dev.ID.User, ".", 2)[0]
 		if userPhone == phone {
 			return dev, nil
 		}
 	}
-	
+
 	return container.NewDevice(), nil
 }
 
 func main() {
 	loadEnv()
 
-	
 	flag.Usage = printHelp
 	helpFlag := flag.Bool("help", false, "")
 	phoneArg := flag.String("phone-number", "", "Phone number (international format) used to identify or pair a device")
@@ -166,7 +163,6 @@ func main() {
 
 	ctx := context.Background()
 
-	
 	if *updateFlag {
 		runUpdate()
 		return
@@ -187,7 +183,6 @@ func main() {
 		return
 	}
 
-	
 	dbLog := waLog.Stdout("Database", "ERROR", true)
 
 	container, err := sqlstore.New(ctx, dialect, dbAddr, dbLog)
@@ -211,13 +206,10 @@ func main() {
 	client.UseRetryMessageStore = true
 	client.AddEventHandler(plugins.NewHandler(client))
 
-	
-	
 	if err := container.LIDMap.FillCache(ctx); err != nil {
 		fmt.Fprintf(os.Stderr, "warn: FillCache: %v\n", err)
 	}
 
-	
 	plugins.InitSourceDir(sourceDir)
 	plugins.SetRestartFunc(func() {
 		client.Disconnect()
@@ -266,14 +258,14 @@ func main() {
 				prefix := strings.Join(plugins.BotSettings.GetPrefixes(), " ")
 				msg := fmt.Sprintf(
 					"```BOT STARTED```` 🎐\n\n"+
-					"`ᴍᴏᴅᴇ`         : %s\n"+
-					"`ᴘʀᴇғɪx`        : %s\n"+
-					"`ʟᴀɴɢᴜᴀɢᴇ`      : %s\n\n"+
-					"*ᴀʟᴡᴀʏs ᴏɴʟɪɴᴇ*       : %s\n"+
-					"*ᴀᴜᴛᴏ sᴛᴀᴛᴜs ᴠɪᴇᴡ*    : %s\n"+
-					"*ᴀɴᴛɪ ᴅᴇʟᴇᴛᴇ ᴍsɢs*    : %s\n"+
-					"*ᴀᴜᴛᴏ ʀᴇᴊᴇᴄᴛ ᴄᴀʟʟs*   : %s\n"+
-					"*ᴀᴜᴛᴏ ʀᴇᴀᴅ ᴍsɢs*       : %s",
+						"`ᴍᴏᴅᴇ`         : %s\n"+
+						"`ᴘʀᴇғɪx`        : %s\n"+
+						"`ʟᴀɴɢᴜᴀɢᴇ`      : %s\n\n"+
+						"*ᴀʟᴡᴀʏs ᴏɴʟɪɴᴇ*       : %s\n"+
+						"*ᴀᴜᴛᴏ sᴛᴀᴛᴜs ᴠɪᴇᴡ*    : %s\n"+
+						"*ᴀɴᴛɪ ᴅᴇʟᴇᴛᴇ ᴍsɢs*    : %s\n"+
+						"*ᴀᴜᴛᴏ ʀᴇᴊᴇᴄᴛ ᴄᴀʟʟs*   : %s\n"+
+						"*ᴀᴜᴛᴏ ʀᴇᴀᴅ ᴍsɢs*       : %s",
 					string(plugins.BotSettings.GetMode()),
 					prefix,
 					plugins.BotSettings.GetLanguage(),
@@ -288,22 +280,22 @@ func main() {
 				})
 			}
 		}()
-			plugins.ApplyEnvDefaults()
-			if plugins.BotSettings.AlwaysOnline {
-				plugins.StartOnlineLoop(client)
-			}
-			if plugins.BotSettings.AutoStatusView {
-				plugins.SetAutoViewStatus(true)
-			}
-			if plugins.BotSettings.CallReject {
-				plugins.SetCallReject(true)
-			}
-			if plugins.BotSettings.AntiDelete {
-				plugins.SetAntiDeleteEnabled(true)
-			}
-			if plugins.BotSettings.AutoRead {
-				plugins.SetAutoReadEnabled(true)
-			}
+		plugins.ApplyEnvDefaults()
+		if plugins.BotSettings.AlwaysOnline {
+			plugins.StartOnlineLoop(client)
+		}
+		if plugins.BotSettings.AutoStatusView {
+			plugins.SetAutoViewStatus(true)
+		}
+		if plugins.BotSettings.CallReject {
+			plugins.SetCallReject(true)
+		}
+		if plugins.BotSettings.AntiDelete {
+			plugins.SetAntiDeleteEnabled(true)
+		}
+		if plugins.BotSettings.AutoRead {
+			plugins.SetAutoReadEnabled(true)
+		}
 		fmt.Println("Already logged in.")
 	}
 
@@ -355,7 +347,6 @@ func runUpdate() {
 	}
 	cliProgress(15, "Fetch complete")
 
-	
 	countOut, _ := exec.Command("git", "-C", sourceDir, "rev-list", "HEAD..FETCH_HEAD", "--count").Output()
 	if strings.TrimSpace(string(countOut)) == "0" {
 		cliProgress(100, "Already up to date.")
@@ -394,7 +385,6 @@ func runUpdate() {
 		buildDone <- cmd.Run()
 	}()
 
-	
 	ticker := time.NewTicker(500 * time.Millisecond)
 	pct := 52
 	var buildErr error
@@ -496,8 +486,8 @@ func runDeleteSession(ctx context.Context, dialect, dbAddr, phone string, reset 
 }
 
 func boolEmoji(b bool) string {
-if b {
-return "✅"
-}
-return "❌"
+	if b {
+		return "✅"
+	}
+	return "❌"
 }

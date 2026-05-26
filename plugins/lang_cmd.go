@@ -10,14 +10,13 @@ func init() {
 		Pattern:  "lang",
 		Category: "settings",
 		Func: func(ctx *Context) error {
-			
+
 			if ctx.Text == "" {
 				name := LangNames[BotSettings.GetLanguage()]
 				ctx.Reply(fmt.Sprintf(T().LangCurrent, name) + "\n\n" + langList())
 				return nil
 			}
 
-			
 			if !BotSettings.IsSudo(ctx.Event.Info.Sender.User) {
 				ctx.Reply(T().SudoOnly)
 				return nil

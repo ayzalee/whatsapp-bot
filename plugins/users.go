@@ -15,7 +15,7 @@ type LIDResolver interface {
 }
 
 var lidResolver LIDResolver
-var ownerPhone string 
+var ownerPhone string
 
 func InitLIDStore(ls LIDResolver, ownerPN string) {
 	lidResolver = ls
@@ -36,7 +36,7 @@ func GetAltID(id string) string {
 		}
 		jid = parsed
 	} else {
-		
+
 		jid = types.NewJID(id, types.DefaultUserServer)
 	}
 
@@ -70,18 +70,15 @@ func SaveUser(evt *events.Message) {
 	}
 	senderLID := types.NewJID(sender.User, types.HiddenUserServer)
 
-	
-	
 	if evt.Info.SenderAlt.User != "" && evt.Info.SenderAlt.Server == types.DefaultUserServer {
 		pnJID := types.NewJID(evt.Info.SenderAlt.User, types.DefaultUserServer)
 		_ = lidResolver.PutLIDMapping(ctx, senderLID, pnJID)
 	} else if evt.Info.IsFromMe && ownerPhone != "" {
-		
+
 		pnJID := types.NewJID(ownerPhone, types.DefaultUserServer)
 		_ = lidResolver.PutLIDMapping(ctx, senderLID, pnJID)
 	}
 
-	
 	if evt.Info.IsFromMe && !evt.Info.IsGroup &&
 		evt.Info.Chat.Server == types.HiddenUserServer &&
 		evt.Info.RecipientAlt.User != "" && evt.Info.RecipientAlt.Server == types.DefaultUserServer {
@@ -113,7 +110,7 @@ func BootstrapOwnerSudoers() {
 }
 
 func ResolveTarget(ctx *Context, arg string) (phone, lid string) {
-	
+
 	if arg == "" || strings.EqualFold(arg, "reply") {
 		var participant string
 		if ci := ctx.Event.Message.GetExtendedTextMessage().GetContextInfo(); ci != nil {
@@ -137,10 +134,8 @@ func ResolveTarget(ctx *Context, arg string) (phone, lid string) {
 		}
 	}
 
-	
 	arg = strings.TrimPrefix(arg, "@")
 
-	
 	return resolveJIDString(arg)
 }
 
@@ -155,14 +150,11 @@ func resolveJIDString(s string) (phone, lid string) {
 		if err != nil {
 			return "", ""
 		}
-		
+
 		parsed.Device = 0
 		jid = parsed
 	} else {
-		
-		
-		
-		
+
 		s = strings.TrimPrefix(s, "+")
 		jid = types.NewJID(s, types.DefaultUserServer)
 	}

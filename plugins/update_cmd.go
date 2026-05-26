@@ -47,7 +47,7 @@ func editUpdate(ctx *Context, chatJID types.JID, msgID, label string, pct int) {
 		Conversation: proto.String(text),
 	})
 	ctx.Client.SendMessage(context.Background(), chatJID, edit)
-	
+
 	time.Sleep(250 * time.Millisecond)
 }
 
@@ -82,7 +82,6 @@ func init() {
 
 			mode := strings.ToLower(strings.TrimSpace(ctx.Text))
 
-			
 			if mode == "" {
 				resp, err := ctx.ReplySync("Checking for updates...")
 				if err != nil {
@@ -109,7 +108,6 @@ func init() {
 				return nil
 			}
 
-			
 			if mode != "now" {
 				ctx.Reply("Usage:\n  update       — check for updates\n  update now   — download and apply updates")
 				return nil
@@ -122,7 +120,6 @@ func init() {
 			}
 			msgID := resp.ID
 
-			
 			editUpdate(ctx, chatJID, msgID, "Fetching latest changes...", 5)
 			if err := gitRun("fetch", "origin", "--quiet"); err != nil {
 				editUpdate(ctx, chatJID, msgID, "Failed to fetch: "+err.Error(), 5)
@@ -130,7 +127,6 @@ func init() {
 			}
 			editUpdate(ctx, chatJID, msgID, "Fetch complete", 15)
 
-			
 			out, _ := exec.Command("git", "-C", botSourceDir, "rev-list", "HEAD..FETCH_HEAD", "--count").Output()
 			if strings.TrimSpace(string(out)) == "0" {
 				text := fmt.Sprintf("Already up to date.\n%s", updateBar(100))
@@ -139,7 +135,6 @@ func init() {
 				return nil
 			}
 
-			
 			editUpdate(ctx, chatJID, msgID, "Pulling changes...", 20)
 			if err := gitRun("pull", "--ff-only"); err != nil {
 				editUpdate(ctx, chatJID, msgID, "Pull failed: "+err.Error(), 20)
@@ -147,7 +142,6 @@ func init() {
 			}
 			editUpdate(ctx, chatJID, msgID, "Changes pulled", 45)
 
-			
 			editUpdate(ctx, chatJID, msgID, "Building new binary...", 50)
 
 			exePath, err := os.Executable()
@@ -171,7 +165,6 @@ func init() {
 				buildDone <- cmd.Run()
 			}()
 
-			
 			ticker := time.NewTicker(2 * time.Second)
 			pct := 52
 			var buildErr error
@@ -196,7 +189,6 @@ func init() {
 			}
 			editUpdate(ctx, chatJID, msgID, "Build complete", 90)
 
-			
 			if err := os.Rename(tmpPath, exePath); err != nil {
 				msg := fmt.Sprintf("Built successfully but could not replace binary.\nStop the bot and rename manually:\n%s → %s", tmpPath, exePath)
 				editUpdate(ctx, chatJID, msgID, msg, 90)
@@ -204,7 +196,6 @@ func init() {
 			}
 			editUpdate(ctx, chatJID, msgID, "Binary replaced", 95)
 
-			
 			text := fmt.Sprintf("Zaelix updated!\n%s\nRestarting...", updateBar(100))
 			edit := ctx.Client.BuildEdit(chatJID, msgID, &waProto.Message{Conversation: proto.String(text)})
 			ctx.Client.SendMessage(context.Background(), chatJID, edit)

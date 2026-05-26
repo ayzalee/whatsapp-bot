@@ -1,11 +1,11 @@
 package plugins
 
 import (
-	"slices"
 	"database/sql"
 	"encoding/json"
-	"strings"
 	"os"
+	"slices"
+	"strings"
 	"sync"
 )
 
@@ -17,19 +17,19 @@ const (
 )
 
 type Settings struct {
-	mu           sync.RWMutex
-	Prefixes     []string
-	Sudoers      []string
-	BannedUsers  []string
-	Mode         Mode
-	Language     string
-	DisabledCmds []string
-	GCDisabled   bool
-	AlwaysOnline    bool
-	AutoStatusView  bool
-	CallReject      bool
-	AntiDelete      bool
-	AutoRead        bool
+	mu             sync.RWMutex
+	Prefixes       []string
+	Sudoers        []string
+	BannedUsers    []string
+	Mode           Mode
+	Language       string
+	DisabledCmds   []string
+	GCDisabled     bool
+	AlwaysOnline   bool
+	AutoStatusView bool
+	CallReject     bool
+	AntiDelete     bool
+	AutoRead       bool
 }
 
 var BotSettings = &Settings{
@@ -39,8 +39,8 @@ var BotSettings = &Settings{
 	Language: "en",
 }
 
-var settingsDB   *sql.DB
-var settingsUser string 
+var settingsDB *sql.DB
+var settingsUser string
 
 func InitDB(db *sql.DB) error {
 	settingsDB = db
@@ -61,7 +61,7 @@ func InitSettings(user string) error {
 	if err := LoadSettings(); err != nil {
 		return err
 	}
-	
+
 	return SaveSettings()
 }
 
@@ -334,8 +334,8 @@ func (s *Settings) BanUser(id string) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if slices.Contains(s.BannedUsers, id) {
-			return
-		}
+		return
+	}
 	s.BannedUsers = append(s.BannedUsers, id)
 }
 
@@ -363,62 +363,62 @@ func (s *Settings) IsBanned(id string) bool {
 }
 
 func (s *Settings) IsOnlineMode() bool {
-s.mu.RLock()
-defer s.mu.RUnlock()
-return s.AlwaysOnline
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return s.AlwaysOnline
 }
 
 func (s *Settings) SetOnlineMode(v bool) {
-s.mu.Lock()
-defer s.mu.Unlock()
-s.AlwaysOnline = v
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.AlwaysOnline = v
 }
 
 func SetAutoViewStatus(v bool) {
-autoViewStatus = v
+	autoViewStatus = v
 }
 
 func SetCallReject(v bool) {
-autoRejectCalls = v
+	autoRejectCalls = v
 }
 
 func ApplyEnvDefaults() {
-if prefix := os.Getenv("BOT_PREFIX"); prefix != "" {
-BotSettings.SetPrefixes(prefix)
-SaveSettings()
-}
-if sudo := os.Getenv("SUDO"); sudo != "" {
-for _, s := range strings.Split(sudo, ",") {
-s = strings.TrimSpace(s)
-if s != "" {
-BotSettings.AddSudo(s)
-}
-}
-SaveSettings()
-}
-if os.Getenv("READ_MSGS") == "true" {
-autoReadMessages = true
-}
-if os.Getenv("ALWAYS_ONLINE") == "true" && !BotSettings.AlwaysOnline {
-BotSettings.mu.Lock()
-BotSettings.AlwaysOnline = true
-BotSettings.mu.Unlock()
-SaveSettings()
-}
-if os.Getenv("AUTO_STATUS_VIEW") == "true" {
-autoViewStatus = true
-}
-if os.Getenv("CALL_REJECT") == "true" {
-autoRejectCalls = true
-}
-if mode := os.Getenv("BOT_MODE"); mode != "" {
-BotSettings.SetMode(Mode(mode))
-SaveSettings()
-}
-if lang := os.Getenv("BOT_LANG"); lang != "" {
-BotSettings.SetLanguage(lang)
-SaveSettings()
-}
+	if prefix := os.Getenv("BOT_PREFIX"); prefix != "" {
+		BotSettings.SetPrefixes(prefix)
+		SaveSettings()
+	}
+	if sudo := os.Getenv("SUDO"); sudo != "" {
+		for _, s := range strings.Split(sudo, ",") {
+			s = strings.TrimSpace(s)
+			if s != "" {
+				BotSettings.AddSudo(s)
+			}
+		}
+		SaveSettings()
+	}
+	if os.Getenv("READ_MSGS") == "true" {
+		autoReadMessages = true
+	}
+	if os.Getenv("ALWAYS_ONLINE") == "true" && !BotSettings.AlwaysOnline {
+		BotSettings.mu.Lock()
+		BotSettings.AlwaysOnline = true
+		BotSettings.mu.Unlock()
+		SaveSettings()
+	}
+	if os.Getenv("AUTO_STATUS_VIEW") == "true" {
+		autoViewStatus = true
+	}
+	if os.Getenv("CALL_REJECT") == "true" {
+		autoRejectCalls = true
+	}
+	if mode := os.Getenv("BOT_MODE"); mode != "" {
+		BotSettings.SetMode(Mode(mode))
+		SaveSettings()
+	}
+	if lang := os.Getenv("BOT_LANG"); lang != "" {
+		BotSettings.SetLanguage(lang)
+		SaveSettings()
+	}
 	if emoji := os.Getenv("STATUS_VIEW_EMOJI"); emoji != "" {
 		parts := strings.Split(emoji, ",")
 		for i, p := range parts {

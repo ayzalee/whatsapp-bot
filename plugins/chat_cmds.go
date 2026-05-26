@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"google.golang.org/protobuf/proto"
 	"go.mau.fi/whatsmeow/appstate"
+	"google.golang.org/protobuf/proto"
 
 	waCommon "go.mau.fi/whatsmeow/proto/waCommon"
 	"go.mau.fi/whatsmeow/proto/waE2E"
@@ -73,7 +73,6 @@ func pinToggle(ctx *Context, pin bool) error {
 	msgID := ci.GetStanzaID()
 	participant := ci.GetParticipant()
 
-	
 	if msgID != "" {
 		var senderJID types.JID
 		if participant != "" {
@@ -98,7 +97,7 @@ func pinToggle(ctx *Context, pin bool) error {
 		}
 
 		pinType := waE2E.PinInChatMessage_PIN_FOR_ALL
-		var duration uint32 = 604800 
+		var duration uint32 = 604800
 		if !pin {
 			pinType = waE2E.PinInChatMessage_UNPIN_FOR_ALL
 			duration = 0
@@ -131,7 +130,6 @@ func pinToggle(ctx *Context, pin bool) error {
 		return nil
 	}
 
-	
 	patch := appstate.BuildPin(chat, pin)
 	if err := ctx.Client.SendAppState(context.Background(), patch); err != nil {
 		if pin {

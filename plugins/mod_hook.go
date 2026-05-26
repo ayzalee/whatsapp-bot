@@ -25,7 +25,7 @@ func isGroupStatusMsg(evt *events.Message) bool {
 	if m.GetGroupStatusMessageV2() != nil {
 		return true
 	}
-	
+
 	if ci := m.GetExtendedTextMessage().GetContextInfo(); ci != nil && ci.GetIsGroupStatus() {
 		return true
 	}
@@ -93,7 +93,7 @@ func init() {
 }
 
 func moderationHook(client *whatsmeow.Client, evt *events.Message) {
-	
+
 	myPhone := ""
 	myLID := ""
 	if client.Store.ID != nil {
@@ -101,8 +101,6 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 	}
 	myLID = client.Store.LID.User
 
-	
-	
 	su := evt.Info.Sender.User
 	sa := evt.Info.SenderAlt.User
 	isFromMe := false
@@ -112,13 +110,11 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 	if !isFromMe && myLID != "" && (su == myLID || sa == myLID) {
 		isFromMe = true
 	}
-	
+
 	if myPhone == "" && myLID == "" {
 		isFromMe = evt.Info.IsFromMe
 	}
 
-	
-	
 	if isFromMe {
 		if ownerPhone != "" {
 			text := extractMsgText(evt)
@@ -136,7 +132,6 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 	isGroup := evt.Info.Chat.Server == types.GroupServer
 	msgText := extractMsgText(evt)
 
-	
 	if ownerPhone != "" {
 		if status := getAFK(ownerPhone); status != nil {
 			shouldReply := false
@@ -183,9 +178,8 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		}
 	}
 
-	
 	if !isGroup {
-		
+
 		if time.Since(evt.Info.Timestamp) > 30*time.Second {
 			return
 		}
@@ -226,7 +220,6 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		return
 	}
 
-	
 	var (
 		participants    []types.GroupParticipant
 		groupInfoLoaded bool
@@ -256,7 +249,6 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		return p != nil && (p.IsAdmin || p.IsSuperAdmin)
 	}
 
-	
 	if getAntistatusEnabled(chatJID) && isBotAdmin() && !isSenderAdmin() {
 		if isGroupStatusMsg(evt) {
 			revokeMsg(client, evt.Info.Chat, evt.Info.Sender, string(evt.Info.ID))
@@ -264,13 +256,11 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		}
 	}
 
-	
 	if isShhed(chatJID, senderUser) && isBotAdmin() {
 		revokeMsg(client, evt.Info.Chat, evt.Info.Sender, string(evt.Info.ID))
 		return
 	}
 
-	
 	if mode := getAntilinkMode(chatJID); mode != "off" && msgText != "" {
 		if isBotAdmin() && !isSenderAdmin() {
 			if urlRegex.MatchString(msgText) {
@@ -289,7 +279,6 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		}
 	}
 
-	
 	if words := getAntiwords(chatJID); len(words) > 0 && msgText != "" {
 		if isBotAdmin() && !isSenderAdmin() {
 			lower := strings.ToLower(msgText)
@@ -302,9 +291,8 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		}
 	}
 
-	
 	if getAntispamMode(chatJID) != "off" {
-		
+
 		if time.Since(evt.Info.Timestamp) <= 30*time.Second && !isAntispamWhitelisted(chatJID, senderUser) {
 			spamKey := chatJID + ":" + senderUser
 			spamMu.Lock()

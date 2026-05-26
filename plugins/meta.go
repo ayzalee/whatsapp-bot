@@ -25,13 +25,12 @@ func HandleMetaAIResponse(client *whatsmeow.Client, v *events.Message) {
 	var responseText string
 	resID := v.Message.GetMessageContextInfo().GetBotMetadata().GetBotResponseID()
 
-	
 	if img := v.Message.GetImageMessage(); img != nil {
 		metaMu.Lock()
 		targetJID, ok := pendingReplies[v.Info.Sender.String()]
 		metaMu.Unlock()
 		if ok {
-			client.SendMessage(context.Background(), targetJID, &waProto.Message{ImageMessage: img}) 
+			client.SendMessage(context.Background(), targetJID, &waProto.Message{ImageMessage: img})
 		}
 		return
 	}
@@ -94,7 +93,6 @@ func init() {
 
 			var outMsg *waProto.Message
 
-			
 			if img := ctx.Event.Message.GetImageMessage(); img != nil {
 				img.Caption = proto.String(query)
 				outMsg = &waProto.Message{ImageMessage: img}
@@ -102,10 +100,7 @@ func init() {
 				vid.Caption = proto.String(query)
 				outMsg = &waProto.Message{VideoMessage: vid}
 			} else if ext := ctx.Event.Message.GetExtendedTextMessage(); ext != nil {
-				
-				
-				
-				
+
 				quoted := ext.GetContextInfo().GetQuotedMessage()
 				if quoted.GetImageMessage() != nil || quoted.GetVideoMessage() != nil {
 					if query == "" {
@@ -117,7 +112,6 @@ func init() {
 				}
 			}
 
-			
 			if outMsg == nil {
 				if query == "" {
 					ctx.Reply(T().MetaUsage)
@@ -132,7 +126,6 @@ func init() {
 			}
 			_ = resp
 
-			
 			metaMu.Lock()
 			pendingReplies[MetaJID.String()] = ctx.Event.Info.Chat
 			metaMu.Unlock()

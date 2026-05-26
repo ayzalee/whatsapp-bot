@@ -101,12 +101,10 @@ func init() {
 			copy(all, BotSettings.Sudoers)
 			BotSettings.mu.RUnlock()
 
-			
-			
 			var phones []string
 			for _, s := range all {
 				if GetAltID(s+"@lid") == "" {
-					
+
 					phones = append(phones, s)
 				}
 			}
@@ -285,7 +283,6 @@ func init() {
 			copy(all, BotSettings.BannedUsers)
 			BotSettings.mu.RUnlock()
 
-			
 			var phones []string
 			for _, s := range all {
 				if GetAltID(s+"@lid") == "" {
@@ -306,14 +303,12 @@ func init() {
 func resolveSudoTarget(ctx *Context, arg string) (phone, lid string) {
 	arg = strings.TrimSpace(arg)
 
-	
 	if arg == "" && !ctx.Event.Info.IsGroup {
 		chat := ctx.Event.Info.Chat
 		if chat.Server == types.HiddenUserServer {
 			phone, lid = resolveJIDString(chat.String())
 			if phone == "" && lid == "" {
-				
-				
+
 				lid = chat.User
 			}
 		}
@@ -322,4 +317,3 @@ func resolveSudoTarget(ctx *Context, arg string) (phone, lid string) {
 
 	return ResolveTarget(ctx, arg)
 }
-

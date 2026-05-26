@@ -51,7 +51,6 @@ func mp3Cmd(ctx *Context) error {
 		return nil
 	}
 
-	
 	var data []byte
 	var err error
 	if quoted.GetAudioMessage() != nil {
@@ -285,7 +284,7 @@ func trimCmd(ctx *Context) error {
 		if mime == "" {
 			mime = "audio/mpeg"
 		}
-		
+
 		if strings.HasSuffix(ext, ".mp3") && strings.Contains(mime, "ogg") {
 			outFile = strings.TrimSuffix(outFile, ".mp3") + ".ogg"
 			mime = "audio/ogg; codecs=opus"
