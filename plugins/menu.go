@@ -2,8 +2,12 @@ package plugins
 
 import (
 "fmt"
+"runtime"
 "strings"
+"time"
 )
+
+var botStartTime = time.Now()
 
 var fancyMap = map[rune]string{
 '0': "𝟶", '1': "𝟷", '2': "𝟸", '3': "𝟹", '4': "𝟺",
@@ -39,7 +43,7 @@ parts[i] = toFancy(a)
 }
 line += "  [" + strings.Join(parts, ", ") + "]"
 }
-sb.WriteString("  · " + line + "\n")
+sb.WriteString("│ ◈ " + line + "\n")
 }
 return sb.String()
 }
@@ -49,7 +53,38 @@ cmds := categoryMap[strings.ToLower(cat)]
 if len(cmds) == 0 {
 return ""
 }
-return "*" + toFancy(cat) + " ᴍᴇɴᴜ*\n\n" + strings.TrimRight(cmdLines(cmds), "\n")
+var sb strings.Builder
+sb.WriteString("╭─〔 *✦ " + toFancy(cat) + " ✦* 〕\n")
+sb.WriteString(cmdLines(cmds))
+sb.WriteString("╰────────────────⊷")
+return sb.String()
+}
+
+func formatUptime() string {
+d := time.Since(botStartTime)
+h := int(d.Hours())
+m := int(d.Minutes()) % 60
+s := int(d.Seconds()) % 60
+return fmt.Sprintf("%dʜ %dᴍ %ds", h, m, s)
+}
+
+func getRamMB() uint64 {
+var ms runtime.MemStats
+runtime.ReadMemStats(&ms)
+return ms.Alloc / 1024 / 1024
+}
+
+func getOS() string {
+switch runtime.GOOS {
+case "linux":
+return "ᴠᴘs (Linux)"
+case "darwin":
+return "ᴍᴀᴄᴏs"
+case "android":
+return "ᴀɴᴅʀᴏɪᴅ"
+default:
+return runtime.GOOS
+}
 }
 
 func init() {
@@ -63,9 +98,30 @@ if pushName == "" {
 pushName = ctx.Event.Info.Sender.User
 }
 
+now := time.Now()
+totalCmds := len(registry)
+
+var sb strings.Builder
+
+// Header
+prefix := strings.Join(BotSettings.GetPrefixes(), " ")
+sb.WriteString("╭═══〔 𝐙ᴀᴇʟɪx 〕═══⊷\n")
+sb.WriteString("┃❒╭──────────────\n")
+sb.WriteString("┃❒│ *ᴘʀᴇғɪx*   : `" + prefix + "`\n")
+sb.WriteString("┃❒│ *ᴜsᴇʀ*     : `" + pushName + "`\n")
+sb.WriteString("┃❒│ *ᴛɪᴍᴇ*     : `" + now.Format("03:04 PM") + "`\n")
+sb.WriteString("┃❒│ *ᴅᴀʏ*      : `" + toFancy(now.Weekday().String()) + "`\n")
+sb.WriteString("┃❒│ *ᴅᴀᴛᴇ*     : `" + now.Format("02/01/2006") + "`\n")
+sb.WriteString(fmt.Sprintf("┃❒│ *ᴘʟᴜɢɪɴs*  : `%d`\n", totalCmds))
+sb.WriteString("┃❒│ *ᴜᴘᴛɪᴍᴇ*   : `" + formatUptime() + "`\n")
+sb.WriteString("┃❒│ *ᴍᴏᴅᴇ*     : `" + toFancy(string(BotSettings.GetMode())) + "`\n")
+sb.WriteString("┃❒│ *ᴘʟᴀᴛғᴏʀᴍ* : `" + getOS() + "`\n")
+sb.WriteString("┃❒╰──────────────\n")
+sb.WriteString("╰═════════════════⊷\n")
+
+// Categories
 var catOrder []string
 catMap := map[string][]*Command{}
-
 for _, cmd := range registry {
 cat := cmd.Category
 if cat == "" {
@@ -77,15 +133,13 @@ catOrder = append(catOrder, cat)
 catMap[cat] = append(catMap[cat], cmd)
 }
 
-var sb strings.Builder
-fmt.Fprintf(&sb, T().MenuGreeting+"\n", pushName)
-
 for _, cat := range catOrder {
-sb.WriteString("\n▸ *" + toFancy(cat) + "*\n")
+sb.WriteString("\n╭─〔 *✦ " + toFancy(cat) + " ✦* 〕\n")
 sb.WriteString(cmdLines(catMap[cat]))
+sb.WriteString("╰────────────────⊷\n")
 }
 
-sb.WriteString("\n\n> © ᴀʏᴀᴢᴀʟɪᴏꜰᴄ")
+
 
 ctx.Reply(strings.TrimRight(sb.String(), "\n"))
 return nil
