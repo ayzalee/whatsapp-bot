@@ -1,41 +1,41 @@
 package plugins
 
 import (
-	"fmt"
-	"strings"
+"fmt"
+"strings"
+"zaelix/lang"
 )
 
 func init() {
-	Register(&Command{
-		Pattern:  "lang",
-		Category: "settings",
-		Func: func(ctx *Context) error {
+Register(&Command{
+Pattern:  "lang",
+Category: "settings",
+Func: func(ctx *Context) error {
+if ctx.Text == "" {
+name := LangNames[BotSettings.GetLanguage()]
+ctx.Reply(fmt.Sprintf(T().LangCurrent, name) + "\n\n" + langList())
+return nil
+}
 
-			if ctx.Text == "" {
-				name := LangNames[BotSettings.GetLanguage()]
-				ctx.Reply(fmt.Sprintf(T().LangCurrent, name) + "\n\n" + langList())
-				return nil
-			}
+if !BotSettings.IsSudo(ctx.Event.Info.Sender.User) {
+ctx.Reply(T().SudoOnly)
+return nil
+}
 
-			if !BotSettings.IsSudo(ctx.Event.Info.Sender.User) {
-				ctx.Reply(T().SudoOnly)
-				return nil
-			}
+code := strings.ToLower(strings.TrimSpace(ctx.Text))
+if _, ok := lang.All[code]; !ok {
+ctx.Reply(fmt.Sprintf(T().LangUnknown, code, langList()))
+return nil
+}
 
-			code := strings.ToLower(strings.TrimSpace(ctx.Text))
-			if _, ok := translations[code]; !ok {
-				ctx.Reply(fmt.Sprintf(T().LangUnknown, code, availableLangs()))
-				return nil
-			}
+BotSettings.SetLanguage(code)
+if err := SaveSettings(); err != nil {
+ctx.Reply(fmt.Sprintf(T().SaveFailed, err.Error()))
+return err
+}
 
-			BotSettings.SetLanguage(code)
-			if err := SaveSettings(); err != nil {
-				ctx.Reply(fmt.Sprintf(T().SaveFailed, err.Error()))
-				return err
-			}
-
-			ctx.Reply(fmt.Sprintf(T().LangSet, LangNames[code]))
-			return nil
-		},
-	})
+ctx.Reply(fmt.Sprintf(T().LangSet, LangNames[code]))
+return nil
+},
+})
 }
