@@ -277,6 +277,7 @@ if err := plugins.InitSettings(ownerPhone); err != nil {
 panic(fmt.Errorf("settings load: %w", err))
 }
 plugins.BootstrapOwnerSudoers()
+		plugins.StartScheduler(container.DB(), client)
 plugins.ApplyEnvDefaults()
 
 if plugins.BotSettings.AlwaysOnline {

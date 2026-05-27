@@ -234,5 +234,17 @@ Pong:                "Pong",
 		ChCreateOK:          "Canal creado!\n\n*Nombre:* %s\n*JID:* %s\n*Invitacion:* https://whatsapp.com/channel/%s",
 		ChCreateFailed:      "Error al crear canal: %s",
 		TrimUsage:           "Uso: .trim <inicio> [fin]\nEjemplo: .trim 0:10 1:30",
-	}
+SchedUsage:      "Uso: .setschedule <jid> HH:MM <mensaje>",
+SchedInvalidJID: "JID inválido: %s",
+SchedEmptyMsg:   "El mensaje no puede estar vacío.",
+SchedSaveFailed: "Error al guardar: %s",
+SchedCreated:    "Programación *#%d* creada.\n\n*Para:* %s\n*A las:* %s\n*Tipo:* %s\n*Mensaje:* %s",
+SchedNotInit:    "Programador no inicializado.",
+SchedEmpty:      "No hay mensajes programados.",
+SchedDelUsage:   "Uso: .delschedule <id> o .delschedule all",
+SchedDelAll:     "Todas las programaciones eliminadas.",
+SchedDelInvalid: "ID inválido.",
+SchedDelFailed:  "Error al eliminar: %s",
+SchedDeleted:    "Programación *#%d* eliminada.",
+}
 }

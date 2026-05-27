@@ -234,5 +234,17 @@ Pong:                "Понг",
 		ChCreateOK:          "Канал создан!\n\n*Название:* %s\n*JID:* %s\n*Приглашение:* https://whatsapp.com/channel/%s",
 		ChCreateFailed:      "Не удалось создать канал: %s",
 		TrimUsage:           "Использование: .trim <начало> [конец]\nПример: .trim 0:10 1:30",
-	}
+SchedUsage:      "Использование: .setschedule <jid> HH:MM <сообщение>",
+SchedInvalidJID: "Неверный JID: %s",
+SchedEmptyMsg:   "Сообщение не может быть пустым.",
+SchedSaveFailed: "Ошибка сохранения: %s",
+SchedCreated:    "Расписание *#%d* создано.\n\n*Кому:* %s\n*Время:* %s\n*Тип:* %s\n*Сообщение:* %s",
+SchedNotInit:    "Планировщик не инициализирован.",
+SchedEmpty:      "Нет запланированных сообщений.",
+SchedDelUsage:   "Использование: .delschedule <id> или .delschedule all",
+SchedDelAll:     "Все расписания удалены.",
+SchedDelInvalid: "Неверный ID.",
+SchedDelFailed:  "Ошибка удаления: %s",
+SchedDeleted:    "Расписание *#%d* удалено.",
+}
 }

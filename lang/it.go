@@ -214,5 +214,17 @@ Pong:                "Pong",
 		MediaProcessing:     "Elaborazione in corso...",
 		MediaFailed:         "Elaborazione media fallita: %s",
 		TrimUsage:           "Uso: .trim <inizio> [fine]\nEsempio: .trim 0:10 1:30",
-	}
+SchedUsage:      "Uso: .setschedule <jid> HH:MM <messaggio>",
+SchedInvalidJID: "JID non valido: %s",
+SchedEmptyMsg:   "Il messaggio non può essere vuoto.",
+SchedSaveFailed: "Salvataggio fallito: %s",
+SchedCreated:    "Pianificazione *#%d* creata.\n\n*A:* %s\n*Alle:* %s\n*Tipo:* %s\n*Messaggio:* %s",
+SchedNotInit:    "Pianificatore non inizializzato.",
+SchedEmpty:      "Nessun messaggio pianificato.",
+SchedDelUsage:   "Uso: .delschedule <id> o .delschedule all",
+SchedDelAll:     "Tutte le pianificazioni eliminate.",
+SchedDelInvalid: "ID non valido.",
+SchedDelFailed:  "Eliminazione fallita: %s",
+SchedDeleted:    "Pianificazione *#%d* eliminata.",
+}
 }

@@ -234,5 +234,17 @@ Pong:                "Pong",
 		ChCreateOK:          "Kanal olusturuldu!\n\n*Ad:* %s\n*JID:* %s\n*Davet:* https://whatsapp.com/channel/%s",
 		ChCreateFailed:      "Kanal olusturulamadi: %s",
 		TrimUsage:           "Kullanim: .trim <baslangic> [bitis]\nOrnek: .trim 0:10 1:30",
-	}
+SchedUsage:      "Kullanım: .setschedule <jid> HH:MM <mesaj>",
+SchedInvalidJID: "Geçersiz JID: %s",
+SchedEmptyMsg:   "Mesaj boş olamaz.",
+SchedSaveFailed: "Kaydetme başarısız: %s",
+SchedCreated:    "Program *#%d* oluşturuldu.\n\n*Kime:* %s\n*Saat:* %s\n*Tür:* %s\n*Mesaj:* %s",
+SchedNotInit:    "Zamanlayıcı başlatılmadı.",
+SchedEmpty:      "Planlanmış mesaj yok.",
+SchedDelUsage:   "Kullanım: .delschedule <id> veya .delschedule all",
+SchedDelAll:     "Tüm programlar silindi.",
+SchedDelInvalid: "Geçersiz ID.",
+SchedDelFailed:  "Silme başarısız: %s",
+SchedDeleted:    "Program *#%d* silindi.",
+}
 }
