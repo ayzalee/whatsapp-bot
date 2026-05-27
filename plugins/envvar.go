@@ -2,6 +2,7 @@ package plugins
 
 import (
 "fmt"
+	"time"
 "os"
 "strings"
 )
@@ -114,6 +115,12 @@ return os.WriteFile(".env", []byte(result), 0644)
 }
 
 func applySettingFromEnv(key, value string) {
+	if key == "TZ" {
+		if loc, err := time.LoadLocation(value); err == nil {
+			time.Local = loc
+		}
+		return
+	}
 on := value == "true"
 switch key {
 case "ALWAYS_ONLINE":
