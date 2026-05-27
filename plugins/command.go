@@ -224,5 +224,16 @@ func Dispatch(client *whatsmeow.Client, evt *events.Message) {
 		return
 	}
 
+	// React with ⏳ before command runs
+	reactMsg := client.BuildReaction(evt.Info.Chat, evt.Info.Sender, evt.Info.ID, "⏳")
+	client.SendMessage(context.Background(), evt.Info.Chat, reactMsg)
+
 	_ = cmd.Func(ctx)
+
+	// Remove reaction after 3 seconds
+	go func() {
+		time.Sleep(3 * time.Second)
+		removeReact := client.BuildReaction(evt.Info.Chat, evt.Info.Sender, evt.Info.ID, "")
+		client.SendMessage(context.Background(), evt.Info.Chat, removeReact)
+	}()
 }
