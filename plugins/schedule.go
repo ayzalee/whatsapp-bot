@@ -320,12 +320,7 @@ Category: "utility",
 Func: func(ctx *Context) error {
 arg := strings.TrimSpace(ctx.Text)
 if arg == "" {
-ctx.Reply("> *Schedule Usage:*\n\n" +
-"*.setschedule <jid> HH:MM <message>* — once\n" +
-"*.setschedule <jid> every day HH:MM <message>* — daily\n" +
-"*.setschedule <jid> every week <weekday> HH:MM <message>* — weekly\n" +
-"*.setschedule <jid> tomorrow HH:MM <message>* — tomorrow\n\n" +
-"_JID example: 923001234567 or 923001234567@s.whatsapp.net_")
+ctx.Reply(T().SchedUsage)
 return nil
 }
 
