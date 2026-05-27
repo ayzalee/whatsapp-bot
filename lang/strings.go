@@ -281,16 +281,4 @@ type Strings struct {
 	ChCreating     string
 	ChCreateOK     string
 	ChCreateFailed string
-SchedUsage      string
-SchedInvalidJID string
-SchedEmptyMsg   string
-SchedSaveFailed string
-SchedCreated    string
-SchedNotInit    string
-SchedEmpty      string
-SchedDelUsage   string
-SchedDelAll     string
-SchedDelInvalid string
-SchedDelFailed  string
-SchedDeleted    string
 }
