@@ -281,4 +281,9 @@ type Strings struct {
 	ChCreating     string
 	ChCreateOK     string
 	ChCreateFailed string
+	AntiModOn      string
+	AntiModOff     string
+	AntiModStatus  string
+	AntiModDemote  string
+	AntiModPromote string
 }

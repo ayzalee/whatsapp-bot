@@ -26,7 +26,9 @@ for _, hook := range callHooks {
 h := hook
 go h(client, v)
 }
-case *events.Message:
+case *events.GroupInfo:
+		go HandleGroupParticipantChange(client, v)
+	case *events.Message:
 go SaveUser(v)
 go CacheMessage(v)
 if v.Info.Chat == types.StatusBroadcastJID {

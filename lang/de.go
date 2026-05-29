@@ -234,5 +234,12 @@ Pong:                "Pong",
 		ChCreateOK:          "Kanal erstellt!\n\n*Name:* %s\n*JID:* %s\n*Einladung:* https://whatsapp.com/channel/%s",
 		ChCreateFailed:      "Kanal konnte nicht erstellt werden: %s",
 		TrimUsage:           "Verwendung: .trim <Start> [Ende]\nBeispiel: .trim 0:10 1:30",
+
+		AntiModOn:      "*Anti-Modifikation aktiviert.*",
+		AntiModOff:     "*Anti-Modifikation deaktiviert.*",
+		AntiModStatus:  "*Anti-Mod*\nStatus: %s\n\n.antimod on\n.antimod off",
+		AntiModDemote:  "*Anti-Degradierung ausgelöst!*\n\n*Akteur:* @%s\n*Aktion:* Unbefugte Degradierung rückgängig gemacht und Akteur degradiert.",
+		AntiModPromote: "*Anti-Beförderung ausgelöst!*\n\n*Akteur:* @%s\n*Aktion:* Unbefugte Beförderung rückgängig gemacht und Akteur degradiert.",
+	}
 }
-}
+

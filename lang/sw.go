@@ -234,5 +234,12 @@ Pong:                "Pong",
 		ChCreateOK:          "Channel imeundwa!\n\n*Jina:* %s\n*JID:* %s\n*Mwaliko:* https://whatsapp.com/channel/%s",
 		ChCreateFailed:      "Imeshindwa kuunda channel: %s",
 		TrimUsage:           "Matumizi: .trim <mwanzo> [mwisho]\nMfano: .trim 0:10 1:30",
+
+		AntiModOn:      "*Ulinzi wa marekebisho umewashwa.*",
+		AntiModOff:     "*Ulinzi wa marekebisho umezimwa.*",
+		AntiModStatus:  "*Anti-Mod*\nHali: %s\n\n.antimod on\n.antimod off",
+		AntiModDemote:  "*Anti-Kushushwa Kumesababishwa!*\n\n*Mtendaji:* @%s\n*Hatua:* Kushushwa bila ruhusa kumegeuzwa na mtendaji ameshushwa.",
+		AntiModPromote: "*Anti-Kukuza Kumesababishwa!*\n\n*Mtendaji:* @%s\n*Hatua:* Kukuza bila ruhusa kumegeuzwa na mtendaji ameshushwa.",
+	}
 }
-}
+

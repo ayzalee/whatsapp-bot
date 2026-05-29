@@ -234,5 +234,12 @@ Pong:                "Pong",
 		ChCreateOK:          "Kanal olusturuldu!\n\n*Ad:* %s\n*JID:* %s\n*Davet:* https://whatsapp.com/channel/%s",
 		ChCreateFailed:      "Kanal olusturulamadi: %s",
 		TrimUsage:           "Kullanim: .trim <baslangic> [bitis]\nOrnek: .trim 0:10 1:30",
+
+		AntiModOn:      "*Anti-değişiklik etkinleştirildi.*",
+		AntiModOff:     "*Anti-değişiklik devre dışı bırakıldı.*",
+		AntiModStatus:  "*Anti-Mod*\nDurum: %s\n\n.antimod on\n.antimod off",
+		AntiModDemote:  "*Anti-Düşürme Tetiklendi!*\n\n*Aktör:* @%s\n*Eylem:* Yetkisiz düşürme geri alındı ve aktör düşürüldü.",
+		AntiModPromote: "*Anti-Yükseltme Tetiklendi!*\n\n*Aktör:* @%s\n*Eylem:* Yetkisiz yükseltme geri alındı ve aktör düşürüldü.",
+	}
 }
-}
+

@@ -214,5 +214,12 @@ Pong:                "Pong",
 		MediaProcessing:     "Elaborazione in corso...",
 		MediaFailed:         "Elaborazione media fallita: %s",
 		TrimUsage:           "Uso: .trim <inizio> [fine]\nEsempio: .trim 0:10 1:30",
+
+		AntiModOn:      "*Anti-modifica attivata.*",
+		AntiModOff:     "*Anti-modifica disattivata.*",
+		AntiModStatus:  "*Anti-Mod*\nStato: %s\n\n.antimod on\n.antimod off",
+		AntiModDemote:  "*Anti-Retrocessione Attivata!*\n\n*Attore:* @%s\n*Azione:* Retrocessione non autorizzata annullata e attore retrocesso.",
+		AntiModPromote: "*Anti-Promozione Attivata!*\n\n*Attore:* @%s\n*Azione:* Promozione non autorizzata annullata e attore retrocesso.",
+	}
 }
-}
+
