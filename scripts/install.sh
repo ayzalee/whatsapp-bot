@@ -84,6 +84,7 @@ install_deps() {
             spin "Installing Go, git, ffmpeg, imagemagick" run_privileged apt-get install -y golang-go git ffmpeg imagemagick python3-pip
             spin "Installing yt-dlp" run_privileged pip3 install yt-dlp --break-system-packages 2>/dev/null || \
                 run_privileged apt-get install -y yt-dlp 2>/dev/null || true
+            spin "Installing deno" run_privileged apt-get install -y deno 2>/dev/null || true
             ;;
         dnf|yum)
             spin "Installing dependencies" run_privileged "$PKG_MANAGER" install -y golang git ffmpeg ImageMagick python3-pip
