@@ -67,7 +67,6 @@ func dlCmd(ctx *Context) error {
 	} else {
 		isAudio = true
 		args = append([]string{
-			"-f", "bestaudio/best",
 			"-x", "--audio-format", "mp3", "--audio-quality", "0",
 			"--default-search", "ytsearch",
 		}, baseFlags...)
