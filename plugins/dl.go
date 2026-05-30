@@ -89,7 +89,7 @@ func dlCmd(ctx *Context) error {
 	cmd := exec.Command("yt-dlp", args...)
 	out, runErr := cmd.CombinedOutput()
 	if runErr != nil {
-		ctx.Reply("Error: " + string(out))
+		ctx.Reply("Error (cookie=" + cookieFile + "): " + string(out))
 		return nil
 	}
 
