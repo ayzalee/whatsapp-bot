@@ -94,7 +94,7 @@ install_deps() {
     case "$PKG_MANAGER" in
         pkg)
             spin "Updating packages" pkg update -y
-            spin "Installing deps" pkg install -y golang git ffmpeg imagemagick deno
+            spin "Installing deps" pkg install -y golang git ffmpeg imagemagick
             spin "Installing yt-dlp" pkg install -y python-yt-dlp
             ;;
         apt)
@@ -102,24 +102,24 @@ install_deps() {
             spin "Installing deps" run_privileged apt-get install -y golang-go git ffmpeg imagemagick python3-pip curl
             spin "Installing yt-dlp" run_privileged pip3 install -U yt-dlp --break-system-packages 2>/dev/null || \
                 run_privileged apt-get install -y yt-dlp 2>/dev/null || true
-            spin "Installing deno" run_privileged apt-get install -y deno 2>/dev/null || \
+            spin "Installing" run_privileged apt-get install -y 2>/dev/null || \
                 curl -fsSL https://deno.land/install.sh | sh 2>/dev/null || true
             ;;
         dnf|yum)
             spin "Installing deps" run_privileged "$PKG_MANAGER" install -y golang git ffmpeg ImageMagick python3-pip curl
             spin "Installing yt-dlp" run_privileged pip3 install -U yt-dlp || true
-            spin "Installing deno" curl -fsSL https://deno.land/install.sh | sh 2>/dev/null || true
+            spin "Installing" curl -fsSL https://deno.land/install.sh | sh 2>/dev/null || true
             ;;
         pacman)
-            spin "Installing deps" run_privileged pacman -Sy --noconfirm go git ffmpeg imagemagick yt-dlp curl deno
+            spin "Installing deps" run_privileged pacman -Sy --noconfirm go git ffmpeg imagemagick yt-dlp curl
             ;;
         apk)
             spin "Installing deps" run_privileged apk add --no-cache go git ffmpeg imagemagick py3-pip curl
             spin "Installing yt-dlp" pip3 install -U yt-dlp || true
-            spin "Installing deno" curl -fsSL https://deno.land/install.sh | sh 2>/dev/null || true
+            spin "Installing" curl -fsSL https://deno.land/install.sh | sh 2>/dev/null || true
             ;;
         brew)
-            spin "Installing deps" brew install go git ffmpeg imagemagick yt-dlp deno
+            spin "Installing deps" brew install go git ffmpeg imagemagick yt-dlp
             ;;
     esac
     success "Dependencies installed"
