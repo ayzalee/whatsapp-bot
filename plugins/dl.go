@@ -38,54 +38,49 @@ func dlCmd(ctx *Context) error {
 
 	var args []string
 	isAudio := false
-
 	isURL := strings.HasPrefix(input, "http://") || strings.HasPrefix(input, "https://")
 
-	if strings.HasPrefix(input, "mp3 ") {
+	baseFlags := []string{
+		"--no-playlist",
+		"--no-warnings", "--quiet",
+		"--concurrent-fragments", "4",
+		"--no-part",
+		"--remote-components", "ejs:github",
+		"--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+	}
 
+	if strings.HasPrefix(input, "mp3 ") {
 		isAudio = true
 		url := strings.TrimPrefix(input, "mp3 ")
-		args = []string{
+		args = append([]string{
 			"-x", "--audio-format", "mp3", "--audio-quality", "0",
-			"--no-playlist",
-			"--no-warnings", "--quiet",
-				"--concurrent-fragments", "4",
-				"--no-part",
-			"--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-			"-o", outTemplate,
-			url,
-		}
+		}, baseFlags...)
+		args = append(args, "-o", outTemplate, url)
+
 	} else if isURL {
-
-		args = []string{
+		args = append([]string{
 			"-f", "best[ext=mp4]/best",
-			"--no-playlist",
-			"--no-warnings", "--quiet",
-				"--concurrent-fragments", "4",
-				"--no-part",
-			"--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
 			"--merge-output-format", "mp4",
-			"-o", outTemplate,
-			input,
-		}
-	} else {
+		}, baseFlags...)
+		args = append(args, "-o", outTemplate, input)
 
+	} else {
 		isAudio = true
-		args = []string{
+		args = append([]string{
 			"-f", "bestaudio/best",
 			"-x", "--audio-format", "mp3", "--audio-quality", "0",
-			"--no-playlist",
-			"--no-warnings", "--quiet",
-				"--concurrent-fragments", "4",
-				"--no-part",
 			"--default-search", "ytsearch",
-			"-o", outTemplate,
-			input,
-		}
+		}, baseFlags...)
+		args = append(args, "-o", outTemplate, input)
+	}
+
+	if dlCookieFile != "" {
+		args = append(args, "--cookies", dlCookieFile)
 	}
 
 	cmd := exec.Command("yt-dlp", args...)
-	if _, runErr := cmd.CombinedOutput(); runErr != nil {
+	if out, runErr := cmd.CombinedOutput(); runErr != nil {
+		_ = out
 		ctx.Reply(T().DlFailed)
 		return nil
 	}
@@ -114,46 +109,54 @@ func dlCmd(ctx *Context) error {
 		RemoteJID:     proto.String(chatJID),
 	}
 
+	id := ctx.Client.GenerateMessageID()
+
 	if isAudio {
 		uploaded, err := ctx.Client.Upload(context.Background(), fileBytes, whatsmeow.MediaAudio)
 		if err != nil {
 			ctx.Reply("Failed to upload audio.")
 			return nil
 		}
-		msg := &waProto.Message{
-			AudioMessage: &waProto.AudioMessage{
-				URL:           proto.String(uploaded.URL),
-				DirectPath:    proto.String(uploaded.DirectPath),
-				MediaKey:      uploaded.MediaKey,
-				FileEncSHA256: uploaded.FileEncSHA256,
-				FileSHA256:    uploaded.FileSHA256,
-				FileLength:    proto.Uint64(uint64(len(fileBytes))),
-				Mimetype:      proto.String("audio/mpeg"),
-				ContextInfo:   contextInfo,
+		sendQueue <- sendTask{
+			client: ctx.Client,
+			to:     ctx.Event.Info.Chat,
+			msg: &waProto.Message{
+				AudioMessage: &waProto.AudioMessage{
+					URL:           proto.String(uploaded.URL),
+					DirectPath:    proto.String(uploaded.DirectPath),
+					MediaKey:      uploaded.MediaKey,
+					FileEncSHA256: uploaded.FileEncSHA256,
+					FileSHA256:    uploaded.FileSHA256,
+					FileLength:    proto.Uint64(uint64(len(fileBytes))),
+					Mimetype:      proto.String("audio/mpeg"),
+					ContextInfo:   contextInfo,
+				},
 			},
+			id: id,
 		}
-		id := ctx.Client.GenerateMessageID()
-		sendQueue <- sendTask{client: ctx.Client, to: ctx.Event.Info.Chat, msg: msg, id: id}
 	} else {
 		uploaded, err := ctx.Client.Upload(context.Background(), fileBytes, whatsmeow.MediaVideo)
 		if err != nil {
 			ctx.Reply("Failed to upload video.")
 			return nil
 		}
-		msg := &waProto.Message{
-			VideoMessage: &waProto.VideoMessage{
-				URL:           proto.String(uploaded.URL),
-				DirectPath:    proto.String(uploaded.DirectPath),
-				MediaKey:      uploaded.MediaKey,
-				FileEncSHA256: uploaded.FileEncSHA256,
-				FileSHA256:    uploaded.FileSHA256,
-				FileLength:    proto.Uint64(uint64(len(fileBytes))),
-				Mimetype:      proto.String("video/mp4"),
-				ContextInfo:   contextInfo,
+		sendQueue <- sendTask{
+			client: ctx.Client,
+			to:     ctx.Event.Info.Chat,
+			msg: &waProto.Message{
+				VideoMessage: &waProto.VideoMessage{
+					URL:           proto.String(uploaded.URL),
+					DirectPath:    proto.String(uploaded.DirectPath),
+					MediaKey:      uploaded.MediaKey,
+					FileEncSHA256: uploaded.FileEncSHA256,
+					FileSHA256:    uploaded.FileSHA256,
+					FileLength:    proto.Uint64(uint64(len(fileBytes))),
+					Mimetype:      proto.String("video/mp4"),
+					ContextInfo:   contextInfo,
+				},
 			},
+			id: id,
 		}
-		id := ctx.Client.GenerateMessageID()
-		sendQueue <- sendTask{client: ctx.Client, to: ctx.Event.Info.Chat, msg: msg, id: id}
 	}
 
 	return nil
