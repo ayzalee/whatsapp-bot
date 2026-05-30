@@ -175,6 +175,8 @@ Conversation: proto.String(msg),
 
 func main() {
 loadEnv()
+	plugins.InitDLCookie()
+	plugins.InitDLCookie()
 
 flag.Usage = printHelp
 helpFlag := flag.Bool("help", false, "")

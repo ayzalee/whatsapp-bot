@@ -7,14 +7,15 @@ import (
 
 var dlCookieFile string
 
-func init() {
-// Load cookie file from env on startup
+func InitDLCookie() {
 if cookieStr := os.Getenv("YT_COOKIE"); cookieStr != "" {
 if err := saveCookieFile(cookieStr); err == nil {
 dlCookieFile = "cookies.txt"
 }
 }
+}
 
+func init() {
 Register(&Command{
 Pattern:  "dlcookie",
 IsSudo:   true,
