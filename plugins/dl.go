@@ -74,13 +74,8 @@ func dlCmd(ctx *Context) error {
 		args = append(args, "-o", outTemplate, input)
 	}
 
-	if dlCookieFile != "" {
-		args = append(args, "--cookies", dlCookieFile)
-	}
-
 	cmd := exec.Command("yt-dlp", args...)
-	if out, runErr := cmd.CombinedOutput(); runErr != nil {
-		_ = out
+	if _, runErr := cmd.CombinedOutput(); runErr != nil {
 		ctx.Reply(T().DlFailed)
 		return nil
 	}
