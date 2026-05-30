@@ -186,6 +186,7 @@ StartLimitBurst=5
 Type=simple
 User=$bot_user
 WorkingDirectory=$bot_path
+Environment=PATH=/home/$bot_user/.deno/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ExecStart=$bot_path/zaelix
 Restart=always
 RestartSec=5
