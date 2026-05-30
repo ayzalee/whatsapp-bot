@@ -79,8 +79,12 @@ func dlCmd(ctx *Context) error {
 	cookieFile := dlCookieFile
 	if cookieFile == "" {
 		if _, err := os.Stat("cookies.txt"); err == nil {
-			cookieFile = "cookies.txt"
+			abs, _ := filepath.Abs("cookies.txt")
+			cookieFile = abs
 		}
+	} else {
+		abs, _ := filepath.Abs(cookieFile)
+		cookieFile = abs
 	}
 	if cookieFile != "" {
 		args = append(args, "--cookies", cookieFile)
