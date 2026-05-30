@@ -188,7 +188,7 @@ Type=simple
 User=$bot_user
 WorkingDirectory=$bot_path
 Environment=HOME=/home/$bot_user
-Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=PATH=/home/$bot_user/.deno/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
 ExecStart=$bot_path/zaelix
 Restart=always
 RestartSec=5
