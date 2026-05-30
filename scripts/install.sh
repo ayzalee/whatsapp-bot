@@ -108,7 +108,6 @@ install_deps() {
         dnf|yum)
             spin "Installing deps" run_privileged "$PKG_MANAGER" install -y golang git ffmpeg ImageMagick python3-pip curl
             spin "Installing yt-dlp" run_privileged pip3 install -U yt-dlp || true
-            spin "Installing" curl -fsSL https://deno.land/install.sh | sh 2>/dev/null || true
             ;;
         pacman)
             spin "Installing deps" run_privileged pacman -Sy --noconfirm go git ffmpeg imagemagick yt-dlp curl
@@ -116,7 +115,6 @@ install_deps() {
         apk)
             spin "Installing deps" run_privileged apk add --no-cache go git ffmpeg imagemagick py3-pip curl
             spin "Installing yt-dlp" pip3 install -U yt-dlp || true
-            spin "Installing" curl -fsSL https://deno.land/install.sh | sh 2>/dev/null || true
             ;;
         brew)
             spin "Installing deps" brew install go git ffmpeg imagemagick yt-dlp
@@ -186,7 +184,7 @@ StartLimitBurst=5
 Type=simple
 User=$bot_user
 WorkingDirectory=$bot_path
-Environment=PATH=/home/$bot_user/.deno/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=HOME=/home/$bot_user
 ExecStart=$bot_path/zaelix
 Restart=always
 RestartSec=5
