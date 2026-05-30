@@ -15,38 +15,6 @@ dlCookieFile = "cookies.txt"
 }
 }
 
-func init() {
-Register(&Command{
-Pattern:  "dlcookie",
-IsSudo:   true,
-Category: "download",
-Func: func(ctx *Context) error {
-arg := strings.TrimSpace(ctx.Text)
-if arg == "" {
-if dlCookieFile != "" {
-ctx.Reply("Cookie is set.\n\n.dlcookie clear — remove")
-} else {
-ctx.Reply("No cookie set.\n\nUsage: .dlcookie <cookie_string>")
-}
-return nil
-}
-if arg == "clear" {
-dlCookieFile = ""
-os.Remove("cookies.txt")
-ctx.Reply("Cookie cleared.")
-return nil
-}
-if err := saveCookieFile(arg); err != nil {
-ctx.Reply("Failed to save cookie: " + err.Error())
-return nil
-}
-dlCookieFile = "cookies.txt"
-ctx.Reply("Cookie saved.")
-return nil
-},
-})
-}
-
 func saveCookieFile(cookieStr string) error {
 lines := "# Netscape HTTP Cookie File\n"
 for _, pair := range strings.Split(cookieStr, ";") {
