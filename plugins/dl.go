@@ -67,6 +67,7 @@ func dlCmd(ctx *Context) error {
 	} else {
 		isAudio = true
 		args = append([]string{
+			"-f", "bestaudio[ext=webm]/bestaudio/best",
 			"-x", "--audio-format", "mp3", "--audio-quality", "0",
 			"--default-search", "ytsearch",
 		}, baseFlags...)
@@ -90,9 +91,8 @@ func dlCmd(ctx *Context) error {
 		args = append(args, "--cookies", cookieFile)
 	}
 	cmd := exec.Command("yt-dlp", args...)
-	out, runErr := cmd.CombinedOutput()
-	if runErr != nil {
-		ctx.Reply("Error (cookie=" + cookieFile + "): " + string(out))
+	if _, runErr := cmd.CombinedOutput(); runErr != nil {
+		ctx.Reply(T().DlFailed)
 		return nil
 	}
 
