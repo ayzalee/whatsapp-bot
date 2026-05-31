@@ -13,6 +13,7 @@ waProto "go.mau.fi/whatsmeow/proto/waE2E"
 )
 
 var antiModChats = map[string]bool{}
+var pdmChats = map[string]bool{}
 
 func init() {
 Register(&Command{
@@ -122,4 +123,32 @@ MentionedJID: mentions,
 },
 id: id,
 }
+}
+
+func init() {
+Register(&Command{
+Pattern:  "pdm",
+IsGroup:  true,
+IsAdmin:  true,
+Category: "group",
+Func: func(ctx *Context) error {
+chatJID := ctx.Event.Info.Chat.String()
+arg := strings.ToLower(strings.TrimSpace(ctx.Text))
+switch arg {
+case "on":
+pdmChats[chatJID] = true
+ctx.Reply("Promote/demote notifications enabled.")
+case "off":
+delete(pdmChats, chatJID)
+ctx.Reply("Promote/demote notifications disabled.")
+default:
+status := "off"
+if pdmChats[chatJID] {
+status = "on"
+}
+ctx.Reply("*PDM Notifications*\nStatus: " + status + "\n\n.pdm on\n.pdm off")
+}
+return nil
+},
+})
 }
