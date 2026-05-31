@@ -240,6 +240,10 @@ Pong:                "Pong",
 		AntiModStatus:  "*Anti-Mod*\nStatus: %s\n\n.antimod on\n.antimod off",
 		AntiModDemote:  "*Anti-Degradierung ausgelöst!*\n\n*Akteur:* @%s\n*Aktion:* Unbefugte Degradierung rückgängig gemacht und Akteur degradiert.",
 		AntiModPromote: "*Anti-Beförderung ausgelöst!*\n\n*Akteur:* @%s\n*Aktion:* Unbefugte Beförderung rückgängig gemacht und Akteur degradiert.",
+		PdmOn:     "Beförderungs-/Degradierungsbenachrichtigungen aktiviert.",
+		PdmOff:    "Beförderungs-/Degradierungsbenachrichtigungen deaktiviert.",
+		PdmStatus: "*PDM-Benachrichtigungen*\nStatus: %s\n\n.pdm on\n.pdm off",
+
 	}
 }
 

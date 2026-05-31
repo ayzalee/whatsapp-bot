@@ -220,6 +220,10 @@ Pong:                "Pong",
 		AntiModStatus:  "*Anti-Mod*\nStato: %s\n\n.antimod on\n.antimod off",
 		AntiModDemote:  "*Anti-Retrocessione Attivata!*\n\n*Attore:* @%s\n*Azione:* Retrocessione non autorizzata annullata e attore retrocesso.",
 		AntiModPromote: "*Anti-Promozione Attivata!*\n\n*Attore:* @%s\n*Azione:* Promozione non autorizzata annullata e attore retrocesso.",
+		PdmOn:     "Notifiche di promozione/retrocessione attivate.",
+		PdmOff:    "Notifiche di promozione/retrocessione disattivate.",
+		PdmStatus: "*Notifiche PDM*\nStato: %s\n\n.pdm on\n.pdm off",
+
 	}
 }
 

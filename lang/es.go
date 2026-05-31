@@ -240,6 +240,10 @@ Pong:                "Pong",
 		AntiModStatus:  "*Anti-Mod*\nEstado: %s\n\n.antimod on\n.antimod off",
 		AntiModDemote:  "*Anti-Degradación Activada!*\n\n*Actor:* @%s\n*Acción:* Degradación no autorizada revertida y actor degradado.",
 		AntiModPromote: "*Anti-Promoción Activada!*\n\n*Actor:* @%s\n*Acción:* Promoción no autorizada revertida y actor degradado.",
+		PdmOn:     "Notificaciones de ascenso/degradación activadas.",
+		PdmOff:    "Notificaciones de ascenso/degradación desactivadas.",
+		PdmStatus: "*Notificaciones PDM*\nEstado: %s\n\n.pdm on\n.pdm off",
+
 	}
 }
 

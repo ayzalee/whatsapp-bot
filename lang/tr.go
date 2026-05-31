@@ -240,6 +240,10 @@ Pong:                "Pong",
 		AntiModStatus:  "*Anti-Mod*\nDurum: %s\n\n.antimod on\n.antimod off",
 		AntiModDemote:  "*Anti-Düşürme Tetiklendi!*\n\n*Aktör:* @%s\n*Eylem:* Yetkisiz düşürme geri alındı ve aktör düşürüldü.",
 		AntiModPromote: "*Anti-Yükseltme Tetiklendi!*\n\n*Aktör:* @%s\n*Eylem:* Yetkisiz yükseltme geri alındı ve aktör düşürüldü.",
+		PdmOn:     "Yükseltme/düşürme bildirimleri etkinleştirildi.",
+		PdmOff:    "Yükseltme/düşürme bildirimleri devre dışı bırakıldı.",
+		PdmStatus: "*PDM Bildirimleri*\nDurum: %s\n\n.pdm on\n.pdm off",
+
 	}
 }
 

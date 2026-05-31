@@ -286,4 +286,7 @@ type Strings struct {
 	AntiModStatus  string
 	AntiModDemote  string
 	AntiModPromote string
+	PdmOn     string
+	PdmOff    string
+	PdmStatus string
 }

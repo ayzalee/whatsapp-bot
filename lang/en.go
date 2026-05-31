@@ -218,6 +218,10 @@ Pong:                "Pong",
 		AntiModStatus:  "*Anti-Mod*\nStatus: %s\n\n.antimod on\n.antimod off",
 		AntiModDemote:  "*Anti-Demote Triggered!*\n\n*Actor:* @%s\n*Action:* Unauthorized demotion reversed and actor demoted.",
 		AntiModPromote: "*Anti-Promote Triggered!*\n\n*Actor:* @%s\n*Action:* Unauthorized promotion reversed and actor demoted.",
+		PdmOn:     "Promote/demote notifications enabled.",
+		PdmOff:    "Promote/demote notifications disabled.",
+		PdmStatus: "*PDM Notifications*\nStatus: %s\n\n.pdm on\n.pdm off",
+
 	}
 }
 

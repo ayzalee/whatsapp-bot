@@ -53,16 +53,16 @@ arg := strings.ToLower(strings.TrimSpace(ctx.Text))
 switch arg {
 case "on":
 pdmChats[chatJID] = true
-ctx.Reply("Promote/demote notifications enabled.")
+ctx.Reply(T().PdmOn)
 case "off":
 delete(pdmChats, chatJID)
-ctx.Reply("Promote/demote notifications disabled.")
+ctx.Reply(T().PdmOff)
 default:
 status := "off"
 if pdmChats[chatJID] {
 status = "on"
 }
-ctx.Reply("*PDM Notifications*\nStatus: " + status + "\n\n.pdm on\n.pdm off")
+ctx.Reply(fmt.Sprintf(T().PdmStatus, status))
 }
 return nil
 },

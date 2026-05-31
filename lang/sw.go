@@ -240,6 +240,10 @@ Pong:                "Pong",
 		AntiModStatus:  "*Anti-Mod*\nHali: %s\n\n.antimod on\n.antimod off",
 		AntiModDemote:  "*Anti-Kushushwa Kumesababishwa!*\n\n*Mtendaji:* @%s\n*Hatua:* Kushushwa bila ruhusa kumegeuzwa na mtendaji ameshushwa.",
 		AntiModPromote: "*Anti-Kukuza Kumesababishwa!*\n\n*Mtendaji:* @%s\n*Hatua:* Kukuza bila ruhusa kumegeuzwa na mtendaji ameshushwa.",
+		PdmOn:     "Arifa za kukuza/kushushwa zimewashwa.",
+		PdmOff:    "Arifa za kukuza/kushushwa zimezimwa.",
+		PdmStatus: "*Arifa za PDM*\nHali: %s\n\n.pdm on\n.pdm off",
+
 	}
 }
 
