@@ -244,6 +244,14 @@ Pong:                "Pong",
 		PdmOff:    "Arifa za kukuza/kushushwa zimezimwa.",
 		PdmStatus: "*Arifa za PDM*\nHali: %s\n\n.pdm on\n.pdm off",
 
+		CaptionUsage:       "Jibu media yoyote ❗",
+		CaptionUnsupported: "Aina ya media haisaidiwi ❗",
+
+		ForwardUsage:    "Jibu ujumbe ili kuusambaza.\n\nMatumizi: .forward jid1,jid2,...\nMfano: .forward 120363xx@g.us,923001234567@s.whatsapp.net,120363yy@newsletter",
+		ForwardNoTarget: "Matumizi: .forward jid1,jid2,...",
+		ForwardDone:     "Imesambazwa kwa walengwa *%d*.",
+		ForwardFailed:   "\nImeshindwa: %d (%s)",
+
 	}
 }
 

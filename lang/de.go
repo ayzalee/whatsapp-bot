@@ -244,6 +244,14 @@ Pong:                "Pong",
 		PdmOff:    "Beförderungs-/Degradierungsbenachrichtigungen deaktiviert.",
 		PdmStatus: "*PDM-Benachrichtigungen*\nStatus: %s\n\n.pdm on\n.pdm off",
 
+		CaptionUsage:       "Antworte auf ein Medium ❗",
+		CaptionUnsupported: "Nicht unterstütztes Medium ❗",
+
+		ForwardUsage:    "Antworte auf eine Nachricht, um sie weiterzuleiten.\n\nVerwendung: .forward jid1,jid2,...\nBeispiel: .forward 120363xx@g.us,923001234567@s.whatsapp.net,120363yy@newsletter",
+		ForwardNoTarget: "Verwendung: .forward jid1,jid2,...",
+		ForwardDone:     "An *%d* Ziel(e) weitergeleitet.",
+		ForwardFailed:   "\nFehlgeschlagen: %d (%s)",
+
 	}
 }
 

@@ -289,4 +289,10 @@ type Strings struct {
 	PdmOn     string
 	PdmOff    string
 	PdmStatus string
+	CaptionUsage       string
+	CaptionUnsupported string
+	ForwardUsage    string
+	ForwardNoTarget string
+	ForwardDone     string
+	ForwardFailed   string
 }

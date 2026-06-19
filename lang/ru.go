@@ -244,6 +244,14 @@ Pong:                "Понг",
 		PdmOff:    "Уведомления о повышении/понижении выключены.",
 		PdmStatus: "*PDM уведомления*\nСтатус: %s\n\n.pdm on\n.pdm off",
 
+		CaptionUsage:       "Ответьте на любое медиа ❗",
+		CaptionUnsupported: "Неподдерживаемый формат ❗",
+
+		ForwardUsage:    "Ответьте на сообщение, чтобы переслать его.\n\nИспользование: .forward jid1,jid2,...\nПример: .forward 120363xx@g.us,923001234567@s.whatsapp.net,120363yy@newsletter",
+		ForwardNoTarget: "Использование: .forward jid1,jid2,...",
+		ForwardDone:     "Переслано *%d* получателям.",
+		ForwardFailed:   "\nНе удалось: %d (%s)",
+
 	}
 }
 

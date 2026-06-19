@@ -234,6 +234,14 @@ Pong:                "بونغ",
 		PdmOff:    "تم تعطيل إشعارات الترقية/التخفيض.",
 		PdmStatus: "*إشعارات PDM*\nالحالة: %s\n\n.pdm on\n.pdm off",
 
+		CaptionUsage:       "رد على أي ملف وسائط ❗",
+		CaptionUnsupported: "وسائط غير مدعومة ❗",
+
+		ForwardUsage:    "رد على رسالة لإعادة توجيهها.\n\nالاستخدام: .forward jid1,jid2,...\nمثال: .forward 120363xx@g.us,923001234567@s.whatsapp.net,120363yy@newsletter",
+		ForwardNoTarget: "الاستخدام: .forward jid1,jid2,...",
+		ForwardDone:     "تم إعادة التوجيه إلى *%d* جهة.",
+		ForwardFailed:   "\nفشل: %d (%s)",
+
 	}
 }
 

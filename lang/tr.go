@@ -244,6 +244,14 @@ Pong:                "Pong",
 		PdmOff:    "Yükseltme/düşürme bildirimleri devre dışı bırakıldı.",
 		PdmStatus: "*PDM Bildirimleri*\nDurum: %s\n\n.pdm on\n.pdm off",
 
+		CaptionUsage:       "Herhangi bir medyaya yanıt verin ❗",
+		CaptionUnsupported: "Desteklenmeyen medya ❗",
+
+		ForwardUsage:    "İletmek için bir mesaja yanıt verin.\n\nKullanım: .forward jid1,jid2,...\nÖrnek: .forward 120363xx@g.us,923001234567@s.whatsapp.net,120363yy@newsletter",
+		ForwardNoTarget: "Kullanım: .forward jid1,jid2,...",
+		ForwardDone:     "*%d* hedefe iletildi.",
+		ForwardFailed:   "\nBaşarısız: %d (%s)",
+
 	}
 }
 

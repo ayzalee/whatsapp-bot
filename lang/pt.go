@@ -244,6 +244,14 @@ Pong:                "Pong",
 		PdmOff:    "Notificações de promoção/remoção desativadas.",
 		PdmStatus: "*Notificações PDM*\nStatus: %s\n\n.pdm on\n.pdm off",
 
+		CaptionUsage:       "Responda a qualquer mídia ❗",
+		CaptionUnsupported: "Mídia não suportada ❗",
+
+		ForwardUsage:    "Responda a uma mensagem para reenviá-la.\n\nUso: .forward jid1,jid2,...\nExemplo: .forward 120363xx@g.us,923001234567@s.whatsapp.net,120363yy@newsletter",
+		ForwardNoTarget: "Uso: .forward jid1,jid2,...",
+		ForwardDone:     "Reenviado para *%d* destino(s).",
+		ForwardFailed:   "\nFalhas: %d (%s)",
+
 	}
 }
 

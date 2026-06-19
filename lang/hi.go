@@ -244,6 +244,14 @@ Pong:                "पोंग",
 		PdmOff:    "प्रमोट/डिमोट नोटिफिकेशन निष्क्रिय।",
 		PdmStatus: "*PDM नोटिफिकेशन*\nस्थिति: %s\n\n.pdm on\n.pdm off",
 
+		CaptionUsage:       "किसी भी मीडिया पर रिप्लाई करें ❗",
+		CaptionUnsupported: "असमर्थित मीडिया ❗",
+
+		ForwardUsage:    "फॉरवर्ड करने के लिए किसी मैसेज पर रिप्लाई करें।\n\nउपयोग: .forward jid1,jid2,...\nउदाहरण: .forward 120363xx@g.us,923001234567@s.whatsapp.net,120363yy@newsletter",
+		ForwardNoTarget: "उपयोग: .forward jid1,jid2,...",
+		ForwardDone:     "*%d* को फॉरवर्ड किया गया।",
+		ForwardFailed:   "\nविफल: %d (%s)",
+
 	}
 }
 

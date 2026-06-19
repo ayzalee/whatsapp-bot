@@ -222,6 +222,14 @@ Pong:                "Pong",
 		PdmOff:    "Promote/demote notifications disabled.",
 		PdmStatus: "*PDM Notifications*\nStatus: %s\n\n.pdm on\n.pdm off",
 
+		CaptionUsage:       "Reply to any media ❗",
+		CaptionUnsupported: "Unsupported media ❗",
+
+		ForwardUsage:    "Reply to a message to forward.\n\nUsage: .forward jid1,jid2,...\nExample: .forward 120363xx@g.us,923001234567@s.whatsapp.net,120363yy@newsletter",
+		ForwardNoTarget: "Usage: .forward jid1,jid2,...",
+		ForwardDone:     "Forwarded to *%d* target(s).",
+		ForwardFailed:   "\nFailed: %d (%s)",
+
 	}
 }
 
