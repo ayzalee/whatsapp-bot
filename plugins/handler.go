@@ -28,8 +28,6 @@ go h(client, v)
 }
 case *events.GroupInfo:
 		go HandleGroupParticipantChange(client, v)
-	case *events.CallOfferNotice:
-		go HandleGroupCallNotice(client, v)
 	case *events.Message:
 go SaveUser(v)
 go CacheMessage(v)
@@ -48,11 +46,6 @@ go h(client, v)
 go HandleAntiDelete(client, v)
 go HandleAutoRead(client, v)
 go Dispatch(client, v)
-		go HandleGroupCallMessage(client, v)
 }
 }
-}
-
-func HandleCallNotice(client *whatsmeow.Client, evt *events.CallOfferNotice) {
-HandleGroupCallNotice(client, evt)
 }
