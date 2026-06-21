@@ -6,5 +6,5 @@ import _ "embed"
 var defaultThumbnailBytes []byte
 
 func defaultThumbnail() []byte {
-return defaultThumbnailBytes
+	return defaultThumbnailBytes
 }

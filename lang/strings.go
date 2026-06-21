@@ -197,11 +197,11 @@ type Strings struct {
 	StickerFailed  string
 
 	SetVarUsage   string
-	SetVarInvalid  string
-	SetVarOK       string
-	GetVarFailed   string
-	DelVarUsage    string
-	DelVarOK       string
+	SetVarInvalid string
+	SetVarOK      string
+	GetVarFailed  string
+	DelVarUsage   string
+	DelVarOK      string
 
 	VVUsage       string
 	VVFailed      string
@@ -277,24 +277,24 @@ type Strings struct {
 	PluginNone        string
 	PluginList        string
 
-	ChCreateUsage  string
-	ChCreating     string
-	ChCreateOK     string
-	ChCreateFailed string
-	AntiModOn      string
-	AntiModOff     string
-	AntiModStatus  string
-	AntiModDemote  string
-	AntiModPromote string
-	PdmOn     string
-	PdmOff    string
-	PdmStatus string
-	CaptionUsage       string
-	CaptionUnsupported string
-	ForwardUsage    string
-	ForwardNoTarget string
-	ForwardDone     string
-	ForwardFailed   string
+	ChCreateUsage          string
+	ChCreating             string
+	ChCreateOK             string
+	ChCreateFailed         string
+	AntiModOn              string
+	AntiModOff             string
+	AntiModStatus          string
+	AntiModDemote          string
+	AntiModPromote         string
+	PdmOn                  string
+	PdmOff                 string
+	PdmStatus              string
+	CaptionUsage           string
+	CaptionUnsupported     string
+	ForwardUsage           string
+	ForwardNoTarget        string
+	ForwardDone            string
+	ForwardFailed          string
 	CompressUsage          string
 	CompressReplyVideo     string
 	CompressDownloadFailed string
