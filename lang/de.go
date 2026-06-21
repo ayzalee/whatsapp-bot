@@ -252,6 +252,16 @@ Pong:                "Pong",
 		ForwardDone:     "An *%d* Ziel(e) weitergeleitet.",
 		ForwardFailed:   "\nFehlgeschlagen: %d (%s)",
 
+		CompressUsage:          "Antworte auf ein Video mit .compress [ziel_mb]\n\nBeispiel: .compress 50",
+		CompressReplyVideo:     "Antworte auf ein Video, um es zu komprimieren.",
+		CompressDownloadFailed: "Download fehlgeschlagen: %s",
+		CompressProgress:       "%dMB heruntergeladen. Komprimiere auf ~%dMB...",
+		CompressFailed:         "Komprimierung fehlgeschlagen: %s",
+		CompressTempFailed:     "Temp-Datei konnte nicht erstellt werden: %s",
+		CompressTempWriteFail:  "Temp-Datei konnte nicht geschrieben werden: %s",
+		CompressOpenFailed:     "Komprimierte Datei konnte nicht geöffnet werden: %s",
+		CompressUploadFailed:   "Upload fehlgeschlagen: %s",
+
 	}
 }
 

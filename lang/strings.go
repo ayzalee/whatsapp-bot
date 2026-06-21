@@ -295,4 +295,13 @@ type Strings struct {
 	ForwardNoTarget string
 	ForwardDone     string
 	ForwardFailed   string
+	CompressUsage          string
+	CompressReplyVideo     string
+	CompressDownloadFailed string
+	CompressProgress       string
+	CompressFailed         string
+	CompressTempFailed     string
+	CompressTempWriteFail  string
+	CompressOpenFailed     string
+	CompressUploadFailed   string
 }

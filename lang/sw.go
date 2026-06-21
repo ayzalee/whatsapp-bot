@@ -252,6 +252,16 @@ Pong:                "Pong",
 		ForwardDone:     "Imesambazwa kwa walengwa *%d*.",
 		ForwardFailed:   "\nImeshindwa: %d (%s)",
 
+		CompressUsage:          "Jibu video na .compress [lengo_mb]\n\nMfano: .compress 50",
+		CompressReplyVideo:     "Jibu video kuibana.",
+		CompressDownloadFailed: "Imeshindwa kupakua: %s",
+		CompressProgress:       "Imepakuliwa %dMB. Inabana hadi ~%dMB...",
+		CompressFailed:         "Imeshindwa kubana: %s",
+		CompressTempFailed:     "Imeshindwa kuunda faili la muda: %s",
+		CompressTempWriteFail:  "Imeshindwa kuandika faili la muda: %s",
+		CompressOpenFailed:     "Imeshindwa kufungua faili lililobanwa: %s",
+		CompressUploadFailed:   "Imeshindwa kupakia: %s",
+
 	}
 }
 

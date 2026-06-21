@@ -25,7 +25,7 @@ Func:     compressCmd,
 func compressCmd(ctx *Context) error {
 ci := ctx.Event.Message.GetExtendedTextMessage().GetContextInfo()
 if ci == nil || ci.GetQuotedMessage() == nil {
-ctx.Reply("Reply to a video with .compress [target_mb]\n\nExample: .compress 50")
+ctx.Reply(T().CompressUsage)
 return nil
 }
 quoted := ci.GetQuotedMessage()
@@ -43,12 +43,12 @@ case quoted.GetDocumentMessage() != nil && strings.HasPrefix(quoted.GetDocumentM
 doc := quoted.GetDocumentMessage()
 data, err = ctx.Client.Download(context.Background(), doc)
 default:
-ctx.Reply("Reply to a video to compress.")
+ctx.Reply(T().CompressReplyVideo)
 return nil
 }
 
 if err != nil {
-ctx.Reply("Failed to download: " + err.Error())
+ctx.Reply(fmt.Sprintf(T().CompressDownloadFailed, err.Error()))
 return nil
 }
 
@@ -61,11 +61,11 @@ targetMB = v
 }
 targetBytes := targetMB * 1024 * 1024
 
-ctx.Reply(fmt.Sprintf("Downloaded %dMB. Compressing to ~%dMB...", len(data)/1024/1024, targetMB))
+ctx.Reply(fmt.Sprintf(T().CompressProgress, len(data)/1024/1024, targetMB))
 
 srcFile, err := os.CreateTemp("", "compress-src-*.mp4")
 if err != nil {
-ctx.Reply("Failed to create temp file: " + err.Error())
+ctx.Reply(fmt.Sprintf(T().CompressTempFailed, err.Error()))
 return nil
 }
 srcPath := srcFile.Name()
@@ -73,7 +73,7 @@ defer os.Remove(srcPath)
 
 if _, werr := srcFile.Write(data); werr != nil {
 srcFile.Close()
-ctx.Reply("Failed to write temp file: " + werr.Error())
+ctx.Reply(fmt.Sprintf(T().CompressTempWriteFail, werr.Error()))
 return nil
 }
 srcFile.Close()
@@ -83,21 +83,21 @@ runtime.GC()
 
 compressedPath, err := compressVideoToFile(srcPath, targetBytes)
 if err != nil {
-ctx.Reply("Compression failed: " + err.Error())
+ctx.Reply(fmt.Sprintf(T().CompressFailed, err.Error()))
 return nil
 }
 defer os.Remove(compressedPath)
 
 f, err := os.Open(compressedPath)
 if err != nil {
-ctx.Reply("Failed to open compressed file: " + err.Error())
+ctx.Reply(fmt.Sprintf(T().CompressOpenFailed, err.Error()))
 return nil
 }
 defer f.Close()
 
 uploaded, err := ctx.Client.UploadReader(context.Background(), f, nil, whatsmeow.MediaVideo)
 if err != nil {
-ctx.Reply("Failed to upload: " + err.Error())
+ctx.Reply(fmt.Sprintf(T().CompressUploadFailed, err.Error()))
 return nil
 }
 

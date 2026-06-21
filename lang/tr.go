@@ -252,6 +252,16 @@ Pong:                "Pong",
 		ForwardDone:     "*%d* hedefe iletildi.",
 		ForwardFailed:   "\nBaşarısız: %d (%s)",
 
+		CompressUsage:          "Bir videoya .compress [hedef_mb] ile yanıt verin\n\nÖrnek: .compress 50",
+		CompressReplyVideo:     "Sıkıştırmak için bir videoya yanıt verin.",
+		CompressDownloadFailed: "İndirme başarısız: %s",
+		CompressProgress:       "%dMB indirildi. ~%dMB'a sıkıştırılıyor...",
+		CompressFailed:         "Sıkıştırma başarısız: %s",
+		CompressTempFailed:     "Geçici dosya oluşturulamadı: %s",
+		CompressTempWriteFail:  "Geçici dosya yazılamadı: %s",
+		CompressOpenFailed:     "Sıkıştırılmış dosya açılamadı: %s",
+		CompressUploadFailed:   "Yükleme başarısız: %s",
+
 	}
 }
 

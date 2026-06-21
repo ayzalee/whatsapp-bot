@@ -242,6 +242,16 @@ Pong:                "بونغ",
 		ForwardDone:     "تم إعادة التوجيه إلى *%d* جهة.",
 		ForwardFailed:   "\nفشل: %d (%s)",
 
+		CompressUsage:          "رد على فيديو مع .compress [الحجم_المستهدف]\n\nمثال: .compress 50",
+		CompressReplyVideo:     "رد على فيديو لضغطه.",
+		CompressDownloadFailed: "فشل التحميل: %s",
+		CompressProgress:       "تم تحميل %dMB. جاري الضغط إلى ~%dMB...",
+		CompressFailed:         "فشل الضغط: %s",
+		CompressTempFailed:     "فشل إنشاء ملف مؤقت: %s",
+		CompressTempWriteFail:  "فشل كتابة ملف مؤقت: %s",
+		CompressOpenFailed:     "فشل فتح الملف المضغوط: %s",
+		CompressUploadFailed:   "فشل الرفع: %s",
+
 	}
 }
 

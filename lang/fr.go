@@ -252,6 +252,16 @@ Pong:                "Pong",
 		ForwardDone:     "Transféré à *%d* destinataire(s).",
 		ForwardFailed:   "\nÉchecs: %d (%s)",
 
+		CompressUsage:          "Répondez à une vidéo avec .compress [mb_cible]\n\nExemple: .compress 50",
+		CompressReplyVideo:     "Répondez à une vidéo pour la compresser.",
+		CompressDownloadFailed: "Échec du téléchargement: %s",
+		CompressProgress:       "Téléchargé %dMB. Compression vers ~%dMB...",
+		CompressFailed:         "Échec de la compression: %s",
+		CompressTempFailed:     "Échec de création du fichier temporaire: %s",
+		CompressTempWriteFail:  "Échec d'écriture du fichier temporaire: %s",
+		CompressOpenFailed:     "Échec d'ouverture du fichier compressé: %s",
+		CompressUploadFailed:   "Échec de l'envoi: %s",
+
 	}
 }
 

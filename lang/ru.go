@@ -252,6 +252,16 @@ Pong:                "Понг",
 		ForwardDone:     "Переслано *%d* получателям.",
 		ForwardFailed:   "\nНе удалось: %d (%s)",
 
+		CompressUsage:          "Ответьте на видео с .compress [целевой_мб]\n\nПример: .compress 50",
+		CompressReplyVideo:     "Ответьте на видео, чтобы сжать его.",
+		CompressDownloadFailed: "Ошибка загрузки: %s",
+		CompressProgress:       "Загружено %dМБ. Сжатие до ~%dМБ...",
+		CompressFailed:         "Ошибка сжатия: %s",
+		CompressTempFailed:     "Не удалось создать временный файл: %s",
+		CompressTempWriteFail:  "Не удалось записать временный файл: %s",
+		CompressOpenFailed:     "Не удалось открыть сжатый файл: %s",
+		CompressUploadFailed:   "Ошибка загрузки на сервер: %s",
+
 	}
 }
 

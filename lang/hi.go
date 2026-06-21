@@ -252,6 +252,16 @@ Pong:                "पोंग",
 		ForwardDone:     "*%d* को फॉरवर्ड किया गया।",
 		ForwardFailed:   "\nविफल: %d (%s)",
 
+		CompressUsage:          "वीडियो पर रिप्लाई करें .compress [target_mb]\n\nउदाहरण: .compress 50",
+		CompressReplyVideo:     "कंप्रेस करने के लिए वीडियो पर रिप्लाई करें।",
+		CompressDownloadFailed: "डाउनलोड विफल: %s",
+		CompressProgress:       "%dMB डाउनलोड हुआ। ~%dMB में कंप्रेस हो रहा है...",
+		CompressFailed:         "कंप्रेशन विफल: %s",
+		CompressTempFailed:     "टेम्प फाइल बनाने में विफल: %s",
+		CompressTempWriteFail:  "टेम्प फाइल लिखने में विफल: %s",
+		CompressOpenFailed:     "कंप्रेस्ड फाइल खोलने में विफल: %s",
+		CompressUploadFailed:   "अपलोड विफल: %s",
+
 	}
 }
 

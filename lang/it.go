@@ -232,6 +232,16 @@ Pong:                "Pong",
 		ForwardDone:     "Inoltrato a *%d* destinatario/i.",
 		ForwardFailed:   "\nFalliti: %d (%s)",
 
+		CompressUsage:          "Rispondi a un video con .compress [mb_target]\n\nEsempio: .compress 50",
+		CompressReplyVideo:     "Rispondi a un video per comprimerlo.",
+		CompressDownloadFailed: "Download fallito: %s",
+		CompressProgress:       "Scaricato %dMB. Compressione a ~%dMB...",
+		CompressFailed:         "Compressione fallita: %s",
+		CompressTempFailed:     "Impossibile creare file temporaneo: %s",
+		CompressTempWriteFail:  "Impossibile scrivere file temporaneo: %s",
+		CompressOpenFailed:     "Impossibile aprire file compresso: %s",
+		CompressUploadFailed:   "Caricamento fallito: %s",
+
 	}
 }
 
