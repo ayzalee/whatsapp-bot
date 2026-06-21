@@ -186,6 +186,10 @@ func main() {
 	resetFlag := flag.String("reset-session", "", "")
 	flag.Parse()
 
+	if *phoneArg == "" {
+		*phoneArg = os.Getenv("BOT_NUMBER")
+	}
+
 	if *helpFlag {
 		printHelp()
 	}
