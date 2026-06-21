@@ -70,9 +70,15 @@ return nil
 }
 
 func HandleGroupParticipantChange(client *whatsmeow.Client, evt *events.GroupInfo) {
+if client == nil || client.Store == nil || client.Store.ID == nil {
+return
+}
 chatJID := evt.JID.String()
+if evt.Sender == nil {
+return
+}
 botUser := client.Store.ID.User
-actor := evt.Sender
+actor := *evt.Sender
 
 if actor.User == botUser {
 return
