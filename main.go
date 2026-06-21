@@ -218,7 +218,7 @@ func main() {
 		panic(err)
 	}
 
-	if err := plugins.InitDB(container.DB()); err != nil {
+	if err := plugins.InitDB(container.DB(), dialect); err != nil {
 		panic(fmt.Errorf("settings db init: %w", err))
 	}
 

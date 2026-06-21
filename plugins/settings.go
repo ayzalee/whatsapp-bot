@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"os"
 	"slices"
+	"strconv"
 	"strings"
 	"sync"
 )
@@ -39,16 +40,94 @@ var BotSettings = &Settings{
 	Language: "en",
 }
 
-var settingsDB *sql.DB
+type dbWrapper struct {
+	db      *sql.DB
+	dialect string
+}
+
+func (w *dbWrapper) translate(query string) string {
+	if w.dialect != "postgres" {
+		return query
+	}
+	var sb strings.Builder
+	n := 0
+	for _, r := range query {
+		if r == '?' {
+			n++
+			sb.WriteString("$")
+			sb.WriteString(strconv.Itoa(n))
+		} else {
+			sb.WriteRune(r)
+		}
+	}
+	return sb.String()
+}
+
+func (w *dbWrapper) Exec(query string, args ...any) (sql.Result, error) {
+	return w.db.Exec(w.translate(query), args...)
+}
+
+func (w *dbWrapper) Query(query string, args ...any) (*sql.Rows, error) {
+	return w.db.Query(w.translate(query), args...)
+}
+
+func (w *dbWrapper) QueryRow(query string, args ...any) *sql.Row {
+	return w.db.QueryRow(w.translate(query), args...)
+}
+
+func (w *dbWrapper) Begin() (*txWrapper, error) {
+	tx, err := w.db.Begin()
+	if err != nil {
+		return nil, err
+	}
+	return &txWrapper{tx: tx, dialect: w.dialect}, nil
+}
+
+type txWrapper struct {
+	tx      *sql.Tx
+	dialect string
+}
+
+func (t *txWrapper) translate(query string) string {
+	if t.dialect != "postgres" {
+		return query
+	}
+	var sb strings.Builder
+	n := 0
+	for _, r := range query {
+		if r == '?' {
+			n++
+			sb.WriteString("$")
+			sb.WriteString(strconv.Itoa(n))
+		} else {
+			sb.WriteRune(r)
+		}
+	}
+	return sb.String()
+}
+
+func (t *txWrapper) Exec(query string, args ...any) (sql.Result, error) {
+	return t.tx.Exec(t.translate(query), args...)
+}
+
+func (t *txWrapper) Commit() error {
+	return t.tx.Commit()
+}
+
+func (t *txWrapper) Rollback() error {
+	return t.tx.Rollback()
+}
+
+var settingsDB *dbWrapper
 var settingsUser string
 
-func InitDB(db *sql.DB) error {
-	settingsDB = db
-	_, err := db.Exec(`CREATE TABLE IF NOT EXISTS bot_settings (
-		user  TEXT NOT NULL,
+func InitDB(db *sql.DB, dialect string) error {
+	settingsDB = &dbWrapper{db: db, dialect: dialect}
+	_, err := settingsDB.Exec(`CREATE TABLE IF NOT EXISTS bot_settings (
+		owner TEXT NOT NULL,
 		key   TEXT NOT NULL,
 		value TEXT NOT NULL,
-		PRIMARY KEY (user, key)
+		PRIMARY KEY (owner, key)
 	)`)
 	if err != nil {
 		return err
@@ -70,7 +149,7 @@ func LoadSettings() error {
 		return nil
 	}
 	rows, err := settingsDB.Query(
-		`SELECT key, value FROM bot_settings WHERE user = ?`, settingsUser)
+		`SELECT key, value FROM bot_settings WHERE owner = ?`, settingsUser)
 	if err != nil {
 		return err
 	}
@@ -170,8 +249,8 @@ func SaveSettings() error {
 		autoReadStr = "true"
 	}
 
-	upsert := `INSERT INTO bot_settings (user, key, value) VALUES (?, ?, ?)
-		ON CONFLICT(user, key) DO UPDATE SET value = excluded.value`
+	upsert := `INSERT INTO bot_settings (owner, key, value) VALUES (?, ?, ?)
+		ON CONFLICT(owner, key) DO UPDATE SET value = excluded.value`
 
 	tx, err := settingsDB.Begin()
 	if err != nil {
