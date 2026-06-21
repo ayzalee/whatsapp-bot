@@ -239,5 +239,13 @@ func EN() *Strings {
 		CompressTempWriteFail:  "Failed to write temp file: %s",
 		CompressOpenFailed:     "Failed to open compressed file: %s",
 		CompressUploadFailed:   "Failed to upload: %s",
+		DlDownloading:       "_Downloading %s_",
+		DlTempDirFailed:     "Failed to create temp directory.",
+		DlStatFailed:        "Failed to read file info.",
+		DlOpenFailed:        "Failed to open file.",
+		DlDocUploadFailed:   "Failed to upload (file too large or network issue): %s",
+		DlAudioUploadFailed: "Failed to upload audio: %s",
+		DlVideoUploadFailed: "Failed to upload video: %s",
+
 	}
 }

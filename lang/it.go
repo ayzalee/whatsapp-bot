@@ -241,5 +241,13 @@ func IT() *Strings {
 		CompressTempWriteFail:  "Impossibile scrivere file temporaneo: %s",
 		CompressOpenFailed:     "Impossibile aprire file compresso: %s",
 		CompressUploadFailed:   "Caricamento fallito: %s",
+		DlDownloading:       "_Scaricando %s_",
+		DlTempDirFailed:     "Impossibile creare la cartella temporanea.",
+		DlStatFailed:        "Impossibile leggere le informazioni del file.",
+		DlOpenFailed:        "Impossibile aprire il file.",
+		DlDocUploadFailed:   "Caricamento fallito (file troppo grande o problema di rete): %s",
+		DlAudioUploadFailed: "Caricamento audio fallito: %s",
+		DlVideoUploadFailed: "Caricamento video fallito: %s",
+
 	}
 }

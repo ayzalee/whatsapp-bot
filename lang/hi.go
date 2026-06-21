@@ -261,5 +261,13 @@ func HI() *Strings {
 		CompressTempWriteFail:  "टेम्प फाइल लिखने में विफल: %s",
 		CompressOpenFailed:     "कंप्रेस्ड फाइल खोलने में विफल: %s",
 		CompressUploadFailed:   "अपलोड विफल: %s",
+		DlDownloading:       "_%s डाउनलोड हो रहा है_",
+		DlTempDirFailed:     "टेम्प डायरेक्टरी बनाने में विफल।",
+		DlStatFailed:        "फाइल जानकारी पढ़ने में विफल।",
+		DlOpenFailed:        "फाइल खोलने में विफल।",
+		DlDocUploadFailed:   "अपलोड विफल (फाइल बहुत बड़ी है या नेटवर्क समस्या): %s",
+		DlAudioUploadFailed: "ऑडियो अपलोड विफल: %s",
+		DlVideoUploadFailed: "वीडियो अपलोड विफल: %s",
+
 	}
 }

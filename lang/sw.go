@@ -261,5 +261,13 @@ func SW() *Strings {
 		CompressTempWriteFail:  "Imeshindwa kuandika faili la muda: %s",
 		CompressOpenFailed:     "Imeshindwa kufungua faili lililobanwa: %s",
 		CompressUploadFailed:   "Imeshindwa kupakia: %s",
+		DlDownloading:       "_Inapakua %s_",
+		DlTempDirFailed:     "Imeshindwa kuunda saraka ya muda.",
+		DlStatFailed:        "Imeshindwa kusoma taarifa za faili.",
+		DlOpenFailed:        "Imeshindwa kufungua faili.",
+		DlDocUploadFailed:   "Imeshindwa kupakia (faili kubwa mno au tatizo la mtandao): %s",
+		DlAudioUploadFailed: "Imeshindwa kupakia sauti: %s",
+		DlVideoUploadFailed: "Imeshindwa kupakia video: %s",
+
 	}
 }

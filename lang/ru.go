@@ -261,5 +261,13 @@ func RU() *Strings {
 		CompressTempWriteFail:  "Не удалось записать временный файл: %s",
 		CompressOpenFailed:     "Не удалось открыть сжатый файл: %s",
 		CompressUploadFailed:   "Ошибка загрузки на сервер: %s",
+		DlDownloading:       "_Загрузка %s_",
+		DlTempDirFailed:     "Не удалось создать временную папку.",
+		DlStatFailed:        "Не удалось прочитать информацию о файле.",
+		DlOpenFailed:        "Не удалось открыть файл.",
+		DlDocUploadFailed:   "Ошибка загрузки (файл слишком большой или проблема сети): %s",
+		DlAudioUploadFailed: "Ошибка загрузки аудио: %s",
+		DlVideoUploadFailed: "Ошибка загрузки видео: %s",
+
 	}
 }

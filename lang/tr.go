@@ -261,5 +261,13 @@ func TR() *Strings {
 		CompressTempWriteFail:  "Geçici dosya yazılamadı: %s",
 		CompressOpenFailed:     "Sıkıştırılmış dosya açılamadı: %s",
 		CompressUploadFailed:   "Yükleme başarısız: %s",
+		DlDownloading:       "_%s indiriliyor_",
+		DlTempDirFailed:     "Geçici dizin oluşturulamadı.",
+		DlStatFailed:        "Dosya bilgisi okunamadı.",
+		DlOpenFailed:        "Dosya açılamadı.",
+		DlDocUploadFailed:   "Yükleme başarısız (dosya çok büyük veya ağ sorunu): %s",
+		DlAudioUploadFailed: "Ses yüklenemedi: %s",
+		DlVideoUploadFailed: "Video yüklenemedi: %s",
+
 	}
 }

@@ -261,5 +261,13 @@ func ES() *Strings {
 		CompressTempWriteFail:  "Error al escribir archivo temporal: %s",
 		CompressOpenFailed:     "Error al abrir archivo comprimido: %s",
 		CompressUploadFailed:   "Error al subir: %s",
+		DlDownloading:       "_Descargando %s_",
+		DlTempDirFailed:     "Error al crear directorio temporal.",
+		DlStatFailed:        "Error al leer información del archivo.",
+		DlOpenFailed:        "Error al abrir el archivo.",
+		DlDocUploadFailed:   "Error al subir (archivo muy grande o problema de red): %s",
+		DlAudioUploadFailed: "Error al subir audio: %s",
+		DlVideoUploadFailed: "Error al subir video: %s",
+
 	}
 }

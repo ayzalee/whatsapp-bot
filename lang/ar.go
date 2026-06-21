@@ -251,5 +251,13 @@ func AR() *Strings {
 		CompressTempWriteFail:  "فشل كتابة ملف مؤقت: %s",
 		CompressOpenFailed:     "فشل فتح الملف المضغوط: %s",
 		CompressUploadFailed:   "فشل الرفع: %s",
+		DlDownloading:       "_جاري تحميل %s_",
+		DlTempDirFailed:     "فشل إنشاء مجلد مؤقت.",
+		DlStatFailed:        "فشل قراءة معلومات الملف.",
+		DlOpenFailed:        "فشل فتح الملف.",
+		DlDocUploadFailed:   "فشل الرفع (الملف كبير جدًا أو مشكلة شبكة): %s",
+		DlAudioUploadFailed: "فشل رفع الصوت: %s",
+		DlVideoUploadFailed: "فشل رفع الفيديو: %s",
+
 	}
 }

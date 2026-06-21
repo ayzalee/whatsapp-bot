@@ -261,5 +261,13 @@ func PT() *Strings {
 		CompressTempWriteFail:  "Falha ao gravar arquivo temporário: %s",
 		CompressOpenFailed:     "Falha ao abrir arquivo compactado: %s",
 		CompressUploadFailed:   "Falha ao enviar: %s",
+		DlDownloading:       "_Baixando %s_",
+		DlTempDirFailed:     "Falha ao criar diretório temporário.",
+		DlStatFailed:        "Falha ao ler informações do arquivo.",
+		DlOpenFailed:        "Falha ao abrir o arquivo.",
+		DlDocUploadFailed:   "Falha ao enviar (arquivo muito grande ou problema de rede): %s",
+		DlAudioUploadFailed: "Falha ao enviar áudio: %s",
+		DlVideoUploadFailed: "Falha ao enviar vídeo: %s",
+
 	}
 }

@@ -261,5 +261,13 @@ func FR() *Strings {
 		CompressTempWriteFail:  "Échec d'écriture du fichier temporaire: %s",
 		CompressOpenFailed:     "Échec d'ouverture du fichier compressé: %s",
 		CompressUploadFailed:   "Échec de l'envoi: %s",
+		DlDownloading:       "_Téléchargement de %s_",
+		DlTempDirFailed:     "Échec de création du dossier temporaire.",
+		DlStatFailed:        "Échec de lecture des informations du fichier.",
+		DlOpenFailed:        "Échec d'ouverture du fichier.",
+		DlDocUploadFailed:   "Échec de l'envoi (fichier trop volumineux ou problème réseau): %s",
+		DlAudioUploadFailed: "Échec de l'envoi audio: %s",
+		DlVideoUploadFailed: "Échec de l'envoi vidéo: %s",
+
 	}
 }
