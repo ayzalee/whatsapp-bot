@@ -304,11 +304,17 @@ type Strings struct {
 	CompressTempWriteFail  string
 	CompressOpenFailed     string
 	CompressUploadFailed   string
-	DlDownloading       string
-	DlTempDirFailed     string
-	DlStatFailed        string
-	DlOpenFailed        string
-	DlDocUploadFailed   string
-	DlAudioUploadFailed string
-	DlVideoUploadFailed string
+	DlDownloading          string
+	DlTempDirFailed        string
+	DlStatFailed           string
+	DlOpenFailed           string
+	DlDocUploadFailed      string
+	DlAudioUploadFailed    string
+	DlVideoUploadFailed    string
+	GreetEnabled           string
+	GreetDisabled          string
+	GreetStatus            string
+	GreetSetUsage          string
+	GreetSetOK             string
+	GreetUsage             string
 }
