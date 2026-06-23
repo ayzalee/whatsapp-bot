@@ -269,11 +269,16 @@ func RU() *Strings {
 		DlAudioUploadFailed:    "Ошибка загрузки аудио: %s",
 		DlVideoUploadFailed:    "Ошибка загрузки видео: %s",
 
-		GreetEnabled:  "%s включено.",
-		GreetDisabled: "%s выключено.",
-		GreetStatus:   "*%s*\nСтатус: %s\nСообщение: %s\n\n.%s on\n.%s off\n.%s set <сообщение>\n\nПлейсхолдеры: &mention &name &desc &size &pp",
-		GreetSetUsage: "Использование: .%s set <сообщение>",
-		GreetSetOK:    "Сообщение %s обновлено.",
-		GreetUsage:    "Использование: .%s on|off|set <сообщение>",
+		GreetEnabled:     "%s включено.",
+		GreetDisabled:    "%s выключено.",
+		GreetStatus:      "*%s*\nСтатус: %s\nСообщение: %s\n\n.%s on\n.%s off\n.%s set <сообщение>\n\nПлейсхолдеры: &mention &name &desc &size &pp",
+		GreetSetUsage:    "Использование: .%s set <сообщение>",
+		GreetSetOK:       "Сообщение %s обновлено.",
+		GreetUsage:       "Использование: .%s on|off|set <сообщение>",
+		AntipornWarnText: "*ОБНАРУЖЕН ЯВНЫЙ КОНТЕНТ* ⚠️\n*Пользователь:* @%s\n*Предупреждение:* %d/3\n*Осталось:* %d",
+		AntipornOn:       "*Антипорн включен*",
+		AntipornOff:      "*Антипорн выключен*",
+		AntipornStatus:   "*Антипорн*\nСтатус: %s\n\n.antiporn on\n.antiporn off",
+		AntipornNoCreds:  "Сначала нужно указать SIGHTENGINE_USER и SIGHTENGINE_SECRET в .env.\nЗарегистрируйтесь на https://sightengine.com для бесплатных учетных данных.",
 	}
 }

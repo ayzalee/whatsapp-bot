@@ -52,6 +52,10 @@ func initModTables() error {
 			chat_jid TEXT PRIMARY KEY,
 			enabled  INTEGER DEFAULT 0
 		)`,
+		`CREATE TABLE IF NOT EXISTS antiporn_settings (
+			chat_jid TEXT PRIMARY KEY,
+			enabled  INTEGER DEFAULT 0
+		)`,
 	}
 	for _, q := range tables {
 		if _, err := settingsDB.Exec(q); err != nil {
@@ -287,6 +291,24 @@ func setAntistatusEnabled(chatJID string, on bool) {
 	}
 	settingsDB.Exec(
 		`INSERT INTO antistatus_settings (chat_jid, enabled) VALUES (?, ?)
+		 ON CONFLICT(chat_jid) DO UPDATE SET enabled = excluded.enabled`,
+		chatJID, v,
+	)
+}
+
+func getAntipornEnabled(chatJID string) bool {
+	var enabled int
+	settingsDB.QueryRow(`SELECT enabled FROM antiporn_settings WHERE chat_jid = ?`, chatJID).Scan(&enabled)
+	return enabled == 1
+}
+
+func setAntipornEnabled(chatJID string, on bool) {
+	v := 0
+	if on {
+		v = 1
+	}
+	settingsDB.Exec(
+		`INSERT INTO antiporn_settings (chat_jid, enabled) VALUES (?, ?)
 		 ON CONFLICT(chat_jid) DO UPDATE SET enabled = excluded.enabled`,
 		chatJID, v,
 	)

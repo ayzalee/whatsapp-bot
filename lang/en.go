@@ -247,11 +247,16 @@ func EN() *Strings {
 		DlAudioUploadFailed:    "Failed to upload audio: %s",
 		DlVideoUploadFailed:    "Failed to upload video: %s",
 
-		GreetEnabled:  "%s enabled.",
-		GreetDisabled: "%s disabled.",
-		GreetStatus:   "*%s*\nStatus: %s\nMessage: %s\n\n.%s on\n.%s off\n.%s set <message>\n\nPlaceholders: &mention &name &desc &size &pp",
-		GreetSetUsage: "Usage: .%s set <message>",
-		GreetSetOK:    "%s message updated.",
-		GreetUsage:    "Usage: .%s on|off|set <message>",
+		GreetEnabled:     "%s enabled.",
+		GreetDisabled:    "%s disabled.",
+		GreetStatus:      "*%s*\nStatus: %s\nMessage: %s\n\n.%s on\n.%s off\n.%s set <message>\n\nPlaceholders: &mention &name &desc &size &pp",
+		GreetSetUsage:    "Usage: .%s set <message>",
+		GreetSetOK:       "%s message updated.",
+		GreetUsage:       "Usage: .%s on|off|set <message>",
+		AntipornWarnText: "*EXPLICIT CONTENT DETECTED* ⚠️\n*User:* @%s\n*Warn:* %d/3\n*Remaining:* %d",
+		AntipornOn:       "*Antiporn Enabled*",
+		AntipornOff:      "*Antiporn Disabled*",
+		AntipornStatus:   "*Anti-Porn*\nStatus: %s\n\n.antiporn on\n.antiporn off",
+		AntipornNoCreds:  "SIGHTENGINE_USER and SIGHTENGINE_SECRET must be set in .env first.\nSign up at https://sightengine.com to get free API credentials.",
 	}
 }

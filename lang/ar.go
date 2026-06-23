@@ -259,11 +259,16 @@ func AR() *Strings {
 		DlAudioUploadFailed:    "فشل رفع الصوت: %s",
 		DlVideoUploadFailed:    "فشل رفع الفيديو: %s",
 
-		GreetEnabled:  "تم تفعيل %s.",
-		GreetDisabled: "تم تعطيل %s.",
-		GreetStatus:   "*%s*\nالحالة: %s\nالرسالة: %s\n\n.%s on\n.%s off\n.%s set <رسالة>\n\nالعناصر النائبة: &mention &name &desc &size &pp",
-		GreetSetUsage: "الاستخدام: .%s set <رسالة>",
-		GreetSetOK:    "تم تحديث رسالة %s.",
-		GreetUsage:    "الاستخدام: .%s on|off|set <رسالة>",
+		GreetEnabled:     "تم تفعيل %s.",
+		GreetDisabled:    "تم تعطيل %s.",
+		GreetStatus:      "*%s*\nالحالة: %s\nالرسالة: %s\n\n.%s on\n.%s off\n.%s set <رسالة>\n\nالعناصر النائبة: &mention &name &desc &size &pp",
+		GreetSetUsage:    "الاستخدام: .%s set <رسالة>",
+		GreetSetOK:       "تم تحديث رسالة %s.",
+		GreetUsage:       "الاستخدام: .%s on|off|set <رسالة>",
+		AntipornWarnText: "*تم اكتشاف محتوى صريح* ⚠️\n*المستخدم:* @%s\n*تحذير:* %d/3\n*المتبقي:* %d",
+		AntipornOn:       "*تم تفعيل مكافحة المحتوى الفاضح*",
+		AntipornOff:      "*تم تعطيل مكافحة المحتوى الفاضح*",
+		AntipornStatus:   "*مكافحة المحتوى الفاضح*\nالحالة: %s\n\n.antiporn on\n.antiporn off",
+		AntipornNoCreds:  "يجب تعيين SIGHTENGINE_USER و SIGHTENGINE_SECRET في .env أولاً.\nسجل في https://sightengine.com للحصول على بيانات اعتماد مجانية.",
 	}
 }

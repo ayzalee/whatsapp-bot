@@ -317,4 +317,9 @@ type Strings struct {
 	GreetSetUsage          string
 	GreetSetOK             string
 	GreetUsage             string
+	AntipornWarnText       string
+	AntipornOn             string
+	AntipornOff            string
+	AntipornStatus         string
+	AntipornNoCreds        string
 }

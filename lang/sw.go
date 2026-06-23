@@ -269,11 +269,16 @@ func SW() *Strings {
 		DlAudioUploadFailed:    "Imeshindwa kupakia sauti: %s",
 		DlVideoUploadFailed:    "Imeshindwa kupakia video: %s",
 
-		GreetEnabled:  "%s imewashwa.",
-		GreetDisabled: "%s imezimwa.",
-		GreetStatus:   "*%s*\nHali: %s\nUjumbe: %s\n\n.%s on\n.%s off\n.%s set <ujumbe>\n\nVibadala: &mention &name &desc &size &pp",
-		GreetSetUsage: "Matumizi: .%s set <ujumbe>",
-		GreetSetOK:    "Ujumbe wa %s umesasishwa.",
-		GreetUsage:    "Matumizi: .%s on|off|set <ujumbe>",
+		GreetEnabled:     "%s imewashwa.",
+		GreetDisabled:    "%s imezimwa.",
+		GreetStatus:      "*%s*\nHali: %s\nUjumbe: %s\n\n.%s on\n.%s off\n.%s set <ujumbe>\n\nVibadala: &mention &name &desc &size &pp",
+		GreetSetUsage:    "Matumizi: .%s set <ujumbe>",
+		GreetSetOK:       "Ujumbe wa %s umesasishwa.",
+		GreetUsage:       "Matumizi: .%s on|off|set <ujumbe>",
+		AntipornWarnText: "*MAUDHUI YA NGONO YAMEGUNDULIWA* ⚠️\n*Mtumiaji:* @%s\n*Onyo:* %d/3\n*Iliyobaki:* %d",
+		AntipornOn:       "*Antiporn Imewashwa*",
+		AntipornOff:      "*Antiporn Imezimwa*",
+		AntipornStatus:   "*Anti-Porn*\nHali: %s\n\n.antiporn on\n.antiporn off",
+		AntipornNoCreds:  "SIGHTENGINE_USER na SIGHTENGINE_SECRET zinahitajika kuwekwa kwenye .env kwanza.\nJiandikishe kwenye https://sightengine.com kupata vibali vya bure.",
 	}
 }

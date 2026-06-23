@@ -269,11 +269,16 @@ func DE() *Strings {
 		DlAudioUploadFailed:    "Audio-Upload fehlgeschlagen: %s",
 		DlVideoUploadFailed:    "Video-Upload fehlgeschlagen: %s",
 
-		GreetEnabled:  "%s aktiviert.",
-		GreetDisabled: "%s deaktiviert.",
-		GreetStatus:   "*%s*\nStatus: %s\nNachricht: %s\n\n.%s on\n.%s off\n.%s set <Nachricht>\n\nPlatzhalter: &mention &name &desc &size &pp",
-		GreetSetUsage: "Verwendung: .%s set <Nachricht>",
-		GreetSetOK:    "%s-Nachricht aktualisiert.",
-		GreetUsage:    "Verwendung: .%s on|off|set <Nachricht>",
+		GreetEnabled:     "%s aktiviert.",
+		GreetDisabled:    "%s deaktiviert.",
+		GreetStatus:      "*%s*\nStatus: %s\nNachricht: %s\n\n.%s on\n.%s off\n.%s set <Nachricht>\n\nPlatzhalter: &mention &name &desc &size &pp",
+		GreetSetUsage:    "Verwendung: .%s set <Nachricht>",
+		GreetSetOK:       "%s-Nachricht aktualisiert.",
+		GreetUsage:       "Verwendung: .%s on|off|set <Nachricht>",
+		AntipornWarnText: "*EXPLIZITER INHALT ERKANNT* ⚠️\n*Benutzer:* @%s\n*Warnung:* %d/3\n*Verbleibend:* %d",
+		AntipornOn:       "*Antiporn Aktiviert*",
+		AntipornOff:      "*Antiporn Deaktiviert*",
+		AntipornStatus:   "*Anti-Porn*\nStatus: %s\n\n.antiporn on\n.antiporn off",
+		AntipornNoCreds:  "SIGHTENGINE_USER und SIGHTENGINE_SECRET müssen zuerst in .env gesetzt werden.\nRegistriere dich auf https://sightengine.com für kostenlose Zugangsdaten.",
 	}
 }

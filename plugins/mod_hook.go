@@ -291,6 +291,35 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 		}
 	}
 
+	if isGroup && getAntipornEnabled(chatJID) && isBotAdmin() && !isSenderAdmin() {
+		var imgData []byte
+		var dlErr error
+		if img := evt.Message.GetImageMessage(); img != nil {
+			imgData, dlErr = client.Download(context.Background(), img)
+		} else if stk := evt.Message.GetStickerMessage(); stk != nil {
+			imgData, dlErr = client.Download(context.Background(), stk)
+		}
+		if dlErr == nil && len(imgData) > 0 {
+			go func(data []byte, chat, sender types.JID, msgID string) {
+				score, err := checkNudity(data)
+				if err != nil || score < 0.6 {
+					return
+				}
+				revokeMsg(client, chat, sender, msgID)
+				userID := sender.User
+				count := addWarn(chat.String(), userID)
+				senderJIDStr := sender.ToNonAD().String()
+				warnMsg := fmt.Sprintf(T().AntipornWarnText, userID, count, 3-count)
+				sendMentionToChat(client, chat, warnMsg, []string{senderJIDStr})
+				if count >= 3 {
+					client.UpdateGroupParticipants(context.Background(), chat,
+						[]types.JID{sender.ToNonAD()}, whatsmeow.ParticipantChangeRemove)
+					resetWarns(chat.String(), userID)
+				}
+			}(imgData, evt.Info.Chat, evt.Info.Sender, string(evt.Info.ID))
+		}
+	}
+
 	if getAntispamMode(chatJID) != "off" {
 
 		if time.Since(evt.Info.Timestamp) <= 30*time.Second && !isAntispamWhitelisted(chatJID, senderUser) {

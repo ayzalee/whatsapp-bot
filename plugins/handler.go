@@ -28,6 +28,7 @@ func NewHandler(client *whatsmeow.Client) func(evt any) {
 			}
 		case *events.GroupInfo:
 			go HandleGroupParticipantChange(client, v)
+			go HandleWelcomeGoodbye(client, v)
 		case *events.Message:
 			go SaveUser(v)
 			go CacheMessage(v)
