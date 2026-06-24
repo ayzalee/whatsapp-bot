@@ -322,4 +322,9 @@ type Strings struct {
 	AntipornOff            string
 	AntipornStatus         string
 	AntipornNoCreds        string
+	UploadUsage            string
+	UploadFetchFailed      string
+	UploadHTTPFailed       string
+	UploadReadFailed       string
+	UploadFailed           string
 }
