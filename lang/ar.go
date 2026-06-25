@@ -275,5 +275,18 @@ func AR() *Strings {
 		UploadHTTPFailed:  "فشل في جلب الرابط: HTTP %d",
 		UploadReadFailed:  "فشل في قراءة البيانات: %s",
 		UploadFailed:      "فشل الرفع: %s",
+		TgUsage:           "الاستخدام: .tg <رابط حزمة ملصقات تيليجرام>\nمثال: .tg https://t.me/addstickers/PackName\n\n.tg stop — لإلغاء التحميل الجاري",
+		TgStopMsg:         "جاري إيقاف تحميل الملصقات...",
+		TgNoToken:         "TG_TOKEN غير محدد في .env.\nاحصل على رمز مجاني من @BotFather في تيليجرام وأضفه.",
+		TgNoPackName:      "تعذر استخراج اسم الحزمة من الرابط.",
+		TgFetchFailed:     "فشل في جلب حزمة الملصقات: %s",
+		TgReadFailed:      "فشل في قراءة الاستجابة: %s",
+		TgInvalidPack:     "فشل في جلب حزمة الملصقات.",
+		TgEmptyPack:       "هذه الحزمة لا تحتوي على ملصقات.",
+		TgFoundSending:    "تم العثور على *%d* ملصق في \"%s\". جاري الإرسال...\nأرسل *.tg stop* للإلغاء.",
+
+		TgResultLine:  "✅ تم الإرسال: %d",
+		TgSkippedLine: "\n⏭️ تم التخطي: %d (.tgs المتحركة غير مدعومة، أو فشل التحميل)",
+		TgStoppedLine: "\n🛑 تم الإيقاف من قبل المستخدم.",
 	}
 }

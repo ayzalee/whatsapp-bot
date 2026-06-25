@@ -285,5 +285,18 @@ func SW() *Strings {
 		UploadHTTPFailed:  "Imeshindwa kupata URL: HTTP %d",
 		UploadReadFailed:  "Imeshindwa kusoma data: %s",
 		UploadFailed:      "Imeshindwa kupakia: %s",
+		TgUsage:           "Matumizi: .tg <url ya kifurushi cha stika za telegram>\nMfano: .tg https://t.me/addstickers/PackName\n\n.tg stop — kusitisha upakuaji unaoendelea",
+		TgStopMsg:         "Inasitisha upakuaji wa stika...",
+		TgNoToken:         "TG_TOKEN haijawekwa katika .env.\nPata token ya bure kutoka @BotFather kwenye Telegram na uiongeze.",
+		TgNoPackName:      "Imeshindwa kupata jina la kifurushi kutoka URL.",
+		TgFetchFailed:     "Imeshindwa kupata kifurushi cha stika: %s",
+		TgReadFailed:      "Imeshindwa kusoma jibu: %s",
+		TgInvalidPack:     "Imeshindwa kupata kifurushi cha stika.",
+		TgEmptyPack:       "Kifurushi hiki hakina stika.",
+		TgFoundSending:    "Stika *%d* zimepatikana katika \"%s\". Inatuma...\nTuma *.tg stop* kusitisha.",
+
+		TgResultLine:  "✅ Zilizotumwa: %d",
+		TgSkippedLine: "\n⏭️ Zilizoruka: %d (.tgs za animesheni hazitumiki, au upakuaji umeshindwa)",
+		TgStoppedLine: "\n🛑 Imesitishwa na mtumiaji.",
 	}
 }

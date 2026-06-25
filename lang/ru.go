@@ -285,5 +285,18 @@ func RU() *Strings {
 		UploadHTTPFailed:  "Не удалось получить URL: HTTP %d",
 		UploadReadFailed:  "Не удалось прочитать данные: %s",
 		UploadFailed:      "Ошибка загрузки: %s",
+		TgUsage:           "Использование: .tg <url пака стикеров telegram>\nПример: .tg https://t.me/addstickers/PackName\n\n.tg stop — отменить текущую загрузку",
+		TgStopMsg:         "Остановка загрузки стикеров...",
+		TgNoToken:         "TG_TOKEN не задан в .env.\nПолучите бесплатный токен у @BotFather в Telegram и добавьте его.",
+		TgNoPackName:      "Не удалось извлечь имя пака из URL.",
+		TgFetchFailed:     "Не удалось получить пак стикеров: %s",
+		TgReadFailed:      "Не удалось прочитать ответ: %s",
+		TgInvalidPack:     "Не удалось получить пак стикеров.",
+		TgEmptyPack:       "В этом паке нет стикеров.",
+		TgFoundSending:    "Найдено *%d* стикеров в \"%s\". Отправка...\nОтправьте *.tg stop* для отмены.",
+
+		TgResultLine:  "✅ Отправлено: %d",
+		TgSkippedLine: "\n⏭️ Пропущено: %d (анимированные .tgs не поддерживаются, или ошибка загрузки)",
+		TgStoppedLine: "\n🛑 Остановлено пользователем.",
 	}
 }

@@ -263,5 +263,18 @@ func EN() *Strings {
 		UploadHTTPFailed:  "Failed to fetch URL: HTTP %d",
 		UploadReadFailed:  "Failed to read data: %s",
 		UploadFailed:      "Failed to upload: %s",
+		TgUsage:           "Usage: .tg <telegram sticker pack url>\nExample: .tg https://t.me/addstickers/PackName\n\n.tg stop — cancel an in-progress download",
+		TgStopMsg:         "Stopping sticker download...",
+		TgNoToken:         "TG_TOKEN is not set in .env.\nGet a free token from @BotFather on Telegram and add it.",
+		TgNoPackName:      "Could not parse pack name from URL.",
+		TgFetchFailed:     "Failed to fetch sticker set: %s",
+		TgReadFailed:      "Failed to read response: %s",
+		TgInvalidPack:     "Failed to fetch sticker pack.",
+		TgEmptyPack:       "This pack has no stickers.",
+		TgFoundSending:    "Found *%d* stickers in \"%s\". Sending...\nSend *.tg stop* to cancel.",
+
+		TgResultLine:  "✅ Sent: %d",
+		TgSkippedLine: "\n⏭️ Skipped: %d (animated .tgs not supported, or download failed)",
+		TgStoppedLine: "\n🛑 Stopped by user.",
 	}
 }

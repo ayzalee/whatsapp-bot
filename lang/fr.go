@@ -285,5 +285,18 @@ func FR() *Strings {
 		UploadHTTPFailed:  "Échec de récupération de l'URL: HTTP %d",
 		UploadReadFailed:  "Échec de lecture des données: %s",
 		UploadFailed:      "Échec de l'envoi: %s",
+		TgUsage:           "Utilisation: .tg <url du pack de stickers telegram>\nExemple: .tg https://t.me/addstickers/PackName\n\n.tg stop — annuler un téléchargement en cours",
+		TgStopMsg:         "Arrêt du téléchargement des stickers...",
+		TgNoToken:         "TG_TOKEN n'est pas défini dans .env.\nObtenez un token gratuit auprès de @BotFather sur Telegram et ajoutez-le.",
+		TgNoPackName:      "Impossible d'extraire le nom du pack depuis l'URL.",
+		TgFetchFailed:     "Échec de récupération du pack de stickers: %s",
+		TgReadFailed:      "Échec de lecture de la réponse: %s",
+		TgInvalidPack:     "Échec de récupération du pack de stickers.",
+		TgEmptyPack:       "Ce pack n'a pas de stickers.",
+		TgFoundSending:    "Trouvé *%d* stickers dans \"%s\". Envoi en cours...\nEnvoyez *.tg stop* pour annuler.",
+
+		TgResultLine:  "✅ Envoyés: %d",
+		TgSkippedLine: "\n⏭️ Ignorés: %d (.tgs animé non pris en charge, ou téléchargement échoué)",
+		TgStoppedLine: "\n🛑 Arrêté par l'utilisateur.",
 	}
 }

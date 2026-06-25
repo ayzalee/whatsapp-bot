@@ -285,5 +285,18 @@ func DE() *Strings {
 		UploadHTTPFailed:  "URL konnte nicht abgerufen werden: HTTP %d",
 		UploadReadFailed:  "Daten konnten nicht gelesen werden: %s",
 		UploadFailed:      "Upload fehlgeschlagen: %s",
+		TgUsage:           "Verwendung: .tg <telegram sticker-pack-url>\nBeispiel: .tg https://t.me/addstickers/PackName\n\n.tg stop — laufenden Download abbrechen",
+		TgStopMsg:         "Sticker-Download wird gestoppt...",
+		TgNoToken:         "TG_TOKEN ist in .env nicht gesetzt.\nHole dir ein kostenloses Token von @BotFather auf Telegram und füge es hinzu.",
+		TgNoPackName:      "Paketname konnte nicht aus URL extrahiert werden.",
+		TgFetchFailed:     "Sticker-Paket konnte nicht abgerufen werden: %s",
+		TgReadFailed:      "Antwort konnte nicht gelesen werden: %s",
+		TgInvalidPack:     "Sticker-Paket konnte nicht abgerufen werden.",
+		TgEmptyPack:       "Dieses Paket hat keine Sticker.",
+		TgFoundSending:    "*%d* Sticker in \"%s\" gefunden. Wird gesendet...\nSende *.tg stop* zum Abbrechen.",
+
+		TgResultLine:  "✅ Gesendet: %d",
+		TgSkippedLine: "\n⏭️ Übersprungen: %d (animierte .tgs nicht unterstützt, oder Download fehlgeschlagen)",
+		TgStoppedLine: "\n🛑 Vom Benutzer gestoppt.",
 	}
 }

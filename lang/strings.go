@@ -327,4 +327,16 @@ type Strings struct {
 	UploadHTTPFailed       string
 	UploadReadFailed       string
 	UploadFailed           string
+	TgUsage                string
+	TgStopMsg              string
+	TgNoToken              string
+	TgNoPackName           string
+	TgFetchFailed          string
+	TgReadFailed           string
+	TgInvalidPack          string
+	TgEmptyPack            string
+	TgFoundSending         string
+	TgResultLine           string
+	TgSkippedLine          string
+	TgStoppedLine          string
 }

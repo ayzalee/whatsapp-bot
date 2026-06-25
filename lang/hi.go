@@ -285,5 +285,18 @@ func HI() *Strings {
 		UploadHTTPFailed:  "URL प्राप्त करने में विफल: HTTP %d",
 		UploadReadFailed:  "डेटा पढ़ने में विफल: %s",
 		UploadFailed:      "अपलोड विफल: %s",
+		TgUsage:           "उपयोग: .tg <टेलीग्राम स्टिकर पैक url>\nउदाहरण: .tg https://t.me/addstickers/PackName\n\n.tg stop — चालू डाउनलोड रद्द करें",
+		TgStopMsg:         "स्टिकर डाउनलोड रोका जा रहा है...",
+		TgNoToken:         "TG_TOKEN .env में सेट नहीं है।\n@BotFather से एक मुफ्त टोकन प्राप्त करें और जोड़ें।",
+		TgNoPackName:      "URL से पैक नाम नहीं निकाला जा सका।",
+		TgFetchFailed:     "स्टिकर पैक प्राप्त करने में विफल: %s",
+		TgReadFailed:      "प्रतिक्रिया पढ़ने में विफल: %s",
+		TgInvalidPack:     "स्टिकर पैक प्राप्त करने में विफल।",
+		TgEmptyPack:       "इस पैक में कोई स्टिकर नहीं है।",
+		TgFoundSending:    "\"%s\" में *%d* स्टिकर मिले। भेजा जा रहा है...\nरद्द करने के लिए *.tg stop* भेजें।",
+
+		TgResultLine:  "✅ भेजे गए: %d",
+		TgSkippedLine: "\n⏭️ छोड़े गए: %d (एनिमेटेड .tgs समर्थित नहीं, या डाउनलोड विफल)",
+		TgStoppedLine: "\n🛑 उपयोगकर्ता द्वारा रोका गया।",
 	}
 }

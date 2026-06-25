@@ -285,5 +285,18 @@ func PT() *Strings {
 		UploadHTTPFailed:  "Falha ao buscar URL: HTTP %d",
 		UploadReadFailed:  "Falha ao ler dados: %s",
 		UploadFailed:      "Falha ao enviar: %s",
+		TgUsage:           "Uso: .tg <url do pacote de stickers do telegram>\nExemplo: .tg https://t.me/addstickers/PackName\n\n.tg stop — cancelar download em andamento",
+		TgStopMsg:         "Parando download de stickers...",
+		TgNoToken:         "TG_TOKEN não está definido em .env.\nObtenha um token grátis do @BotFather no Telegram e adicione-o.",
+		TgNoPackName:      "Não foi possível extrair o nome do pacote da URL.",
+		TgFetchFailed:     "Falha ao buscar pacote de stickers: %s",
+		TgReadFailed:      "Falha ao ler resposta: %s",
+		TgInvalidPack:     "Falha ao buscar pacote de stickers.",
+		TgEmptyPack:       "Este pacote não tem stickers.",
+		TgFoundSending:    "Encontrados *%d* stickers em \"%s\". Enviando...\nEnvie *.tg stop* para cancelar.",
+
+		TgResultLine:  "✅ Enviados: %d",
+		TgSkippedLine: "\n⏭️ Pulados: %d (.tgs animado não suportado, ou falha no download)",
+		TgStoppedLine: "\n🛑 Interrompido pelo usuário.",
 	}
 }

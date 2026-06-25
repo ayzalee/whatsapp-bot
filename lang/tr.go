@@ -285,5 +285,18 @@ func TR() *Strings {
 		UploadHTTPFailed:  "URL alınamadı: HTTP %d",
 		UploadReadFailed:  "Veri okunamadı: %s",
 		UploadFailed:      "Yükleme başarısız: %s",
+		TgUsage:           "Kullanım: .tg <telegram sticker paketi url>\nÖrnek: .tg https://t.me/addstickers/PackName\n\n.tg stop — devam eden indirmeyi iptal et",
+		TgStopMsg:         "Sticker indirme durduruluyor...",
+		TgNoToken:         "TG_TOKEN .env içinde ayarlanmadı.\nTelegram'da @BotFather'dan ücretsiz bir token alın ve ekleyin.",
+		TgNoPackName:      "URL'den paket adı ayrıştırılamadı.",
+		TgFetchFailed:     "Sticker paketi alınamadı: %s",
+		TgReadFailed:      "Yanıt okunamadı: %s",
+		TgInvalidPack:     "Sticker paketi alınamadı.",
+		TgEmptyPack:       "Bu pakette sticker yok.",
+		TgFoundSending:    "\"%s\" içinde *%d* sticker bulundu. Gönderiliyor...\nİptal etmek için *.tg stop* gönderin.",
+
+		TgResultLine:  "✅ Gönderilen: %d",
+		TgSkippedLine: "\n⏭️ Atlanan: %d (animasyonlu .tgs desteklenmiyor, veya indirme başarısız)",
+		TgStoppedLine: "\n🛑 Kullanıcı tarafından durduruldu.",
 	}
 }
