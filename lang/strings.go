@@ -339,4 +339,8 @@ type Strings struct {
 	TgResultLine           string
 	TgSkippedLine          string
 	TgStoppedLine          string
+	JoinUsage              string
+	JoinNoCode             string
+	JoinFailed             string
+	JoinOK                 string
 }
