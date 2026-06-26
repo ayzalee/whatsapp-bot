@@ -252,7 +252,18 @@ func moderationHook(client *whatsmeow.Client, evt *events.Message) {
 	if getAntistatusEnabled(chatJID) && isBotAdmin() && !isSenderAdmin() {
 		if isGroupStatusMsg(evt) {
 			revokeMsg(client, evt.Info.Chat, evt.Info.Sender, string(evt.Info.ID))
+			count := incrementStatusStreak(chatJID, senderUser)
+			if count >= 5 {
+				resetStatusStreak(chatJID, senderUser)
+				senderJIDStr := evt.Info.Sender.ToNonAD().String()
+				client.UpdateGroupParticipants(context.Background(), evt.Info.Chat,
+					[]types.JID{evt.Info.Sender.ToNonAD()}, whatsmeow.ParticipantChangeRemove)
+				notify := fmt.Sprintf("*User Removed* 🚷\n> @%s posted 5 group statuses in a row.", senderUser)
+				sendMentionToChat(client, evt.Info.Chat, notify, []string{senderJIDStr})
+			}
 			return
+		} else {
+			resetStatusStreak(chatJID, senderUser)
 		}
 	}
 

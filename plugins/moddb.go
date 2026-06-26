@@ -52,6 +52,12 @@ func initModTables() error {
 			chat_jid TEXT PRIMARY KEY,
 			enabled  INTEGER DEFAULT 0
 		)`,
+		`CREATE TABLE IF NOT EXISTS group_status_streak (
+			chat_jid TEXT,
+			user_id  TEXT,
+			streak   INTEGER DEFAULT 0,
+			PRIMARY KEY (chat_jid, user_id)
+		)`,
 		`CREATE TABLE IF NOT EXISTS antiporn_settings (
 			chat_jid TEXT PRIMARY KEY,
 			enabled  INTEGER DEFAULT 0
@@ -312,4 +318,21 @@ func setAntipornEnabled(chatJID string, on bool) {
 		 ON CONFLICT(chat_jid) DO UPDATE SET enabled = excluded.enabled`,
 		chatJID, v,
 	)
+}
+
+func incrementStatusStreak(chatJID, userID string) int {
+	settingsDB.Exec(
+		`INSERT INTO group_status_streak (chat_jid, user_id, streak) VALUES (?, ?, 1)
+ ON CONFLICT(chat_jid, user_id) DO UPDATE SET streak = streak + 1`,
+		chatJID, userID,
+	)
+	var n int
+	settingsDB.QueryRow(
+		`SELECT streak FROM group_status_streak WHERE chat_jid = ? AND user_id = ?`, chatJID, userID,
+	).Scan(&n)
+	return n
+}
+
+func resetStatusStreak(chatJID, userID string) {
+	settingsDB.Exec(`DELETE FROM group_status_streak WHERE chat_jid = ? AND user_id = ?`, chatJID, userID)
 }
