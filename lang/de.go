@@ -302,5 +302,15 @@ func DE() *Strings {
 		PluginDirFail:     "*Fehler:* Plugin-Verzeichnis konnte nicht gelesen werden ❌",
 		PluginNone:        "*Keine Externen Plugins* 📭\n> Noch keine installiert.",
 		PluginList:        "*『Installierte Plugins』*\n\n%s",
+		UpdateNoSource:    "*Fehler:* Update nicht verfügbar ❌\n> Quellverzeichnis nicht in diesem Binär eingebettet.\n> Installiere mit dem Installationsskript neu.",
+		UpdateChecking:    "*Suche nach Updates...* 🔍",
+		UpdateCheckFail:   "*Fehler:* Update-Prüfung fehlgeschlagen ❌\n> %s",
+		UpdateUpToDate:    "*Bereits Aktuell* ✅\n> Keine neuen Commits gefunden.",
+		UpdateAvailable:   "*%d Neuer/Neue Commit(s) Verfügbar* 🆕\n> Verwende *update now* zum Anwenden.",
+		UpdateUsage:       "*『Update』*\n\n_.update_ — Updates prüfen\n_.update now_ — Updates herunterladen und anwenden",
+		UpdateStarting:    "*Zaelix Wird Aktualisiert...* ⏳",
+		UpdateAlready:     "*Bereits Aktuell* ✅",
+		UpdateDone:        "*Zaelix Aktualisiert* ✅\n> Wird neu gestartet...",
+		UpdateBinaryFail:  "*Fehler:* erfolgreich erstellt, aber Binärdatei konnte nicht ersetzt werden ❌\n> Stoppe den Bot und benenne manuell um:\n> %s → %s",
 	}
 }

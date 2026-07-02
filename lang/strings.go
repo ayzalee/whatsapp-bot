@@ -343,4 +343,14 @@ type Strings struct {
 	JoinNoCode             string
 	JoinFailed             string
 	JoinOK                 string
+	UpdateNoSource         string
+	UpdateChecking         string
+	UpdateCheckFail        string
+	UpdateUpToDate         string
+	UpdateAvailable        string
+	UpdateUsage            string
+	UpdateStarting         string
+	UpdateAlready          string
+	UpdateDone             string
+	UpdateBinaryFail       string
 }

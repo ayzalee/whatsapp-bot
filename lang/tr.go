@@ -302,5 +302,15 @@ func TR() *Strings {
 		PluginDirFail:     "*Hata:* eklenti dizini okunamadı ❌",
 		PluginNone:        "*Harici Eklenti Yok* 📭\n> Henüz hiçbiri yüklenmedi.",
 		PluginList:        "*『Yüklü Eklentiler』*\n\n%s",
+		UpdateNoSource:    "*Hata:* güncelleme mevcut değil ❌\n> Kaynak dizin bu ikili dosyaya gömülmemiş.\n> Kurulum betiğini kullanarak yeniden yükleyin.",
+		UpdateChecking:    "*Güncellemeler Aranıyor...* 🔍",
+		UpdateCheckFail:   "*Hata:* güncellemeler kontrol edilemedi ❌\n> %s",
+		UpdateUpToDate:    "*Zaten Güncel* ✅\n> Yeni commit bulunamadı.",
+		UpdateAvailable:   "*%d Yeni Commit Mevcut* 🆕\n> Uygulamak için *update now* kullanın.",
+		UpdateUsage:       "*『Güncelle』*\n\n_.update_ — güncellemeleri kontrol et\n_.update now_ — güncellemeleri indir ve uygula",
+		UpdateStarting:    "*Zaelix Güncelleniyor...* ⏳",
+		UpdateAlready:     "*Zaten Güncel* ✅",
+		UpdateDone:        "*Zaelix Güncellendi* ✅\n> Yeniden başlatılıyor...",
+		UpdateBinaryFail:  "*Hata:* derleme başarılı ancak ikili dosya değiştirilemedi ❌\n> Botu durdurun ve manuel olarak yeniden adlandırın:\n> %s → %s",
 	}
 }

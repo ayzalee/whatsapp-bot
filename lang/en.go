@@ -297,5 +297,15 @@ func EN() *Strings {
 		PluginDirFail:     "*Error:* failed to read plugins directory ❌",
 		PluginNone:        "*No External Plugins* 📭\n> None installed yet.",
 		PluginList:        "*『Installed Plugins』*\n\n%s",
+		UpdateNoSource:    "*Error:* update not available ❌\n> Source directory not embedded in this binary.\n> Reinstall using the install script.",
+		UpdateChecking:    "*Checking for Updates...* 🔍",
+		UpdateCheckFail:   "*Error:* failed to check for updates ❌\n> %s",
+		UpdateUpToDate:    "*Already Up to Date* ✅\n> No new commits found.",
+		UpdateAvailable:   "*%d New Commit(s) Available* 🆕\n> Use *update now* to apply.",
+		UpdateUsage:       "*『Update』*\n\n_.update_ — check for updates\n_.update now_ — download and apply updates",
+		UpdateStarting:    "*Updating Zaelix...* ⏳",
+		UpdateAlready:     "*Already Up to Date* ✅",
+		UpdateDone:        "*Zaelix Updated* ✅\n> Restarting...",
+		UpdateBinaryFail:  "*Error:* built successfully but could not replace binary ❌\n> Stop the bot and rename manually:\n> %s → %s",
 	}
 }

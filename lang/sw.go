@@ -302,5 +302,15 @@ func SW() *Strings {
 		PluginDirFail:     "*Hitilafu:* imeshindwa kusoma saraka ya programu-jalizi ❌",
 		PluginNone:        "*Hakuna Programu-Jalizi za Nje* 📭\n> Hakuna iliyosakinishwa bado.",
 		PluginList:        "*『Programu-Jalizi Zilizosakinishwa』*\n\n%s",
+		UpdateNoSource:    "*Hitilafu:* sasisho halipatikani ❌\n> Saraka ya chanzo haijajumuishwa katika faili hili tendaji.\n> Sakinisha upya ukitumia hati ya usakinishaji.",
+		UpdateChecking:    "*Inatafuta Masasisho...* 🔍",
+		UpdateCheckFail:   "*Hitilafu:* imeshindwa kuangalia masasisho ❌\n> %s",
+		UpdateUpToDate:    "*Tayari Imesasishwa* ✅\n> Hakuna commit mpya zilizopatikana.",
+		UpdateAvailable:   "*Commit %d Mpya Zinapatikana* 🆕\n> Tumia *update now* kutumia.",
+		UpdateUsage:       "*『Sasisha』*\n\n_.update_ — angalia masasisho\n_.update now_ — pakua na tumia masasisho",
+		UpdateStarting:    "*Inasasisha Zaelix...* ⏳",
+		UpdateAlready:     "*Tayari Imesasishwa* ✅",
+		UpdateDone:        "*Zaelix Imesasishwa* ✅\n> Inaanza upya...",
+		UpdateBinaryFail:  "*Hitilafu:* imejengwa lakini haiwezi kubadilisha faili tendaji ❌\n> Simamisha bot na ubadilishe jina kwa mkono:\n> %s → %s",
 	}
 }

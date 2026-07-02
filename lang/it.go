@@ -303,5 +303,15 @@ func IT() *Strings {
 		PluginDirFail:     "*Errore:* impossibile leggere la cartella plugin ❌",
 		PluginNone:        "*Nessun Plugin Esterno* 📭\n> Nessuno installato ancora.",
 		PluginList:        "*『Plugin Installati』*\n\n%s",
+		UpdateNoSource:    "*Errore:* aggiornamento non disponibile ❌\n> Directory sorgente non incorporata in questo binario.\n> Reinstalla usando lo script di installazione.",
+		UpdateChecking:    "*Ricerca Aggiornamenti...* 🔍",
+		UpdateCheckFail:   "*Errore:* impossibile verificare gli aggiornamenti ❌\n> %s",
+		UpdateUpToDate:    "*Già Aggiornato* ✅\n> Nessun nuovo commit trovato.",
+		UpdateAvailable:   "*%d Nuovo/i Commit Disponibile/i* 🆕\n> Usa *update now* per applicare.",
+		UpdateUsage:       "*『Aggiorna』*\n\n_.update_ — controlla aggiornamenti\n_.update now_ — scarica e applica aggiornamenti",
+		UpdateStarting:    "*Aggiornamento di Zaelix...* ⏳",
+		UpdateAlready:     "*Già Aggiornato* ✅",
+		UpdateDone:        "*Zaelix Aggiornato* ✅\n> Riavvio...",
+		UpdateBinaryFail:  "*Errore:* compilato con successo ma impossibile sostituire il binario ❌\n> Ferma il bot e rinomina manualmente:\n> %s → %s",
 	}
 }

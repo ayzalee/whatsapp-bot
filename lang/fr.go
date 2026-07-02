@@ -302,5 +302,15 @@ func FR() *Strings {
 		PluginDirFail:     "*Erreur:* échec de lecture du dossier plugins ❌",
 		PluginNone:        "*Aucun Plugin Externe* 📭\n> Aucun installé pour le moment.",
 		PluginList:        "*『Plugins Installés』*\n\n%s",
+		UpdateNoSource:    "*Erreur:* mise à jour non disponible ❌\n> Répertoire source non intégré dans ce binaire.\n> Réinstallez en utilisant le script d'installation.",
+		UpdateChecking:    "*Vérification des Mises à Jour...* 🔍",
+		UpdateCheckFail:   "*Erreur:* échec de la vérification des mises à jour ❌\n> %s",
+		UpdateUpToDate:    "*Déjà à Jour* ✅\n> Aucun nouveau commit trouvé.",
+		UpdateAvailable:   "*%d Nouveau(x) Commit(s) Disponible(s)* 🆕\n> Utilisez *update now* pour appliquer.",
+		UpdateUsage:       "*『Mise à Jour』*\n\n_.update_ — vérifier les mises à jour\n_.update now_ — télécharger et appliquer les mises à jour",
+		UpdateStarting:    "*Mise à Jour de Zaelix...* ⏳",
+		UpdateAlready:     "*Déjà à Jour* ✅",
+		UpdateDone:        "*Zaelix Mis à Jour* ✅\n> Redémarrage...",
+		UpdateBinaryFail:  "*Erreur:* compilé avec succès mais impossible de remplacer le binaire ❌\n> Arrêtez le bot et renommez manuellement:\n> %s → %s",
 	}
 }
